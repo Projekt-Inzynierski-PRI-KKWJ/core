@@ -42,10 +42,7 @@ public class Student extends AbstractEntity {
     @JoinColumn(name = "PROJECT_ID")
     private Project confirmedProject;
 
-    @OneToMany(
-            mappedBy = "student",
-            cascade = CascadeType.ALL
-    )
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private Set<StudentProject> assignedProjects = new HashSet<>();
 
     private String studyYear;

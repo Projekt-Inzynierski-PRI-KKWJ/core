@@ -1,0 +1,34 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="ROZMAN (generated)" id="2025-05-20-added_new_table_criteria_project-1">
+        <createTable tableName="criteria_project">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="criteria_projectPK"/>
+            </column>
+            <column name="creation_date" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modification_date" type="TIMESTAMP(6) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="criterium" type="VARCHAR(255)"/>
+            <column name="level_of_realization" type="INTEGER"/>
+            <column name="semester" type="VARCHAR(255)"/>
+            <column name="project_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_data_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ROZMAN (generated)" id="2025-05-20-added_new_table_criteria_project-2">
+        <addForeignKeyConstraint baseColumnNames="user_data_id" baseTableName="criteria_project" constraintName="FKrn9x2m08kfnc3upb0d76v444b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user_data" validate="true"/>
+    </changeSet>
+    <changeSet author="ROZMAN (generated)" id="2025-05-20-added_new_table_criteria_project-3">
+        <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="criteria_project" constraintName="FKrs1ny2nn593i6kbk8u870axn1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="project" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

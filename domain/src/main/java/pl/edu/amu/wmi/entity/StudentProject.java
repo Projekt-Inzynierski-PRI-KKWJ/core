@@ -1,8 +1,7 @@
 package pl.edu.amu.wmi.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import pl.edu.amu.wmi.enumerations.ProjectRole;
 
 import java.util.Objects;

@@ -47,6 +47,10 @@
             <artifactId>javatuples</artifactId>
             <version>${javatuples.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
 
     </dependencies>
 
@@ -72,6 +76,7 @@
                         <artifactId>jakarta.validation-api</artifactId>
                         <version>${jakarta.validation-api.version}</version>
                     </dependency>
+
                 </dependencies>
 
                 <configuration>
