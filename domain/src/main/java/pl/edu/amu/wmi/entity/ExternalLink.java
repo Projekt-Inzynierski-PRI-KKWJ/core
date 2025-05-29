@@ -1,9 +1,6 @@
 package pl.edu.amu.wmi.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +17,19 @@ public class ExternalLink extends AbstractEntity {
     private ExternalLinkDefinition externalLinkDefinition;
 
     private String url;
+
+    @Enumerated(EnumType.STRING)
+    private LinkType linkType = LinkType.EXTERNAL;
+
+    // File storage fields for internal files
+    private String filePath;
+    private String originalFileName;
+    private String contentType;
+    private Long fileSize;
+
+    public enum LinkType {
+        EXTERNAL, // URL
+        INTERNAL  // File
+    }
 
 }
