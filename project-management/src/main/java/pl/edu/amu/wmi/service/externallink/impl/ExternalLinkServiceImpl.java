@@ -72,17 +72,17 @@ public class ExternalLinkServiceImpl implements ExternalLinkService {
                     Long.valueOf(externalLinkDto.getId())).orElseThrow(()
                     -> new ExternalLinkException(MessageFormat.format("External link with id: {0} not found.", externalLinkDto.getId())));
             
-            // Determine if this should be an external URL or file upload placeholder
+            // Determine if this should be an external URL or file upload
             if (externalLinkDto.getContentType() != null && !externalLinkDto.getContentType().trim().isEmpty()) {
-                // This indicates a file upload request - set as internal type but URL will be handled by upload endpoint
+                // This indicates a file upload request
                 externalLink.setLinkType(ExternalLink.LinkType.INTERNAL);
                 externalLink.setContentType(externalLinkDto.getContentType());
-                // Keep existing file info if any, URL will be updated by file upload endpoint
             } else {
                 // Regular URL update
                 externalLink.setLinkType(ExternalLink.LinkType.EXTERNAL);
                 externalLink.setUrl(externalLinkDto.getUrl());
-                // Clear file-related fields for external links
+
+                // Clear file-related fields
                 externalLink.setFilePath(null);
                 externalLink.setOriginalFileName(null);
                 externalLink.setContentType(null);
