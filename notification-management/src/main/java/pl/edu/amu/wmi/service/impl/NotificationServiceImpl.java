@@ -31,7 +31,7 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Value("${email.to.university.domain.enabled}")
     private Boolean emailToUniversityDomainEnabled;
-
+    // komentarz
     @Value("${email.university.domain}")
     private String universityEmailDomain;
 
