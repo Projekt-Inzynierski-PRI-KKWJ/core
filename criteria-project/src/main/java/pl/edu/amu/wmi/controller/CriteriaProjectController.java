@@ -11,7 +11,7 @@ import pl.edu.amu.wmi.service.CriteriaProjectService;
 import pl.edu.amu.wmi.dto.CriteriaProjectDTO;
 import pl.edu.amu.wmi.enumerations.Semester;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/criteria-projects")
@@ -28,28 +28,46 @@ public class CriteriaProjectController {
     }
 
 
-    @PostMapping
+    @GetMapping("/{id}")
+    public ResponseEntity<CriteriaProject> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(criteriaProjectService.getById(id));
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<CriteriaProject>> getByProjectAndSemester(@RequestParam Long projectId, @RequestParam Semester semester)
+    {
+        return ResponseEntity.ok(criteriaProjectService.findByProjectAndSemester(projectId, semester));
+    }
+
+//    @PatchMapping
+//    public ResponseEntity<>
+
+    @PostMapping("/single")
     public ResponseEntity<CriteriaProjectDTO> create(@RequestBody @Valid CriteriaProjectDTO dto) {
         CriteriaProject created = criteriaProjectService.create(dto);
         CriteriaProjectDTO response = mapper.toDto(created);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CriteriaProject> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(criteriaProjectService.getById(id));
+    @PostMapping
+    public ResponseEntity<List<CriteriaProjectDTO>> create(@RequestBody @Valid List<CriteriaProjectDTO> listDTO )
+    {
+        List<CriteriaProjectDTO> response = new ArrayList<>();
+        for (CriteriaProjectDTO criteriumDTO : listDTO)
+        {
+            CriteriaProject criterium = criteriaProjectService.create(criteriumDTO);
+            response.add(mapper.toDto(criterium));
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         criteriaProjectService.delete(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<CriteriaProject>> getByProjectAndSemester(@RequestParam Long projectId, @RequestParam Semester semester)
-    {
-        return ResponseEntity.ok(criteriaProjectService.findByProjectAndSemester(projectId, semester));
     }
 
     @GetMapping("/ping")
