@@ -24,8 +24,8 @@ paths:
               $ref: '#/components/schemas/ActualStudyYearDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -36,8 +36,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -48,8 +48,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -72,8 +72,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -84,8 +84,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -96,8 +96,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -122,8 +122,8 @@ paths:
               $ref: '#/components/schemas/DefenseScheduleModificationDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -134,8 +134,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -146,8 +146,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -166,8 +166,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -178,8 +178,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -190,8 +190,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -210,8 +210,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -222,8 +222,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -234,8 +234,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -271,8 +271,8 @@ paths:
                 $ref: '#/components/schemas/SupervisorDefenseAssignmentDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -283,8 +283,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -295,8 +295,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -319,8 +319,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -331,8 +331,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -343,8 +343,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -376,8 +376,8 @@ paths:
               $ref: '#/components/schemas/ChairpersonAssignmentDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -388,8 +388,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -400,8 +400,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -424,8 +424,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -436,8 +436,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -448,8 +448,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -483,8 +483,8 @@ paths:
                 $ref: '#/components/schemas/SupervisorDefenseAssignmentDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -495,8 +495,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -507,8 +507,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -533,8 +533,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -545,8 +545,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -557,8 +557,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -587,8 +587,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -599,8 +599,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -611,8 +611,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -641,8 +641,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -653,8 +653,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -665,8 +665,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -695,8 +695,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -707,8 +707,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -719,8 +719,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -754,8 +754,8 @@ paths:
               $ref: '#/components/schemas/ProjectDetailsDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -766,8 +766,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -778,8 +778,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -802,8 +802,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -814,8 +814,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -826,8 +826,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -846,8 +846,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -858,8 +858,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -870,8 +870,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -903,8 +903,8 @@ paths:
                 $ref: '#/components/schemas/SupervisorAvailabilityDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -915,8 +915,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -927,8 +927,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -953,8 +953,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -965,8 +965,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -977,8 +977,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -997,8 +997,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1009,8 +1009,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1021,8 +1021,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1041,8 +1041,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1053,8 +1053,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1065,8 +1065,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1096,8 +1096,8 @@ paths:
               $ref: '#/components/schemas/SupervisorCreationRequestDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1108,8 +1108,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1120,8 +1120,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1144,8 +1144,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1156,8 +1156,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1168,8 +1168,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1199,8 +1199,8 @@ paths:
               $ref: '#/components/schemas/StudentCreationRequestDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1211,8 +1211,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1223,8 +1223,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1253,8 +1253,8 @@ paths:
               $ref: '#/components/schemas/DefenseScheduleConfigDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1265,8 +1265,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1277,8 +1277,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1297,8 +1297,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1309,8 +1309,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1321,8 +1321,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1352,8 +1352,8 @@ paths:
               $ref: '#/components/schemas/ProjectDetailsDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1364,8 +1364,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1376,8 +1376,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1416,8 +1416,8 @@ paths:
                   type: string
                   format: binary
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1428,8 +1428,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1440,8 +1440,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1476,8 +1476,8 @@ paths:
                   type: string
                   format: binary
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1488,8 +1488,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1500,8 +1500,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1531,8 +1531,8 @@ paths:
                   type: string
                   format: binary
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1543,8 +1543,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1555,8 +1555,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1569,8 +1569,8 @@ paths:
       - auth-controller
       operationId: refresh
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1581,8 +1581,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1593,8 +1593,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1617,8 +1617,8 @@ paths:
               $ref: '#/components/schemas/LoginRequest'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1629,8 +1629,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1641,8 +1641,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1659,8 +1659,8 @@ paths:
       - criteria-project-controller
       operationId: getAll
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1671,8 +1671,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1683,8 +1683,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1708,8 +1708,8 @@ paths:
               $ref: '#/components/schemas/CriteriaProjectDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1720,8 +1720,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1732,8 +1732,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1756,8 +1756,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1768,8 +1768,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1780,8 +1780,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1813,8 +1813,8 @@ paths:
                 $ref: '#/components/schemas/ProjectDefenseDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1825,8 +1825,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1837,8 +1837,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1875,8 +1875,8 @@ paths:
               $ref: '#/components/schemas/ProjectDefensePatchDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1887,8 +1887,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1899,8 +1899,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1925,8 +1925,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1937,8 +1937,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1949,8 +1949,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1973,8 +1973,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -1985,8 +1985,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1997,8 +1997,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2032,8 +2032,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2044,8 +2044,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2056,8 +2056,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2087,8 +2087,8 @@ paths:
               $ref: '#/components/schemas/SingleGroupGradeUpdateDTO'
         required: true
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2099,8 +2099,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2111,8 +2111,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2141,8 +2141,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2153,8 +2153,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2165,8 +2165,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2200,8 +2200,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2212,8 +2212,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2224,8 +2224,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2248,8 +2248,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2260,8 +2260,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2272,8 +2272,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2296,8 +2296,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2308,8 +2308,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2320,8 +2320,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2340,8 +2340,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2352,8 +2352,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2364,8 +2364,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2390,8 +2390,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2402,8 +2402,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2414,8 +2414,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2438,8 +2438,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2450,8 +2450,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2462,8 +2462,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2527,8 +2527,8 @@ paths:
         schema:
           type: boolean
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2539,8 +2539,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2551,8 +2551,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2577,8 +2577,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2589,8 +2589,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2601,8 +2601,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2629,8 +2629,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2641,8 +2641,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2653,8 +2653,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2680,8 +2680,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2692,8 +2692,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2704,8 +2704,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2724,8 +2724,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2736,8 +2736,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2748,8 +2748,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2768,8 +2768,8 @@ paths:
         schema:
           type: string
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2780,8 +2780,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2792,8 +2792,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2806,8 +2806,8 @@ paths:
       - auth-controller
       operationId: logoutUser
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2818,8 +2818,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2830,8 +2830,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2855,8 +2855,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2867,8 +2867,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2879,8 +2879,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2903,8 +2903,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2915,8 +2915,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2927,8 +2927,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2956,8 +2956,8 @@ paths:
           - FIRST
           - SECOND
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -2968,8 +2968,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2980,8 +2980,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -3000,8 +3000,8 @@ paths:
       - criteria-project-controller
       operationId: ping
       responses:
-        "403":
-          description: Forbidden
+        "500":
+          description: Internal Server Error
           content:
             '*/*':
               schema:
@@ -3012,8 +3012,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "500":
-          description: Internal Server Error
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3024,8 +3024,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -3812,9 +3812,9 @@ components:
           format: double
         active:
           type: boolean
-        disqualified:
-          type: boolean
         approvedForDefense:
+          type: boolean
+        disqualified:
           type: boolean
     EvaluationCardTemplate:
       type: object
@@ -4014,10 +4014,14 @@ components:
           $ref: '#/components/schemas/SupervisorDefenseAssignment'
         active:
           type: boolean
-        defenseTimeslot:
-          $ref: '#/components/schemas/DefenseTimeSlot'
-        classroom:
-          type: string
+        committeeMembers:
+          type: array
+          items:
+            type: string
+        committeeInitials:
+          type: array
+          items:
+            type: string
         committeeIdentifier:
           type: string
           enum:
@@ -4025,14 +4029,10 @@ components:
           - B
           - C
           - D
-        committeeInitials:
-          type: array
-          items:
-            type: string
-        committeeMembers:
-          type: array
-          items:
-            type: string
+        defenseTimeslot:
+          $ref: '#/components/schemas/DefenseTimeSlot'
+        classroom:
+          type: string
     Role:
       required:
       - name
@@ -4096,14 +4096,14 @@ components:
           type: string
         fullName:
           type: string
-        basicData:
-          type: string
         indexNumber:
           type: string
-        projectAdmin:
-          type: boolean
         projectConfirmed:
           type: boolean
+        projectAdmin:
+          type: boolean
+        basicData:
+          type: string
     StudentProject:
       type: object
       properties:
@@ -4119,9 +4119,9 @@ components:
           - FRONTEND
           - BACKEND
           - FULLSTACK
-        projectAdmin:
-          type: boolean
         projectConfirmed:
+          type: boolean
+        projectAdmin:
           type: boolean
     StudentProjectId:
       type: object

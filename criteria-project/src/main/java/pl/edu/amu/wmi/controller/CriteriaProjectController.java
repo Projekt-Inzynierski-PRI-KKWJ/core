@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/criteria-projects")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")  /////////////////????????????????????????????
+@CrossOrigin(origins = "*")
 public class CriteriaProjectController {
 
     private final CriteriaProjectService criteriaProjectService;
