@@ -10,12 +10,15 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.exception.NotificationManagementException;
+import pl.edu.amu.wmi.model.EmailNotificationDataDTO;
 import pl.edu.amu.wmi.model.UserInfoDTO;
 import pl.edu.amu.wmi.service.NotificationService;
+import pl.edu.amu.wmi.service.StudentService;
 import pl.edu.amu.wmi.util.EMailTemplate;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,10 +40,12 @@ public class NotificationServiceImpl implements NotificationService {
 
     private final Configuration configuration;
     private final JavaMailSender javaMailSender;
+    private final StudentService studentService;
 
-    public NotificationServiceImpl(Configuration configuration, JavaMailSender javaMailSender) {
+    public NotificationServiceImpl(Configuration configuration, JavaMailSender javaMailSender, StudentService studentService) {
         this.configuration = configuration;
         this.javaMailSender = javaMailSender;
+        this.studentService = studentService;
     }
 
     @Override
@@ -74,6 +79,33 @@ public class NotificationServiceImpl implements NotificationService {
         userInfos.forEach(userInfo ->
                 sendEmail(userInfo, eMailTemplate)
         );
+    }
+
+    @Override
+    public List<EmailNotificationDataDTO> getReceiverData(String studyYear, EMailTemplate eMailTemplate) {
+        var students = studentService.findAll(studyYear);
+        List<EmailNotificationDataDTO> notifications = new ArrayList<>();
+        students.forEach(studentDTO -> {
+            String[] studentFullName = studentDTO.getName().split(" ");
+            String firstName = studentFullName[0];
+            String lastName = studentFullName[1];
+            try {
+                var notification = EmailNotificationDataDTO.builder()
+                        .name(studentDTO.getName())
+                        .email(studentDTO.getEmail())
+                        .content(getEmailContent(eMailTemplate, UserInfoDTO.builder()
+                                .email(studentDTO.getEmail())
+                                .firstName(firstName)
+                                .lastName(lastName)
+                                .build()))
+                        .build();
+                notifications.add(notification);
+            } catch (IOException | TemplateException e) {
+                log.error("Error during sending e-mail to user with email: {}", studentDTO.getEmail(), e);
+                throw new NotificationManagementException("Error during sending e-mail to user with email: " + studentDTO.getEmail());
+            }
+        });
+        return notifications;
     }
 
     String getEmailContent(EMailTemplate eMailTemplate, UserInfoDTO userInfo) throws IOException, TemplateException {
