@@ -30,18 +30,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -50,6 +38,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -78,18 +78,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -98,6 +86,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -128,18 +128,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -148,6 +136,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -172,18 +172,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -192,6 +180,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -216,18 +216,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -236,6 +224,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -277,18 +277,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -297,6 +285,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -325,18 +325,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -345,6 +333,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -382,18 +382,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -402,6 +390,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -430,18 +430,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -450,6 +438,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -489,18 +489,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -509,6 +497,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -539,18 +539,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -559,6 +547,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -593,18 +593,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -613,6 +601,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -647,18 +647,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -667,6 +655,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -701,18 +701,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -721,6 +709,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -760,18 +760,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -780,6 +768,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -808,18 +808,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -828,6 +816,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -852,18 +852,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -872,6 +860,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -909,18 +909,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -929,6 +917,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -959,18 +959,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -979,6 +967,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1003,18 +1003,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1023,6 +1011,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1047,18 +1047,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1067,6 +1055,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1102,18 +1102,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1122,6 +1110,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1150,18 +1150,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1170,6 +1158,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1205,18 +1205,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1225,6 +1213,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1259,18 +1259,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1279,6 +1267,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1303,18 +1303,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1323,6 +1311,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1358,18 +1358,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1378,6 +1366,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1422,18 +1422,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1442,6 +1430,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1482,18 +1482,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1502,6 +1490,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1537,18 +1537,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1557,6 +1545,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1575,18 +1575,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1595,6 +1583,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1623,18 +1623,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1643,6 +1631,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1665,18 +1665,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1685,6 +1673,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1714,18 +1714,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1734,6 +1722,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1762,18 +1762,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1782,6 +1770,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1819,18 +1819,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1839,6 +1827,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1881,18 +1881,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1901,6 +1889,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1931,18 +1931,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1951,6 +1939,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -1979,18 +1979,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -1999,6 +1987,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2038,18 +2038,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2058,6 +2046,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2093,18 +2093,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2113,6 +2101,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2147,18 +2147,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2167,6 +2155,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2206,18 +2206,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2226,6 +2214,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2254,18 +2254,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2274,6 +2262,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2302,18 +2302,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2322,6 +2310,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2346,18 +2346,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2366,6 +2354,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2396,18 +2396,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2416,6 +2404,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2444,18 +2444,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2464,6 +2452,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2533,18 +2533,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2553,6 +2541,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2583,18 +2583,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2603,6 +2591,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2635,18 +2635,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2655,6 +2643,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2686,18 +2686,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2706,6 +2694,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2730,18 +2730,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2750,6 +2738,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2774,18 +2774,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2794,6 +2782,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2812,18 +2812,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2832,6 +2820,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2861,18 +2861,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2881,6 +2869,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2909,18 +2909,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2929,6 +2917,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -2962,18 +2962,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -2982,6 +2970,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -3006,18 +3006,6 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "404":
-          description: Not Found
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "403":
-          description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
           content:
@@ -3026,6 +3014,18 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -4014,6 +4014,14 @@ components:
           $ref: '#/components/schemas/SupervisorDefenseAssignment'
         active:
           type: boolean
+        committeeMembers:
+          type: array
+          items:
+            type: string
+        committeeInitials:
+          type: array
+          items:
+            type: string
         committeeIdentifier:
           type: string
           enum:
@@ -4021,18 +4029,10 @@ components:
           - B
           - C
           - D
-        committeeInitials:
-          type: array
-          items:
-            type: string
-        committeeMembers:
-          type: array
-          items:
-            type: string
-        classroom:
-          type: string
         defenseTimeslot:
           $ref: '#/components/schemas/DefenseTimeSlot'
+        classroom:
+          type: string
     Role:
       required:
       - name
@@ -4096,10 +4096,10 @@ components:
           type: string
         fullName:
           type: string
-        projectConfirmed:
-          type: boolean
         indexNumber:
           type: string
+        projectConfirmed:
+          type: boolean
         projectAdmin:
           type: boolean
         basicData:
@@ -4204,9 +4204,9 @@ components:
             $ref: '#/components/schemas/SupervisorDefenseAssignment'
         fullName:
           type: string
-        initials:
-          type: string
         indexNumber:
+          type: string
+        initials:
           type: string
     SupervisorDefenseAssignment:
       type: object
