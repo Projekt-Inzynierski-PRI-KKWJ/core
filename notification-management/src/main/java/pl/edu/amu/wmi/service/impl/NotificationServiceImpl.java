@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.exception.NotificationManagementException;
 import pl.edu.amu.wmi.model.EmailNotificationDataDTO;
 import pl.edu.amu.wmi.model.UserInfoDTO;
+import pl.edu.amu.wmi.model.user.StudentDTO;
 import pl.edu.amu.wmi.service.NotificationService;
 import pl.edu.amu.wmi.service.StudentService;
 import pl.edu.amu.wmi.util.EMailTemplate;
@@ -86,19 +87,9 @@ public class NotificationServiceImpl implements NotificationService {
         var students = studentService.findAll(studyYear);
         List<EmailNotificationDataDTO> notifications = new ArrayList<>();
         students.forEach(studentDTO -> {
-            String[] studentFullName = studentDTO.getName().split(" ");
-            String firstName = studentFullName[0];
-            String lastName = studentFullName[1];
             try {
-                var notification = EmailNotificationDataDTO.builder()
-                        .name(studentDTO.getName())
-                        .email(studentDTO.getEmail())
-                        .content(getEmailContent(eMailTemplate, UserInfoDTO.builder()
-                                .email(studentDTO.getEmail())
-                                .firstName(firstName)
-                                .lastName(lastName)
-                                .build()))
-                        .build();
+                var notification = EmailNotificationDataDTO.fromStudent(studentDTO,
+                    getEmailContent(eMailTemplate, studentDTO));
                 notifications.add(notification);
             } catch (IOException | TemplateException e) {
                 log.error("Error during sending e-mail to user with email: {}", studentDTO.getEmail(), e);
@@ -108,7 +99,19 @@ public class NotificationServiceImpl implements NotificationService {
         return notifications;
     }
 
-    String getEmailContent(EMailTemplate eMailTemplate, UserInfoDTO userInfo) throws IOException, TemplateException {
+    private String getEmailContent(EMailTemplate eMailTemplate, StudentDTO studentDTO) throws TemplateException, IOException {
+        String[] studentFullName = studentDTO.getName().split(" ");
+        String firstName = studentFullName[0];
+        String lastName = studentFullName[1];
+
+        return getEmailContent(eMailTemplate, UserInfoDTO.builder()
+            .email(studentDTO.getEmail())
+            .firstName(firstName)
+            .lastName(lastName)
+            .build());
+    }
+
+    private String getEmailContent(EMailTemplate eMailTemplate, UserInfoDTO userInfo) throws IOException, TemplateException {
         StringWriter stringWriter = new StringWriter();
         Map<String, Object> model = new HashMap<>();
         String userName = userInfo.getFirstName() + " " + userInfo.getLastName();

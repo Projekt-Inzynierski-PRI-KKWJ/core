@@ -1,12 +1,10 @@
 package pl.edu.amu.wmi.model;
 
-import lombok.Builder;
-import lombok.Data;
+import pl.edu.amu.wmi.model.user.StudentDTO;
 
-@Data
-@Builder
-public class EmailNotificationDataDTO {
-    private String name;
-    private String email;
-    private String content;
+public record EmailNotificationDataDTO(String name, String email, String content) {
+
+    public static EmailNotificationDataDTO fromStudent(StudentDTO student, String content) {
+        return new EmailNotificationDataDTO(student.getName(), student.getEmail(), content);
+    }
 }
