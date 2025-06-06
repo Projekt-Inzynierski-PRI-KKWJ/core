@@ -120,6 +120,12 @@ public class ProjectController {
             @Valid @RequestBody ProjectDetailsDTO project) {
         String supervisorIndexNumber = project.getSupervisor().getIndexNumber();
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        if (!isProjectCreationPrerequisitesMet(studyYear)) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
+                .build();
+        }
+        
         if (projectMemberService.isUserRoleCoordinator(userDetails.getUsername())) {
             if (!supervisorProjectService.isSupervisorAvailable(studyYear, supervisorIndexNumber)) {
                 return ResponseEntity.status(409).build();
@@ -133,6 +139,23 @@ public class ProjectController {
             projectService.acceptProjectBySingleUser(project.getAdmin(), Long.valueOf(projectDetailsDTO.getId()));
             return ResponseEntity.status(HttpStatus.CREATED).body(projectDetailsDTO);
         }
+    }
+
+    /**
+     * Checks if all prerequisites for project creation are met:
+     * - Students must be imported
+     * - Supervisors must be imported
+     * - Evaluation criteria must be imported
+     * - Supervisor availability must be determined
+     */
+    private boolean isProjectCreationPrerequisitesMet(String studyYear) {
+        boolean studentsImported = projectMemberService.areStudentsImportedForStudyYear(studyYear);
+        boolean supervisorsImported = supervisorProjectService.areSupervisorsImportedForStudyYear(studyYear);
+        boolean criteriaImported = evaluationCardService.areCriteriaImportedForStudyYear(studyYear);
+        
+        return studentsImported && 
+               supervisorsImported && 
+               criteriaImported;
     }
 
     @Secured({"PROJECT_ADMIN", "COORDINATOR"})
