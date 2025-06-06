@@ -15,4 +15,11 @@ public interface CriteriaProjectDAO extends JpaRepository<CriteriaProject, Long>
     List<CriteriaProject> findByProject_IdAndSemesterAndType(Long projectId, Semester semester, TypeOfCriterium type);
 
 
+    boolean existsByCriteriumAndProject_IdAndSemesterAndType(
+            String criterium,
+            Long projectId,
+            Semester semester,
+            TypeOfCriterium type
+    );
+
 }

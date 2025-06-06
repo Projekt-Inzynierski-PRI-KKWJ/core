@@ -40,6 +40,17 @@ public class CriteriaProjectService {
     }
 
     public CriteriaProject create(CriteriaProjectDTO dto) {
+        boolean alreadyExists = criteriaProjectRepository.existsByCriteriumAndProject_IdAndSemesterAndType(
+                dto.getCriterium(),
+                dto.getProjectId(),
+                dto.getSemester(),
+                dto.getType()
+        );
+
+        if (alreadyExists) {
+            throw new IllegalArgumentException("Criterium already exists for this project, semester, and type.");
+        }
+
         CriteriaProject entity = new CriteriaProject();
         entity.setCriterium(dto.getCriterium());
         entity.setUserThatAddedTheCriterium(userDataRepository.findById(dto.getUserId()).orElseThrow());
@@ -50,8 +61,30 @@ public class CriteriaProjectService {
         entity.setProject(projectRepository.findById(dto.getProjectId()).orElseThrow());
         entity.setEnableForModification(dto.getEnableForModification());
 
-
         return criteriaProjectRepository.save(entity);
+    }
+
+
+    public CriteriaProject updateLevelOfRealization(Long id, CriteriaProjectDTO dto) {
+        CriteriaProject project = criteriaProjectRepository.findById(id).orElseThrow();
+        project.setLevelOfRealization(dto.getLevelOfRealization());
+        return criteriaProjectRepository.save(project);
+    }
+
+    public CriteriaProject updateEnableForModification(Long id, Boolean enable) {
+        CriteriaProject project = criteriaProjectRepository.findById(id).orElseThrow();
+        project.setEnableForModification(enable);
+        return criteriaProjectRepository.save(project);
+    }
+
+
+    public boolean existsByKey(CriteriaProjectDTO dto) {
+        return criteriaProjectRepository.existsByCriteriumAndProject_IdAndSemesterAndType(
+                dto.getCriterium(),
+                dto.getProjectId(),
+                dto.getSemester(),
+                dto.getType()
+        );
     }
 
 }

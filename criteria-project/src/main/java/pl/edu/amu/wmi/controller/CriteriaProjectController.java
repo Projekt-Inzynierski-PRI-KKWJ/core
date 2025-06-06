@@ -41,8 +41,19 @@ public class CriteriaProjectController {
         return ResponseEntity.ok(criteriaProjectService.findByProjectAndSemester(projectId, semester,type));
     }
 
-//    @PatchMapping
-//    public ResponseEntity<>
+    @PatchMapping("/{id}/level")
+    public ResponseEntity<CriteriaProjectDTO> updateLevelOfRealization(@PathVariable Long id,
+                                                                       @RequestBody CriteriaProjectDTO dto) {
+        CriteriaProject updated = criteriaProjectService.updateLevelOfRealization(id, dto);
+        return ResponseEntity.ok(mapper.toDto(updated));
+    }
+
+    @PatchMapping("/{id}/enable")
+    public ResponseEntity<CriteriaProjectDTO> updateEnableForModification(@PathVariable Long id,
+                                                                          @RequestParam boolean enable) {
+        CriteriaProject updated = criteriaProjectService.updateEnableForModification(id, enable);
+        return ResponseEntity.ok(mapper.toDto(updated));
+    }
 
     @PostMapping("/single")
     public ResponseEntity<CriteriaProjectDTO> create(@RequestBody @Valid CriteriaProjectDTO dto) {
@@ -52,13 +63,16 @@ public class CriteriaProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<List<CriteriaProjectDTO>> create(@RequestBody @Valid List<CriteriaProjectDTO> listDTO )
-    {
+    public ResponseEntity<List<CriteriaProjectDTO>> create(@RequestBody @Valid List<CriteriaProjectDTO> listDTO) {
         List<CriteriaProjectDTO> response = new ArrayList<>();
-        for (CriteriaProjectDTO criteriumDTO : listDTO)
-        {
-            CriteriaProject criterium = criteriaProjectService.create(criteriumDTO);
-            response.add(mapper.toDto(criterium));
+
+        for (CriteriaProjectDTO dto : listDTO) {
+            boolean alreadyExists = criteriaProjectService.existsByKey(dto);
+
+            if (!alreadyExists) {
+                CriteriaProject created = criteriaProjectService.create(dto);
+                response.add(mapper.toDto(created));
+            }
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
