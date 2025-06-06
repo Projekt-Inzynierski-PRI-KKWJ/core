@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.amu.wmi.entity.CriteriaProject;
+import pl.edu.amu.wmi.enumerations.TypeOfCriterium;
 import pl.edu.amu.wmi.mapper.CriteriaProjectMapper;
 import pl.edu.amu.wmi.service.CriteriaProjectService;
 import pl.edu.amu.wmi.dto.CriteriaProjectDTO;
@@ -35,9 +36,9 @@ public class CriteriaProjectController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<List<CriteriaProject>> getByProjectAndSemester(@RequestParam Long projectId, @RequestParam Semester semester)
+    public ResponseEntity<List<CriteriaProject>> getByProjectAndSemester(@RequestParam Long projectId, @RequestParam Semester semester,@RequestParam TypeOfCriterium type)
     {
-        return ResponseEntity.ok(criteriaProjectService.findByProjectAndSemester(projectId, semester));
+        return ResponseEntity.ok(criteriaProjectService.findByProjectAndSemester(projectId, semester,type));
     }
 
 //    @PatchMapping

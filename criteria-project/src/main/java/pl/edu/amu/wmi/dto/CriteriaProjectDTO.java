@@ -1,11 +1,10 @@
 package pl.edu.amu.wmi.dto;
 
 import lombok.Data;
+import pl.edu.amu.wmi.enumerations.LevelOfRealization;
 import pl.edu.amu.wmi.enumerations.Semester;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import pl.edu.amu.wmi.enumerations.TypeOfCriterium;
 
-import java.time.LocalDate;
 
 @Data
 public class CriteriaProjectDTO
@@ -14,11 +13,17 @@ public class CriteriaProjectDTO
 
     private String criterium;
 
-    private Integer levelOfRealization;
+    private LevelOfRealization levelOfRealization;
 
     private Semester semester;
 
     private Long projectId;
 
     private Long userId;
+
+    private String comment;
+
+    private TypeOfCriterium type;
+
+    private Boolean enableForModification;
 }

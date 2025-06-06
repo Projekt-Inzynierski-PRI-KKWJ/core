@@ -8,6 +8,7 @@ import pl.edu.amu.wmi.dao.UserDataDAO;
 import pl.edu.amu.wmi.dto.CriteriaProjectDTO;
 import pl.edu.amu.wmi.entity.CriteriaProject;
 import pl.edu.amu.wmi.enumerations.Semester;
+import pl.edu.amu.wmi.enumerations.TypeOfCriterium;
 
 import java.util.List;
 
@@ -34,17 +35,21 @@ public class CriteriaProjectService {
         criteriaProjectRepository.deleteById(id);
     }
 
-    public List<CriteriaProject> findByProjectAndSemester(Long projectId, Semester semester) {
-        return criteriaProjectRepository.findByProjectIdAndSemester(projectId, semester);
+    public List<CriteriaProject> findByProjectAndSemester(Long projectId, Semester semester, TypeOfCriterium type) {
+        return criteriaProjectRepository.findByProject_IdAndSemesterAndType(projectId, semester,type);
     }
 
     public CriteriaProject create(CriteriaProjectDTO dto) {
         CriteriaProject entity = new CriteriaProject();
         entity.setCriterium(dto.getCriterium());
+        entity.setUserThatAddedTheCriterium(userDataRepository.findById(dto.getUserId()).orElseThrow());
         entity.setLevelOfRealization(dto.getLevelOfRealization());
         entity.setSemester(dto.getSemester());
-        entity.setUserThatAddedTheCriterium(userDataRepository.findById(dto.getUserId()).orElseThrow());
+        entity.setType(dto.getType());
+        entity.setComment(dto.getComment());
         entity.setProject(projectRepository.findById(dto.getProjectId()).orElseThrow());
+        entity.setEnableForModification(dto.getEnableForModification());
+
 
         return criteriaProjectRepository.save(entity);
     }
