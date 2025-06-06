@@ -2,6 +2,6 @@ package pl.edu.amu.wmi.enumerations;
 
 public enum ProjectRole {
 
-    FRONTEND, BACKEND, FULLSTACK
+    NONE, FRONTEND, BACKEND, FULLSTACK
 
 }

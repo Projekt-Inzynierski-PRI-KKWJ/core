@@ -9,6 +9,7 @@ import pl.edu.amu.wmi.entity.*;
 import pl.edu.amu.wmi.enumerations.AcceptanceStatus;
 import pl.edu.amu.wmi.enumerations.EvaluationPhase;
 import pl.edu.amu.wmi.enumerations.EvaluationStatus;
+import pl.edu.amu.wmi.enumerations.ProjectRole;
 import pl.edu.amu.wmi.enumerations.Semester;
 import pl.edu.amu.wmi.exception.BusinessException;
 import pl.edu.amu.wmi.exception.project.ProjectManagementException;
@@ -531,8 +532,8 @@ public class ProjectServiceImpl implements ProjectService {
         for (StudentProject studentProject : assignedStudents) {
             students.stream()
                     .filter(s -> Objects.equals(s.getIndexNumber(), studentProject.getStudent().getIndexNumber()))
-                    .map(StudentDTO::getRole)
-                    .findFirst().ifPresent(studentProject::setProjectRole);
+                    .findFirst()
+                    .ifPresent(studentDTO -> studentProject.setProjectRole(studentDTO.getRole()));
         }
     }
 
