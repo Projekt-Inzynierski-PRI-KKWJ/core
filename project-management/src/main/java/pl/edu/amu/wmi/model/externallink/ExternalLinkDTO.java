@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +21,17 @@ public class ExternalLinkDTO {
     private String columnHeader;
 
     private LocalDate deadline;
+
+    private String contentType;
+
+    // File related fields for internal uploads
+    private String linkType;
+    private String originalFileName;
+    private Long fileSize;
+
+    // Date fields
+    private LocalDateTime creationDate;
+    private LocalDateTime modificationDate;
 
 }
 
