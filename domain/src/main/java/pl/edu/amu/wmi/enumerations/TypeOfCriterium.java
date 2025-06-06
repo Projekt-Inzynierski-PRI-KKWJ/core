@@ -5,27 +5,27 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum TypeOfCriterium
 {
-    REQUIRED("Required"),EXPECTED("Expected"),MEASURABLE_IMPLEMENTATION_INDICATORS("Implementation Indicator");
+    REQUIRED, EXPECTED, MEASURABLE_IMPLEMENTATION_INDICATORS;
 
-    private final String label;
-
-    TypeOfCriterium(String label)
-    {
-        this.label=label;
-    }
-    @JsonValue
-    public String getLabel() {
-        return label;
-    }
-
-
-    @JsonCreator
-    public static TypeOfCriterium fromLabel(String label) {
-        for (TypeOfCriterium value : TypeOfCriterium.values()) {
-            if (value.label.equalsIgnoreCase(label)) {
-                return value;
-            }
-        }
-        throw new IllegalArgumentException("Unknown label: " + label);
-    }
+//    private final String label;
+//
+//    TypeOfCriterium(String label)
+//    {
+//        this.label=label;
+//    }
+//    @JsonValue
+//    public String getLabel() {
+//        return label;
+//    }
+//
+//
+//    @JsonCreator
+//    public static TypeOfCriterium fromLabel(String label) {
+//        for (TypeOfCriterium value : TypeOfCriterium.values()) {
+//            if (value.label.equalsIgnoreCase(label)) {
+//                return value;
+//            }
+//        }
+//        throw new IllegalArgumentException("Unknown type: " + label);
+//    }
 }
