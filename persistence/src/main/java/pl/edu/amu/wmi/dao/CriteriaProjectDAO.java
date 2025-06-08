@@ -22,4 +22,6 @@ public interface CriteriaProjectDAO extends JpaRepository<CriteriaProject, Long>
             TypeOfCriterium type
     );
 
+
+    List<CriteriaProject> findByProject_Id(Long projectId);
 }

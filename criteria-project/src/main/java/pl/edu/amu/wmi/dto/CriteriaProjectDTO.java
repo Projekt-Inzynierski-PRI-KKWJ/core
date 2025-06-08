@@ -9,13 +9,13 @@ import pl.edu.amu.wmi.enumerations.TypeOfCriterium;
 @Data
 public class CriteriaProjectDTO
 {
-    private Long idProject;
+    //private Long idProject;
 
     private String criterium;
 
-    private LevelOfRealization levelOfRealization;
+    private LevelOfRealization levelOfRealization;  //mapped to string
 
-    private Semester semester;
+    private Semester semester; //mapped to string
 
     private Long projectId;
 
@@ -23,7 +23,7 @@ public class CriteriaProjectDTO
 
     private String comment;
 
-    private TypeOfCriterium type;
+    private TypeOfCriterium type; //mapped to string
 
     private Boolean enableForModification;
 }

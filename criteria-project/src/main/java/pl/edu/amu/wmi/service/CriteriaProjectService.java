@@ -31,6 +31,11 @@ public class CriteriaProjectService {
         return criteriaProjectRepository.findById(id).orElseThrow();
     }
 
+    public List<CriteriaProject> findByProjectId(Long projectId) {
+        return criteriaProjectRepository.findByProject_Id(projectId);
+    }
+
+
     public void delete(Long id) {
         criteriaProjectRepository.deleteById(id);
     }
