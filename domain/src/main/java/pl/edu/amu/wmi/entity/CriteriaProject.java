@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class CriteriaProject extends AbstractEntity {
 
     private String criterium;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_DATA_ID", nullable = false)
     private UserData userThatAddedTheCriterium;
@@ -31,6 +33,8 @@ public class CriteriaProject extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private TypeOfCriterium type;
 
+
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     private Project project;

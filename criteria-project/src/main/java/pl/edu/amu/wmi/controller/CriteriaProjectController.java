@@ -34,7 +34,8 @@ public class CriteriaProjectController {
         return ResponseEntity.ok(criteriaProjectService.getById(id));
     }
 
-    @GetMapping("/{projectId}")
+
+    @GetMapping("/project/{projectId}")
     public ResponseEntity<List<CriteriaProjectDTO>> getByProjectId(@PathVariable Long projectId) {
         List<CriteriaProject> projects = criteriaProjectService.findByProjectId(projectId);
         List<CriteriaProjectDTO> result = projects.stream()
