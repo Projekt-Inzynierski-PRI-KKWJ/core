@@ -27,7 +27,7 @@ public final class ImportDataFeedValidator {
         if (StringUtils.isBlank(extension)) {
             throw new DataFeedFileExtensionException(EMPTY_FILE_EXTENSION);
         }
-        if (!DataFeedFileExtension.isValidEnum(extension) || !fileExtensions.contains(DataFeedFileExtension.valueOf(extension))) {
+        if (!DataFeedFileExtension.isValidEnum(extension) || !fileExtensions.contains(DataFeedFileExtension.valueOf(extension.toUpperCase()))) {
             throw new DataFeedFileExtensionException(INVALID_FILE_EXTENSION.formatted(fileExtensions.stream()
                 .map(Enum::name)
                 .collect(Collectors.joining(DELIMITER)), extension));
