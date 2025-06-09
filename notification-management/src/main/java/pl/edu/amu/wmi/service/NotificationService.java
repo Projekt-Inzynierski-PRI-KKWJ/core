@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.service;
 
+import pl.edu.amu.wmi.model.EmailNotificationDataDTO;
 import pl.edu.amu.wmi.model.UserInfoDTO;
 import pl.edu.amu.wmi.util.EMailTemplate;
 
@@ -11,4 +12,5 @@ public interface NotificationService {
 
     void sendEmails(List<UserInfoDTO> userInfos, EMailTemplate eMailTemplate);
 
+    List<EmailNotificationDataDTO> getReceiverData(String studyYear,  EMailTemplate eMailTemplate);
 }
