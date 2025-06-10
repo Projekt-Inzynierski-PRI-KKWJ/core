@@ -4,12 +4,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.amu.wmi.dto.*;
 import pl.edu.amu.wmi.entity.CriteriaProject;
+import pl.edu.amu.wmi.entity.Supervisor;
+import pl.edu.amu.wmi.enumerations.LevelOfRealization;
 import pl.edu.amu.wmi.enumerations.TypeOfCriterium;
 import pl.edu.amu.wmi.mapper.CriteriaProjectMapper;
 import pl.edu.amu.wmi.service.CriteriaProjectService;
-import pl.edu.amu.wmi.dto.CriteriaProjectDTO;
 import pl.edu.amu.wmi.enumerations.Semester;
 
 import java.util.*;
@@ -52,19 +55,40 @@ public class CriteriaProjectController {
     }
 
     @PatchMapping("/{id}/level")
-    public ResponseEntity<CriteriaProjectDTO> updateLevelOfRealization(@PathVariable Long id,
-                                                                       @RequestBody CriteriaProjectDTO dto) {
-        CriteriaProject updated = criteriaProjectService.updateLevelOfRealization(id, dto);
-        return ResponseEntity.ok(mapper.toDto(updated));
+    @Secured({"SUPERVISOR"})
+    public ResponseEntity<Void> updateLevelOfRealization(
+            @PathVariable Long id,
+            @RequestBody UpdateLevelDTO dto) {
+        criteriaProjectService.updateLevelOfRealization(id, dto.getLevelOfRealization());
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}/comment")
+    @Secured({"SUPERVISOR"})
+    public ResponseEntity<Void> updateComment(
+            @PathVariable Long id,
+            @RequestBody UpdateCommentDTO dto) {
+        criteriaProjectService.updateComment(id, dto.getComment());
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}/comment-level")
+    @Secured({"SUPERVISOR"})
+    public ResponseEntity<Void> updateCommentAndLevel(
+            @PathVariable Long id,
+            @RequestBody UpdateCommentAndLevelDTO dto) {
+        criteriaProjectService.updateCommentAndLevel(id, dto.getComment(), dto.getLevelOfRealization());
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}/enable")
-    public ResponseEntity<CriteriaProjectDTO> updateEnableForModification(@PathVariable Long id,
-                                                                          @RequestParam boolean enable) {
-        CriteriaProject updated = criteriaProjectService.updateEnableForModification(id, enable);
-        return ResponseEntity.ok(mapper.toDto(updated));
+    @Secured({"SUPERVISOR"})
+    public ResponseEntity<Void> updateEnableForModification(
+            @PathVariable Long id,
+            @RequestBody UpdateEnableDTO dto) {
+        criteriaProjectService.updateEnableForModification(id, dto.getEnable());
+        return ResponseEntity.ok().build();
     }
-
     @PostMapping("/single")
     public ResponseEntity<CriteriaProjectDTO> create(@RequestBody @Valid CriteriaProjectDTO dto) {
         CriteriaProject created = criteriaProjectService.create(dto);
