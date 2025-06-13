@@ -46,4 +46,12 @@ public interface EvaluationCardService {
     void retakeEvaluationCard(Long projectId);
 
     void activateEvaluationCardsForSecondSemester(String studyYear);
+
+    /**
+     * Checks if evaluation criteria have been imported for the given study year
+     *
+     * @param studyYear the study year to check
+     * @return true if criteria have been imported, false otherwise
+     */
+    boolean areCriteriaImportedForStudyYear(String studyYear);
 }

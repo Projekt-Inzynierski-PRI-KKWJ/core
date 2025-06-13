@@ -95,6 +95,12 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
         }
     }
 
+    @Override
+    public boolean areStudentsImportedForStudyYear(String studyYear) {
+        List<Student> studentsForYear = studentDAO.findAllByStudyYear(studyYear);
+        return !studentsForYear.isEmpty();
+    }
+
     private UserRole findRoleWithTheHighestPermissions(Set<Role> roles) {
         List<UserRole> roleNames = extractRoleNames(roles);
         return roleNames.contains(UserRole.COORDINATOR) ? UserRole.COORDINATOR :

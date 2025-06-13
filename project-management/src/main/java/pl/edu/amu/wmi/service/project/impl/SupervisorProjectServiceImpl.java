@@ -81,4 +81,10 @@ public class SupervisorProjectServiceImpl implements SupervisorProjectService {
         return supervisorProjectMapper.mapToAvailabilityDtoList(supervisorEntities);
     }
 
+    @Override
+    public boolean areSupervisorsImportedForStudyYear(String studyYear) {
+        List<Supervisor> supervisorsForYear = supervisorDAO.findAllByStudyYear(studyYear);
+        return !supervisorsForYear.isEmpty();
+    }
+
 }

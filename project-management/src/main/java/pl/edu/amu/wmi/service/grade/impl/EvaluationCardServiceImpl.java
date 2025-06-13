@@ -535,4 +535,10 @@ public class EvaluationCardServiceImpl implements EvaluationCardService {
         return modifiedCopy;
     }
 
+    @Override
+    public boolean areCriteriaImportedForStudyYear(String studyYear) {
+        Optional<EvaluationCardTemplate> evaluationCardTemplate = evaluationCardTemplateDAO.findByStudyYear(studyYear);
+        return evaluationCardTemplate.isPresent();
+    }
+
 }
