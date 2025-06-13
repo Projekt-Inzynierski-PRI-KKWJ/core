@@ -7,6 +7,7 @@ import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.UserDataDAO;
 import pl.edu.amu.wmi.dto.CriteriaProjectDTO;
 import pl.edu.amu.wmi.entity.CriteriaProject;
+import pl.edu.amu.wmi.enumerations.LevelOfRealization;
 import pl.edu.amu.wmi.enumerations.Semester;
 import pl.edu.amu.wmi.enumerations.TypeOfCriterium;
 
@@ -37,6 +38,12 @@ public class CriteriaProjectService {
 
 
     public void delete(Long id) {
+        CriteriaProject entity = criteriaProjectRepository.findById(id).orElseThrow();
+
+        if (Boolean.FALSE.equals(entity.getEnableForModification())) {
+            throw new IllegalStateException("This criterium cannot be deleted because it is not enabled for modification because the supervisor has locked it.");
+        }
+
         criteriaProjectRepository.deleteById(id);
     }
 
@@ -90,6 +97,24 @@ public class CriteriaProjectService {
                 dto.getSemester(),
                 dto.getType()
         );
+    }
+    public void updateComment(Long id, String comment) {
+        CriteriaProject entity = criteriaProjectRepository.findById(id).orElseThrow();
+        entity.setComment(comment);
+        criteriaProjectRepository.save(entity);
+    }
+
+    public void updateCommentAndLevel(Long id, String comment, LevelOfRealization level) {
+        CriteriaProject entity = criteriaProjectRepository.findById(id).orElseThrow();
+        entity.setComment(comment);
+        entity.setLevelOfRealization(level);
+        criteriaProjectRepository.save(entity);
+    }
+
+    public void updateLevelOfRealization(Long id, LevelOfRealization level) {
+        CriteriaProject entity = criteriaProjectRepository.findById(id).orElseThrow();
+        entity.setLevelOfRealization(level);
+        criteriaProjectRepository.save(entity);
     }
 
 }
