@@ -1,14 +1,20 @@
 package pl.edu.amu.wmi.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.edu.amu.wmi.dao.ProjectDAO;
+import pl.edu.amu.wmi.entity.ExternalLink;
 import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.enumerations.EvaluationPhase;
 import pl.edu.amu.wmi.enumerations.EvaluationStatus;
@@ -28,11 +34,13 @@ import pl.edu.amu.wmi.service.grade.EvaluationCardService;
 import pl.edu.amu.wmi.service.project.ProjectService;
 import pl.edu.amu.wmi.service.project.SupervisorProjectService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+@Slf4j
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
@@ -120,6 +128,12 @@ public class ProjectController {
             @Valid @RequestBody ProjectDetailsDTO project) {
         String supervisorIndexNumber = project.getSupervisor().getIndexNumber();
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        if (!isProjectCreationPrerequisitesMet(studyYear)) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
+                .build();
+        }
+        
         if (projectMemberService.isUserRoleCoordinator(userDetails.getUsername())) {
             if (!supervisorProjectService.isSupervisorAvailable(studyYear, supervisorIndexNumber)) {
                 return ResponseEntity.status(409).build();
@@ -133,6 +147,23 @@ public class ProjectController {
             projectService.acceptProjectBySingleUser(project.getAdmin(), Long.valueOf(projectDetailsDTO.getId()));
             return ResponseEntity.status(HttpStatus.CREATED).body(projectDetailsDTO);
         }
+    }
+
+    /**
+     * Checks if all prerequisites for project creation are met:
+     * - Students must be imported
+     * - Supervisors must be imported
+     * - Evaluation criteria must be imported
+     * - Supervisor availability must be determined
+     */
+    private boolean isProjectCreationPrerequisitesMet(String studyYear) {
+        boolean studentsImported = projectMemberService.areStudentsImportedForStudyYear(studyYear);
+        boolean supervisorsImported = supervisorProjectService.areSupervisorsImportedForStudyYear(studyYear);
+        boolean criteriaImported = evaluationCardService.areCriteriaImportedForStudyYear(studyYear);
+        
+        return studentsImported && 
+               supervisorsImported && 
+               criteriaImported;
     }
 
     @Secured({"PROJECT_ADMIN", "COORDINATOR"})
@@ -259,4 +290,140 @@ public class ProjectController {
         evaluationCardService.activateEvaluationCardsForSecondSemester(studyYear);
         return ResponseEntity.ok().build();
     }
+
+    // External Link File Upload/Download endpoints
+    
+    @Secured({"PROJECT_ADMIN", "COORDINATOR", "STUDENT", "SUPERVISOR"})
+    @PostMapping("/{projectId}/external-link/{externalLinkId}/upload")
+    public ResponseEntity<Map<String, String>> uploadExternalLinkFile(
+            @PathVariable Long projectId,
+            @PathVariable Long externalLinkId,
+            @RequestParam("file") MultipartFile file) {
+        
+        log.info("=== FILE UPLOAD REQUEST ===");
+        log.info("Project ID: {}", projectId);
+        log.info("External Link ID: {}", externalLinkId);
+        log.info("File name: {}", file.getOriginalFilename());
+        log.info("File size: {} bytes", file.getSize());
+        log.info("Content type: {}", file.getContentType());
+        log.info("User: {}", SecurityContextHolder.getContext().getAuthentication().getName());
+        log.info("=============================");
+        
+        try {
+            // Validate file
+            if (file.isEmpty()) {
+                log.error("Empty file uploaded for external link {}", externalLinkId);
+                return ResponseEntity.badRequest()
+                    .body(Map.of(
+                        "error", "File is empty",
+                        "projectId", projectId.toString(),
+                        "externalLinkId", externalLinkId.toString()
+                    ));
+            }
+            
+            // 10MB file size limit
+            if (file.getSize() > 10 * 1024 * 1024) {
+                log.error("File too large ({} bytes) for external link {}", file.getSize(), externalLinkId);
+                return ResponseEntity.badRequest()
+                    .body(Map.of(
+                        "error", "File size exceeds 10MB limit",
+                        "actualSize", String.valueOf(file.getSize()),
+                        "maxSize", "10485760"
+                    ));
+            }
+            
+            // Check if external link exists
+            log.info("Checking if external link {} exists...", externalLinkId);
+            ExternalLink externalLink = externalLinkService.findById(externalLinkId);
+            if (externalLink == null) {
+                log.error("External link {} not found", externalLinkId);
+                return ResponseEntity.badRequest()
+                    .body(Map.of("error", "External link not found"));
+            }
+            log.info("External link found: {}", externalLink.getExternalLinkDefinition().getName());
+            
+            // Update external link with file
+            log.info("Updating external link with file...");
+            externalLinkService.updateExternalLinkWithFile(externalLinkId, file);
+            log.info("Successfully uploaded file {} for external link {}", file.getOriginalFilename(), externalLinkId);
+            
+            return ResponseEntity.ok()
+                .body(Map.of(
+                    "message", "File uploaded successfully",
+                    "fileName", file.getOriginalFilename(),
+                    "fileSize", String.valueOf(file.getSize()),
+                    "externalLinkId", externalLinkId.toString()
+                ));
+                
+        } catch (IllegalArgumentException e) {
+            log.error("Invalid argument for external link {}: {}", externalLinkId, e.getMessage(), e);
+            return ResponseEntity.badRequest()
+                .body(Map.of(
+                    "error", "Invalid request: " + e.getMessage(),
+                    "type", "IllegalArgumentException"
+                ));
+        } catch (IOException e) {
+            log.error("IO error uploading file for external link {}: {}", externalLinkId, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of(
+                    "error", "File upload failed: " + e.getMessage(),
+                    "type", "IOException"
+                ));
+        } catch (Exception e) {
+            log.error("Unexpected error uploading file for external link {}: {}", externalLinkId, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of(
+                    "error", "Unexpected error: " + e.getMessage(),
+                    "type", e.getClass().getSimpleName(),
+                    "stackTrace", e.getStackTrace()[0].toString()
+                ));
+        }
+    }
+
+    @Secured({"PROJECT_ADMIN", "COORDINATOR", "STUDENT", "SUPERVISOR"})
+    @GetMapping("/{projectId}/external-link/{externalLinkId}/download")
+    public ResponseEntity<byte[]> downloadExternalLinkFile(
+            @PathVariable Long projectId,
+            @PathVariable Long externalLinkId) {
+        try {
+            ExternalLink externalLink = externalLinkService.findById(externalLinkId);
+            byte[] fileContent = externalLinkService.getInternalFileContent(externalLinkId);
+            
+            HttpHeaders headers = new HttpHeaders();
+            if (externalLink.getContentType() != null) {
+                headers.setContentType(MediaType.parseMediaType(externalLink.getContentType()));
+            } else {
+                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            }
+            
+            String filename = externalLink.getOriginalFileName() != null 
+                    ? externalLink.getOriginalFileName() 
+                    : "downloaded-file";
+            headers.setContentDisposition(ContentDisposition.builder("attachment")
+                    .filename(filename)
+                    .build());
+            
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(fileContent);
+        } catch (IOException e) {
+            log.error("Error downloading file for external link {}: {}", externalLinkId, e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @Secured({"PROJECT_ADMIN", "COORDINATOR", "STUDENT", "SUPERVISOR"})
+    @DeleteMapping("/{projectId}/external-link/{externalLinkId}/file")
+    public ResponseEntity<Void> deleteExternalLinkFile(
+            @PathVariable Long projectId,
+            @PathVariable Long externalLinkId) {
+        try {
+            externalLinkService.deleteInternalFile(externalLinkId);
+            return ResponseEntity.ok().build();
+        } catch (IOException e) {
+            log.error("Error deleting file for external link {}: {}", externalLinkId, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

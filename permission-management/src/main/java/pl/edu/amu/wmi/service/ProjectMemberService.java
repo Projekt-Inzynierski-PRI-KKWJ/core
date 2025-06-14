@@ -31,4 +31,12 @@ public interface ProjectMemberService {
 
     boolean isStudentAnAdminOfTheProject(String userIndexNumber, Long projectId);
 
+    /**
+     * Checks if students have been imported for the given study year
+     *
+     * @param studyYear the study year to check
+     * @return true if students have been imported, false otherwise
+     */
+    boolean areStudentsImportedForStudyYear(String studyYear);
+
 }

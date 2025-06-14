@@ -80,11 +80,4 @@ public class GlobalControllerAdvice {
         return new ErrorInfo(exception.getMessage(), 500);
     }
 
-    @ResponseBody
-    @ExceptionHandler(value = DataFeedFileExtensionException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorInfo dataFeedFileExtensionExceptionHandler(DataFeedFileExtensionException exception) {
-        return new ErrorInfo(exception.getMessage(), 400);
-    }
-
 }
