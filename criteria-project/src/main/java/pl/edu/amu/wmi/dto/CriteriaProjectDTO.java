@@ -9,7 +9,7 @@ import pl.edu.amu.wmi.enumerations.TypeOfCriterium;
 @Data
 public class CriteriaProjectDTO
 {
-    //private Long idProject;
+    private Long id;
 
     private String criterium;
 
