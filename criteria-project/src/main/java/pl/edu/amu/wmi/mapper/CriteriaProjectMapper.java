@@ -13,6 +13,7 @@ public interface CriteriaProjectMapper {
 
     @Mapping(source = "project.id", target = "projectId")
     @Mapping(source = "userThatAddedTheCriterium.id", target = "userId")
+    @Mapping(source = "id", target = "id")
     CriteriaProjectDTO toDto(CriteriaProject entity);
 
     @Mapping(source = "projectId", target = "project.id")
