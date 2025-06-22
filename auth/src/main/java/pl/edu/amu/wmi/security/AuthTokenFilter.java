@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +18,6 @@ import java.io.IOException;
 
 @Component
 @Slf4j
-@ConditionalOnProperty(value = "auth.enabled", havingValue = "true", matchIfMissing = true)
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
