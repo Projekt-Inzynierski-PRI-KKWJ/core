@@ -92,7 +92,7 @@ public class DataFeedStudentImportServiceImpl implements DataFeedImportService {
                 studyYear);
             String errorMessage = "Duplicated student data:\n" +
                 existingStudentsForStudyYear.stream()
-                    .map(s -> s.getIndexNumber() + " " + s.getFullName() + " " + s.getPesel())
+                    .map(s -> s.getIndexNumber() + " " + s.getFullName())
                     .collect(Collectors.joining("\n"));
             throw new DuplicateKeyException(errorMessage);
         }
