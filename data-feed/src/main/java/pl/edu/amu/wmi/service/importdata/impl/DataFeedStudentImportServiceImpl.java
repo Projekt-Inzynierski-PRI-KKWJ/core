@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,12 +74,24 @@ public class DataFeedStudentImportServiceImpl implements DataFeedImportService {
 
     private void validateData(List<NewStudentDTO> newStudents, String studyYear) {
         List<String> studentIndexNumbers = newStudents.stream()
-                .map(NewStudentDTO::getIndexNumber)
-                .toList();
+            .map(NewStudentDTO::getIndexNumber)
+            .filter(StringUtils::isNotBlank)
+            .toList();
+        if (studentIndexNumbers.isEmpty()) {
+            String errorMessage = "Student index numbers are empty";
+            throw new IllegalArgumentException(errorMessage);
+        }
+        if (studentIndexNumbers.size() != newStudents.size()) {
+            String errorMessage = "Some student index numbers are empty";
+            throw new IllegalArgumentException(errorMessage);
+        }
         List<Student> existingStudentsForStudyYear = studentDAO.findByStudyYearAndUserData_IndexNumberIn(studyYear, studentIndexNumbers);
         if (!existingStudentsForStudyYear.isEmpty()) {
-            log.error("Duplicated data - {} students assigned to studyYear {} already exist in the database.", existingStudentsForStudyYear.size(), studyYear);
-            throw new DuplicateKeyException("Duplicated student data");
+            log.error("Duplicated data - {} students assigned to studyYear {} already exist in the database.", existingStudentsForStudyYear.size(),
+                studyYear);
+            String errorMessage = "Duplicated student data:" + existingStudentsForStudyYear.stream()
+                .map(s -> s.getIndexNumber() + s.getFullName() + s.getPesel() + "\n");
+            throw new DuplicateKeyException(errorMessage);
         }
     }
 
@@ -88,14 +101,14 @@ public class DataFeedStudentImportServiceImpl implements DataFeedImportService {
         if (data.isEmpty()) {
             log.info("File with students data is empty");
         } else {
-            try (Reader reader = new BufferedReader(new InputStreamReader(data.getInputStream()))){
+            try (Reader reader = new BufferedReader(new InputStreamReader(data.getInputStream()))) {
 
                 CsvToBean<NewStudentDTO> csvToBean = new CsvToBeanBuilder<NewStudentDTO>(reader)
-                        .withType(NewStudentDTO.class)
-                        .withIgnoreLeadingWhiteSpace(true)
-                        .withIgnoreQuotations(true)
-                        .withSeparator(';')
-                        .build();
+                    .withType(NewStudentDTO.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .withIgnoreQuotations(true)
+                    .withSeparator(';')
+                    .build();
 
                 newStudents = csvToBean.parse();
             } catch (IOException e) {
@@ -121,7 +134,7 @@ public class DataFeedStudentImportServiceImpl implements DataFeedImportService {
 
             if (Boolean.TRUE.equals(userDataDAO.existsByIndexNumber(indexNumberWithPrefix))) {
                 UserData userData = userDataDAO.findByIndexNumber(indexNumberWithPrefix).orElseThrow(() ->
-                        new BusinessException("Unexpected exception during fetching user data"));
+                    new BusinessException("Unexpected exception during fetching user data"));
                 student.setUserData(userData);
             }
 
