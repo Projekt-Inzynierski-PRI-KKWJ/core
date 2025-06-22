@@ -3,6 +3,7 @@ package pl.edu.amu.wmi.service.importdata.impl;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvException;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
@@ -76,7 +77,11 @@ public class DataFeedSupervisorImportServiceImpl implements DataFeedImportServic
         List<Supervisor> existingSupervisorsForStudyYear = supervisorDAO.findAllByStudyYearAndUserData_IndexNumberIn(studyYear, supervisorIndexNumbers);
         if (!existingSupervisorsForStudyYear.isEmpty()) {
             log.error("Duplicated data - {} supervisors assigned to studyYear {} already exist in the database.", existingSupervisorsForStudyYear.size(), studyYear);
-            throw new DuplicateKeyException("Duplicated supervisor data");
+            String errorMessage = "Duplicated supervisors data:\n" +
+                existingSupervisorsForStudyYear.stream()
+                    .map(s -> s.getIndexNumber() + " " + s.getFullName())
+                    .collect(Collectors.joining("\n"));
+            throw new DuplicateKeyException(errorMessage);
         }
     }
 
