@@ -248,18 +248,22 @@ public class ExternalLinkServiceImpl implements ExternalLinkService {
                             previousUrl, previousLinkType, previousFilePath, previousOriginalFileName, previousContentType, previousFileSize
                         );
                     } else if (!java.util.Objects.equals(previousUrl, externalLinkDto.getUrl())) {
-                        // URL to URL change
-                        String previousUrlText = previousUrl != null && !previousUrl.trim().isEmpty() ? 
-                            "'" + previousUrl + "'" : "empty";
-                        String newUrlText = externalLinkDto.getUrl() != null && !externalLinkDto.getUrl().trim().isEmpty() ?
-                            "'" + externalLinkDto.getUrl() + "'" : "empty";
-                        externalLinkHistoryService.recordChange(
-                            externalLink,
-                            ExternalLinkHistory.ChangeType.URL_UPDATED,
-                            currentUser,
-                            "URL updated from " + previousUrlText + " to " + newUrlText,
-                            previousUrl, previousLinkType, previousFilePath, previousOriginalFileName, previousContentType, previousFileSize
-                        );
+                        // URL to URL change - but only log if at least one URL is not empty
+                        boolean previousUrlEmpty = previousUrl == null || previousUrl.trim().isEmpty();
+                        boolean newUrlEmpty = externalLinkDto.getUrl() == null || externalLinkDto.getUrl().trim().isEmpty();
+                        
+                        // Don't log "empty to empty" changes
+                        if (!previousUrlEmpty || !newUrlEmpty) {
+                            String previousUrlText = !previousUrlEmpty ? "'" + previousUrl + "'" : "empty";
+                            String newUrlText = !newUrlEmpty ? "'" + externalLinkDto.getUrl() + "'" : "empty";
+                            externalLinkHistoryService.recordChange(
+                                externalLink,
+                                ExternalLinkHistory.ChangeType.URL_UPDATED,
+                                currentUser,
+                                "URL updated from " + previousUrlText + " to " + newUrlText,
+                                previousUrl, previousLinkType, previousFilePath, previousOriginalFileName, previousContentType, previousFileSize
+                            );
+                        }
                     }
                 }
             }
