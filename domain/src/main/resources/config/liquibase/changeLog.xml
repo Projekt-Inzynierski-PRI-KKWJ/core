@@ -30,5 +30,6 @@
     <include file="classpath:config/liquibase/database/2025-05-20-added_new_table_criteria_project.xml"/> <!--I got a pain in the ass when trying to add this table :( -->
     <include file="classpath:config/liquibase/database/2025-06-05-table_criteria_project_change.xml"/>
     <include file="classpath:config/liquibase/database/2025-06-09-external_link_with_file_support.xml"/>
+    <include file="classpath:config/liquibase/database/2025-06-22-create_external_link_history_table.xml"/>
 
 </databaseChangeLog>
