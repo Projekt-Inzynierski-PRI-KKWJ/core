@@ -6,6 +6,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -29,6 +30,7 @@ import java.util.Map;
 public class NotificationServiceImpl implements NotificationService {
 
     private static final String USER = "user";
+    private static final String STUDENT = "Student";
 
     /**
      * variable to disable sending mails to users during development
@@ -82,31 +84,21 @@ public class NotificationServiceImpl implements NotificationService {
         );
     }
 
-    public List<EmailNotificationDataDTO> getReceiverData(String studyYear, EMailTemplate eMailTemplate) {
+    public EmailNotificationDataDTO getReceiverData(String studyYear, EMailTemplate eMailTemplate) {
         var students = studentService.findAll(studyYear);
-        List<EmailNotificationDataDTO> notifications = new ArrayList<>();
-        students.forEach(studentDTO -> {
-            try {
-                var notification = EmailNotificationDataDTO.fromStudent(studentDTO,
-                    getEmailContent(eMailTemplate, studentDTO));
-                notifications.add(notification);
-            } catch (IOException | TemplateException e) {
-                log.error("Error during sending e-mail to user with email: {}", studentDTO.getEmail(), e);
-                throw new NotificationManagementException("Error during sending e-mail to user with email: " + studentDTO.getEmail());
-            }
-        });
-        return notifications;
+        try {
+            return EmailNotificationDataDTO.fromStudent(students, getEmailContent(eMailTemplate));
+        }catch (IOException | TemplateException e) {
+            log.error("Error during sending e-mail to user with email", e);
+            throw new NotificationManagementException("Error during sending e-mail to user");
+        }
     }
 
-    private String getEmailContent(EMailTemplate eMailTemplate, StudentDTO studentDTO) throws TemplateException, IOException {
-        String[] studentFullName = studentDTO.getName().split(" ");
-        String firstName = studentFullName[0];
-        String lastName = studentFullName[1];
+    private String getEmailContent(EMailTemplate eMailTemplate) throws TemplateException, IOException {
 
         return getEmailContent(eMailTemplate, UserInfoDTO.builder()
-            .email(studentDTO.getEmail())
-            .firstName(firstName)
-            .lastName(lastName)
+            .firstName(STUDENT)
+            .lastName(StringUtils.EMPTY)
             .build());
     }
 
