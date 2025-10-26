@@ -3,15 +3,13 @@ package pl.edu.amu.wmi.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import pl.edu.amu.wmi.dao.StudentDAO;
-import pl.edu.amu.wmi.dao.StudyYearDAO;
-import pl.edu.amu.wmi.dao.SupervisorDAO;
-import pl.edu.amu.wmi.dao.UserDataDAO;
+import pl.edu.amu.wmi.dao.*;
 import pl.edu.amu.wmi.entity.*;
 import pl.edu.amu.wmi.enumerations.AcceptanceStatus;
 import pl.edu.amu.wmi.enumerations.UserRole;
 import pl.edu.amu.wmi.exception.UserManagementException;
 import pl.edu.amu.wmi.mapper.UserMapper;
+import pl.edu.amu.wmi.model.user.CoordinatorDTO;
 import pl.edu.amu.wmi.model.user.UserDTO;
 import pl.edu.amu.wmi.service.SessionDataService;
 import pl.edu.amu.wmi.service.UserService;
@@ -35,13 +33,42 @@ public class UserServiceImpl implements UserService {
     private final SessionDataService sessionDataService;
 
 
-    public UserServiceImpl(UserDataDAO userDataDAO, StudentDAO studentDAO, SupervisorDAO supervisorDAO, StudyYearDAO studyYearDAO, UserMapper userMapper, SessionDataService sessionDataService) {
+    private final UserDataDAO userDataRepository;
+    private final RoleDAO roleRepository;
+
+    @Override
+    public CoordinatorDTO initializeCoordinator(CoordinatorDTO coordinatorDTO) {
+        if (userDataRepository.count() > 0) {
+            throw new IllegalStateException("System already initialized with users.");
+        }
+
+        UserData user = new UserData();
+        user.setFirstName(coordinatorDTO.getName());
+        user.setLastName(coordinatorDTO.getLast_name());
+        user.setEmail(coordinatorDTO.getEmail());
+        user.setIndexNumber(coordinatorDTO.getIndexNumber());
+
+        Role coordinatorRole = roleRepository.findByName(UserRole.COORDINATOR);
+        if (coordinatorRole == null) {
+            throw new IllegalStateException("Coordinator role not found in database.");
+        }
+        user.getRoles().add(coordinatorRole);
+
+        userDataRepository.save(user);
+
+        return coordinatorDTO;
+    }
+
+
+    public UserServiceImpl(UserDataDAO userDataDAO, StudentDAO studentDAO, SupervisorDAO supervisorDAO, StudyYearDAO studyYearDAO, UserMapper userMapper, SessionDataService sessionDataService,UserDataDAO userDataRepository, RoleDAO roleRepository) {
         this.userDataDAO = userDataDAO;
         this.studentDAO = studentDAO;
         this.supervisorDAO = supervisorDAO;
         this.studyYearDAO = studyYearDAO;
         this.userMapper = userMapper;
         this.sessionDataService = sessionDataService;
+        this.userDataRepository = userDataRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override

@@ -73,5 +73,12 @@ public class DataFeedController {
         DataFeedExportService service = DataFeedExportServiceFactory.getService(DataFeedType.GRADES);
         service.exportData(servletResponse.getWriter(), studyYear);
     }
+//    @Secured({"COORDINATOR"})
+//    @DeleteMapping("reset/database")
+//    public void resetAllFromDatabaseExceptCoordinators()
+//    {
+//
+//    }
+
 
 }
