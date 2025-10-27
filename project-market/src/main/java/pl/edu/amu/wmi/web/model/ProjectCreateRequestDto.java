@@ -1,4 +1,4 @@
-package pl.edu.amu.wmi.model;
+package pl.edu.amu.wmi.web.model;
 
 import java.util.List;
 import lombok.Data;

@@ -1,16 +1,17 @@
-package pl.edu.amu.wmi.mapper;
+package pl.edu.amu.wmi.web.mapper;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
-import pl.edu.amu.wmi.model.ProjectCreateRequest;
-import pl.edu.amu.wmi.model.ProjectCreateRequestDto;
+import pl.edu.amu.wmi.entity.ProjectMarket;
+import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ProjectRequestMapper {
+public interface ProjectMarketDTOMapper {
 
-    ProjectCreateRequest fromDto(ProjectCreateRequestDto createRequestDto);
+
+    ProjectMarketDTO toDto(ProjectMarket projectMarket);
 }

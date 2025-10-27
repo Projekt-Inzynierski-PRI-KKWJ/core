@@ -1,14 +1,14 @@
-package pl.edu.amu.wmi.controller;
+package pl.edu.amu.wmi.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.amu.wmi.ProjectMarketFacade;
 import pl.edu.amu.wmi.exception.BusinessException;
-import pl.edu.amu.wmi.mapper.ProjectMarketDTOMapper;
-import pl.edu.amu.wmi.mapper.ProjectRequestMapper;
-import pl.edu.amu.wmi.model.ProjectCreateRequestDto;
-import pl.edu.amu.wmi.model.ProjectMarketDTO;
+import pl.edu.amu.wmi.web.mapper.ProjectMarketDTOMapper;
+import pl.edu.amu.wmi.web.mapper.ProjectRequestMapper;
+import pl.edu.amu.wmi.web.model.ProjectCreateRequestDto;
+import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
 
 @RestController
 @RequiredArgsConstructor
