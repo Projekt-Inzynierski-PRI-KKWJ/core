@@ -38,7 +38,4 @@ public class ProjectService {
         project.reject();
         return projectDAO.save(project);
     }
-
-
-
 }
