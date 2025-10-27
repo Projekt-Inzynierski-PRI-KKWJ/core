@@ -3,8 +3,10 @@ package pl.edu.amu.wmi.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.dao.ProjectDAO;
+import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.entity.Project;
-import pl.edu.amu.wmi.mapper.ProjectMapper;
+import pl.edu.amu.wmi.entity.StudyYear;
+import pl.edu.amu.wmi.mapper.ProjectMarketProjectMapper;
 import pl.edu.amu.wmi.model.ProjectCreateRequest;
 import pl.edu.amu.wmi.model.SubmitProjectRequest;
 
@@ -13,10 +15,12 @@ import pl.edu.amu.wmi.model.SubmitProjectRequest;
 public class ProjectService {
 
     private final ProjectDAO projectDAO;
-    private final ProjectMapper projectMapper;
+    private final StudyYearDAO studyYearDAO;
+    private final ProjectMarketProjectMapper projectMarketProjectMapper;
 
     public Project createProject(ProjectCreateRequest request) {
-        return projectDAO.save(projectMapper.toEntity(request));
+        StudyYear studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
+        return projectDAO.save(projectMarketProjectMapper.toEntity(request, studyYear));
     }
 
     public Project getProjectById(Long id) {

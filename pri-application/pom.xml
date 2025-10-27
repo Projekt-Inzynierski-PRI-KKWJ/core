@@ -51,6 +51,11 @@
             <artifactId>criteria-project</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>pl.edu.amu.wmi</groupId>
+            <artifactId>project-market</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!--        -->
         <dependency>

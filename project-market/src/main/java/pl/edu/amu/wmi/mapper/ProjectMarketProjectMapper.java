@@ -6,18 +6,19 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import pl.edu.amu.wmi.entity.Project;
-import pl.edu.amu.wmi.entity.ProjectMarket;
+import pl.edu.amu.wmi.entity.StudyYear;
+import pl.edu.amu.wmi.model.ProjectCreateRequest;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ProjectMarketMapper {
+public interface ProjectMarketProjectMapper {
 
-    @Mapping(target = "status", constant = "ACTIVE")
-    @Mapping(target = "project", source = "project")
+    @Mapping(target = "acceptanceStatus", constant = "PENDING")
+    @Mapping(target = "studyYear", source = "year")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "creationDate", ignore = true)
     @Mapping(target = "modificationDate", ignore = true)
     @Mapping(target = "version", ignore = true)
-    ProjectMarket fromProject(Project project);
+    Project toEntity(ProjectCreateRequest projectCreateRequest, StudyYear year);
 }
