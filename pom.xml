@@ -17,6 +17,7 @@
         <module>permission-management</module>
         <module>aggregated-test-report</module>
         <module>criteria-project</module>
+        <module>project-market</module>
     </modules>
 
     <parent>

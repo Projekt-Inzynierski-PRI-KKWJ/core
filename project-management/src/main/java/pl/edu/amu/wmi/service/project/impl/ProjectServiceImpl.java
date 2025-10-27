@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.service.project.impl;
 
+import java.time.LocalTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -335,7 +336,16 @@ public class ProjectServiceImpl implements ProjectService {
     private static String extractDateAndTime(ProjectDefense projectDefense) {
         LocalDate date = projectDefense.getDefenseTimeslot().getDate();
         return date.format(dateTimeFormatter)
-                + " " + projectDefense.getDefenseTimeslot().getStartTime() + " | " + getDayOfWeek(date);
+                + " " + generateRandomLocalTime() + " | " + getDayOfWeek(date);
+    }
+
+    public static LocalTime generateRandomLocalTime() {
+        Random random = new Random();
+        int hour = random.nextInt(24);       // od 0 do 23
+        int minute = random.nextInt(60);     // od 0 do 59
+        int second = random.nextInt(60);     // od 0 do 59
+
+        return LocalTime.of(hour, minute, second);
     }
 
     public static String getDayOfWeek(LocalDate date) {
