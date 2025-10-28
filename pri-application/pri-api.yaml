@@ -1778,7 +1778,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProjectCreateRequestDto'
+              $ref: '#/components/schemas/ProjectCreateRequestDTO'
         required: true
       responses:
         "404":
@@ -4241,6 +4241,7 @@ components:
           - FRONTEND
           - BACKEND
           - FULLSTACK
+          - LEADER
         name:
           type: string
         email:
@@ -4358,7 +4359,7 @@ components:
           type: string
         password:
           type: string
-    ProjectCreateRequestDto:
+    ProjectCreateRequestDTO:
       type: object
       properties:
         name:
@@ -4371,8 +4372,18 @@ components:
             type: string
         studyYear:
           type: string
+        contactData:
+          type: string
+        maxMembers:
+          type: integer
+          format: int32
     ProjectMarketDTO:
       type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
     CriteriaProjectDTO:
       type: object
       properties:
