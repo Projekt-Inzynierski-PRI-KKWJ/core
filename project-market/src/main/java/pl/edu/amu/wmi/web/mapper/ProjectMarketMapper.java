@@ -62,8 +62,7 @@ public abstract class ProjectMarketMapper {
     }
 
     protected List<ProjectMarketUserDataDTO> getCurrentMembers(ProjectMarket projectMarket) {
-        var students = projectMarket.getProject().getAssignedStudents().stream().toList();
-        var members = students.stream().filter(a -> !a.isProjectAdmin()).toList();
+        var members = projectMarket.getProject().getAssignedStudents().stream().toList();
         if (members.isEmpty()) {
             return List.of();
         }
