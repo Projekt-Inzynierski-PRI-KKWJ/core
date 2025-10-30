@@ -13,6 +13,7 @@ import pl.edu.amu.wmi.web.mapper.ProjectMarketMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectRequestMapper;
 import pl.edu.amu.wmi.web.model.ProjectCreateRequestDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
+import pl.edu.amu.wmi.web.model.ProjectMarketDetailsDTO;
 
 @Component
 @RequiredArgsConstructor
@@ -36,5 +37,9 @@ public class ProjectMarketFacade {
 
     public Page<ProjectMarketDTO> getAllActiveProjectMarkets(Pageable pageable) {
         return projectMarketMapper.toProjectMarketDTOList(projectMarketService.listActiveMarkets(pageable));
+    }
+
+    public ProjectMarketDetailsDTO getMarketDetailsById(Long id) {
+        return projectMarketMapper.toProjectMarketDetailsDTO(projectMarketService.getByProjectMarketId(id));
     }
 }

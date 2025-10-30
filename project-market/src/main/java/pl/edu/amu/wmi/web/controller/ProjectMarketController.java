@@ -5,10 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.edu.amu.wmi.exception.BusinessException;
 import pl.edu.amu.wmi.web.ProjectMarketFacade;
 import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
+import pl.edu.amu.wmi.web.model.ProjectMarketDetailsDTO;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,10 +23,18 @@ public class ProjectMarketController {
     @GetMapping
     public ResponseEntity<Page<ProjectMarketDTO>> getAllActiveProjectMarkets(Pageable pageable) {
         try {
-            Page<ProjectMarketDTO> projectMarkets = projectMarketFacade.getAllActiveProjectMarkets(pageable);
-            return ResponseEntity.ok(projectMarkets);
+            return ResponseEntity.ok(projectMarketFacade.getAllActiveProjectMarkets(pageable));
         } catch (Exception e) {
             return ResponseEntity.ok(Page.empty(pageable));
+        }
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ProjectMarketDetailsDTO> getProjectMarketById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(projectMarketFacade.getMarketDetailsById(id));
+        }catch (Exception e) {
+            throw new BusinessException(e.getMessage());
         }
     }
 

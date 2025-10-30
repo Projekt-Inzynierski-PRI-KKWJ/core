@@ -15,6 +15,7 @@ import pl.edu.amu.wmi.entity.StudentProject;
 import pl.edu.amu.wmi.model.PublishProjectMarketRequest;
 import pl.edu.amu.wmi.web.model.ProjectCreateRequestDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
+import pl.edu.amu.wmi.web.model.ProjectMarketDetailsDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketOwnerDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketUserDataDTO;
 
@@ -22,6 +23,8 @@ import pl.edu.amu.wmi.web.model.ProjectMarketUserDataDTO;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class ProjectMarketMapper {
+
+    private static final String AVAILABLE_SLOTS_PATTERN = "%s/%s";
 
     private ProjectMarketUserDataDTOMapper projectMarketUserDataDTOMapper;
 
@@ -35,6 +38,13 @@ public abstract class ProjectMarketMapper {
     @Mapping(target = "technologies", source = "project.technologies")
     @Mapping(target = "ownerDetails", expression = "java(getOwner(projectMarket))")
     @Mapping(target = "currentMembers", expression = "java(getCurrentMembers(projectMarket))")
+    public abstract ProjectMarketDetailsDTO toProjectMarketDetailsDTO(ProjectMarket projectMarket);
+
+
+    @Mapping(target = "projectName", source = "project.name")
+    @Mapping(target = "projectDescription", source = "project.description")
+    @Mapping(target = "ownerDetails", expression = "java(getOwner(projectMarket))")
+    @Mapping(target = "availableSlots", expression = "java(calculateAvailableSlots(projectMarket))")
     public abstract ProjectMarketDTO toProjectMarketDTO(ProjectMarket projectMarket);
 
     public Page<ProjectMarketDTO> toProjectMarketDTOList(Page<ProjectMarket> projectMarkets) {
@@ -62,6 +72,12 @@ public abstract class ProjectMarketMapper {
             .map(Student::getUserData)
             .toList();
         return projectMarketUserDataDTOMapper.mapToProjectMarketUserData(usersData);
+    }
+
+    protected static String calculateAvailableSlots(ProjectMarket projectMarket) {
+        int maxSlots = projectMarket.getMaxMembers();
+        int currentlyEnrolledInProject = projectMarket.getProject().getAssignedStudents().size();
+        return AVAILABLE_SLOTS_PATTERN.formatted(currentlyEnrolledInProject, maxSlots);
     }
 
     @Autowired
