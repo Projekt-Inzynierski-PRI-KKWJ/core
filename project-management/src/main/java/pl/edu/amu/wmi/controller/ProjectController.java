@@ -104,7 +104,7 @@ public class ProjectController {
         return ResponseEntity.ok().build();
     }
 
-    @Secured({"PROJECT_ADMIN", "COORDINATOR"})
+    @Secured({"PROJECT_ADMIN", "COORDINATOR", "SUPERVISOR"})
     @PutMapping("/{id}")
     public ResponseEntity<ProjectDetailsDTO> updateProject(
             @RequestHeader("study-year") String studyYear,
