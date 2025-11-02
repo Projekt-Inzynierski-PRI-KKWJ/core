@@ -1,14 +1,12 @@
 package pl.edu.amu.wmi.service;
 
 import pl.edu.amu.wmi.model.user.CoordinatorDTO;
-import pl.edu.amu.wmi.model.user.UserDTO;
 
 import java.util.List;
 
-public interface UserService {
-
-    UserDTO getUser(String indexNumber, String studyYear);
-
+public interface CoordinatorService {
     CoordinatorDTO initializeCoordinator(CoordinatorDTO coordinatorDTO);
 
+
+    List<CoordinatorDTO> getAllCoordinators();
 }

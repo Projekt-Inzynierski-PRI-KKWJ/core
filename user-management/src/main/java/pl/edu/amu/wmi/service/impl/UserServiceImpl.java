@@ -31,8 +31,6 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     private final SessionDataService sessionDataService;
-
-
     private final UserDataDAO userDataRepository;
     private final RoleDAO roleRepository;
 
