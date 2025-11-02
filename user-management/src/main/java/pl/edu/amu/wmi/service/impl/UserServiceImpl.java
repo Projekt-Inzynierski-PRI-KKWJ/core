@@ -3,15 +3,13 @@ package pl.edu.amu.wmi.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import pl.edu.amu.wmi.dao.StudentDAO;
-import pl.edu.amu.wmi.dao.StudyYearDAO;
-import pl.edu.amu.wmi.dao.SupervisorDAO;
-import pl.edu.amu.wmi.dao.UserDataDAO;
+import pl.edu.amu.wmi.dao.*;
 import pl.edu.amu.wmi.entity.*;
 import pl.edu.amu.wmi.enumerations.AcceptanceStatus;
 import pl.edu.amu.wmi.enumerations.UserRole;
 import pl.edu.amu.wmi.exception.UserManagementException;
 import pl.edu.amu.wmi.mapper.UserMapper;
+import pl.edu.amu.wmi.model.user.CoordinatorDTO;
 import pl.edu.amu.wmi.model.user.UserDTO;
 import pl.edu.amu.wmi.service.SessionDataService;
 import pl.edu.amu.wmi.service.UserService;
@@ -33,7 +31,6 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     private final SessionDataService sessionDataService;
-
 
     public UserServiceImpl(UserDataDAO userDataDAO, StudentDAO studentDAO, SupervisorDAO supervisorDAO, StudyYearDAO studyYearDAO, UserMapper userMapper, SessionDataService sessionDataService) {
         this.userDataDAO = userDataDAO;

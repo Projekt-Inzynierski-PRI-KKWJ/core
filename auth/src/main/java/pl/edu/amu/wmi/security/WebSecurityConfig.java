@@ -82,7 +82,17 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable).exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler)).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(auth -> auth.requestMatchers(antMatcher("/auth/**")).permitAll().requestMatchers(antMatcher("pri/auth/**")).permitAll().requestMatchers(antMatcher("/v3/api-docs**")).permitAll().requestMatchers(antMatcher("pri/v3/api-docs**")).permitAll().anyRequest().authenticated());
+        http.cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/pri/auth/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/pri/v3/api-docs/**").permitAll()
+                        .requestMatchers("/user/initialization/**").permitAll()
+                        .anyRequest().authenticated()).anonymous(Customizer.withDefaults());
 
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

@@ -5,31 +5,31 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="classpath:config/liquibase/database/2023-05-27-create_tables.xml"/>
-    <include file="classpath:config/liquibase/configuration/configuration_studyYear.xml"/>
-    <include file="classpath:config/liquibase/configuration/configuration_externalLinkDefinition.xml"/>
-    <include file="classpath:config/liquibase/configuration/configuration_role.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-01-create_criteria_tables.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-04-create_table_evaluation_card_template.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-05-recreate_criteria_tables.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-06-create_evaluation_card_and_grade_tables.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-11-modify_criteria_group_table.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-12-modify_grade_table.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-15-modify_evaluation_card_table_relations.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-20-add-new-table-session-data.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-20-evaluation_card_modifications.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-23-modify_criteria_section_table.xml"/>
-    <include file="classpath:config/liquibase/database/2023-11-24-modify_evaluation_card_table.xml"/>
-    <include file="classpath:config/liquibase/database/2023-12-01-create_tables_for_defense_schedule_module.xml"/>
-    <include file="classpath:config/liquibase/database/2023-12-09-add_field_is_active_for_defense_schedule_config.xml"/>
-    <include file="classpath:config/liquibase/database/2023-12-17-remove-password-column-from-user-data-table.xml"/>
-    <include file="classpath:config/liquibase/database/2024-01-02-add_is_active_column_to_evaluation_card_table.xml"/>
-    <include file="classpath:config/liquibase/database/2024-01-02-add_table_evaluation_card_freeze_log.xml"/>
-    <include file="classpath:config/liquibase/database/2024-01-09-add_is_active_column_to_project_defense_table.xml"/>
-    <include file="classpath:config/liquibase/database/2024-01-10-add_additional_days_field_to_defense_schedule_config_table.xml"/>
-    <include file="classpath:config/liquibase/database/2025-05-20-added_new_table_criteria_project.xml"/> <!--I got a pain in the ass when trying to add this table :( -->
-    <include file="classpath:config/liquibase/database/2025-06-05-table_criteria_project_change.xml"/>
-    <include file="classpath:config/liquibase/database/2025-06-09-external_link_with_file_support.xml"/>
-    <include file="classpath:config/liquibase/database/2025-06-22-create_external_link_history_table.xml"/>
+    <include file="database/2023-05-27-create_tables.xml" relativeToChangelogFile="true"/>
+    <include file="configuration/configuration_studyYear.xml" relativeToChangelogFile="true"/>
+    <include file="configuration/configuration_externalLinkDefinition.xml" relativeToChangelogFile="true"/>
+    <include file="configuration/configuration_role.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-01-create_criteria_tables.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-04-create_table_evaluation_card_template.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-05-recreate_criteria_tables.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-06-create_evaluation_card_and_grade_tables.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-11-modify_criteria_group_table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-12-modify_grade_table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-15-modify_evaluation_card_table_relations.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-20-add-new-table-session-data.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-20-evaluation_card_modifications.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-23-modify_criteria_section_table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-11-24-modify_evaluation_card_table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-12-01-create_tables_for_defense_schedule_module.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-12-09-add_field_is_active_for_defense_schedule_config.xml" relativeToChangelogFile="true"/>
+    <include file="database/2023-12-17-remove-password-column-from-user-data-table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2024-01-02-add_is_active_column_to_evaluation_card_table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2024-01-02-add_table_evaluation_card_freeze_log.xml" relativeToChangelogFile="true"/>
+    <include file="database/2024-01-09-add_is_active_column_to_project_defense_table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2024-01-10-add_additional_days_field_to_defense_schedule_config_table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-05-20-added_new_table_criteria_project.xml" relativeToChangelogFile="true"/> <!--I got a pain in the ass when trying to add this table :( -->
+    <include file="database/2025-06-05-table_criteria_project_change.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-06-09-external_link_with_file_support.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-06-22-create_external_link_history_table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

@@ -8,16 +8,41 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.amu.wmi.model.enumeration.DataFeedType;
+import pl.edu.amu.wmi.service.DataFeedReset;
 import pl.edu.amu.wmi.service.exportdata.DataFeedExportService;
 import pl.edu.amu.wmi.service.exportdata.impl.DataFeedExportServiceFactory;
 import pl.edu.amu.wmi.service.importdata.DataFeedImportService;
 import pl.edu.amu.wmi.service.importdata.impl.DataFeedImportServiceFactory;
+
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
 @RequestMapping("/data")
 @Slf4j
 public class DataFeedController {
+
+    private  final DataFeedReset resetService;
+
+    public DataFeedController(DataFeedReset resetService)
+    {
+        this.resetService=resetService;
+    }
+
+
+    @Secured({"COORDINATOR"})
+    @DeleteMapping("/reset")
+    public ResponseEntity<Map<String, String>> resetDataFeed() {
+        try {
+            resetService.resetDatabase();
+            return ResponseEntity.ok(Map.of("message", "Database reset successfully"));
+        } catch (Exception e) {
+            log.error("Failed to reset database", e);
+            return ResponseEntity.status(500).body(Map.of("error", "Database reset failed: " + e.getMessage()));
+        }
+    }
+
     @PostMapping(value = "/import/student", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> createStudents(@RequestHeader("study-year") String studyYear,
                                                @RequestHeader("index-number") String userIndexNumber, @RequestParam MultipartFile data) throws Exception {
