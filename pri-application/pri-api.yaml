@@ -30,6 +30,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -44,12 +50,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -78,6 +78,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -92,12 +98,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -128,6 +128,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -142,12 +148,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -172,6 +172,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -186,12 +192,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -216,6 +216,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -230,12 +236,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -277,6 +277,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -291,12 +297,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -325,6 +325,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -339,12 +345,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -382,6 +382,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -396,12 +402,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -430,6 +430,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -444,12 +450,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -489,6 +489,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -503,12 +509,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -539,6 +539,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -553,12 +559,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -593,6 +593,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -607,12 +613,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -647,6 +647,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -661,12 +667,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -701,6 +701,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -715,12 +721,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -760,6 +760,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -774,12 +780,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -808,6 +808,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -822,12 +828,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -852,6 +852,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -866,12 +872,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -909,6 +909,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -923,12 +929,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -959,6 +959,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -973,12 +979,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1003,6 +1003,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1017,12 +1023,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1047,6 +1047,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1061,12 +1067,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1102,6 +1102,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1116,12 +1122,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1150,6 +1150,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1164,12 +1170,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1205,6 +1205,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1219,12 +1225,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1253,6 +1253,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1267,12 +1273,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1307,6 +1307,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1321,12 +1327,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1351,6 +1351,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1365,12 +1371,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1406,6 +1406,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1420,12 +1426,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1472,6 +1472,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1486,12 +1492,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1538,6 +1538,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1552,12 +1558,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1598,6 +1598,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1612,12 +1618,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1653,6 +1653,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1667,12 +1673,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1691,6 +1691,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1705,12 +1711,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1739,6 +1739,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1757,19 +1763,13 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "200":
           description: OK
           content:
             '*/*':
               schema:
                 type: object
-  /api/project-markets/project:
+  /api/project-market/project:
     post:
       tags:
       - project-data-controller
@@ -1787,6 +1787,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1805,18 +1811,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
         "200":
           description: OK
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ProjectMarketDTO'
   /api/criteria-projects:
     get:
       tags:
@@ -1829,6 +1825,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1843,12 +1845,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1880,6 +1876,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1894,12 +1896,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1930,6 +1926,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1944,12 +1946,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -1978,6 +1974,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -1992,12 +1994,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2035,6 +2031,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2049,12 +2051,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2097,6 +2093,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2111,12 +2113,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2147,6 +2143,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2161,12 +2163,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2195,6 +2191,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2209,12 +2211,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2254,6 +2250,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2268,12 +2270,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2309,6 +2305,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2323,12 +2325,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2363,6 +2359,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2377,12 +2379,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2422,6 +2418,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2436,12 +2438,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2477,6 +2473,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2491,12 +2493,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2528,6 +2524,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2542,12 +2544,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2579,6 +2575,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2593,12 +2595,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2630,6 +2626,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2644,12 +2646,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2674,6 +2670,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2688,12 +2690,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2716,6 +2712,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2730,12 +2732,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2765,6 +2761,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2779,12 +2781,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2809,6 +2805,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2823,12 +2825,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2859,6 +2855,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2873,12 +2875,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2907,6 +2903,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2921,12 +2923,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -2964,6 +2960,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -2978,12 +2980,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3054,6 +3050,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3068,12 +3070,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3104,6 +3100,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3118,12 +3120,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3157,6 +3153,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3171,12 +3173,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3207,6 +3203,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3221,12 +3223,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3257,6 +3253,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3271,12 +3273,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3313,6 +3309,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3327,12 +3329,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3357,6 +3353,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3371,12 +3373,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3407,6 +3403,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3421,12 +3423,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3455,6 +3451,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3469,12 +3471,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3499,6 +3495,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3513,12 +3515,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3543,6 +3539,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3557,12 +3559,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3581,6 +3577,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3599,8 +3601,50 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/project-market/market:
+    get:
+      tags:
+      - project-market-controller
+      operationId: getAllActiveProjectMarkets
+      parameters:
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Pageable'
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "400":
           description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "409":
+          description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
           content:
             '*/*':
               schema:
@@ -3610,7 +3654,109 @@ paths:
           content:
             '*/*':
               schema:
-                type: object
+                $ref: '#/components/schemas/PageProjectMarketDTO'
+  /api/project-market/market/{id}:
+    get:
+      tags:
+      - project-market-controller
+      operationId: getProjectMarketById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "409":
+          description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectMarketDetailsDTO'
+  /api/project-market/market/search:
+    get:
+      tags:
+      - project-market-controller
+      operationId: searchByName
+      parameters:
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/Pageable'
+      responses:
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "409":
+          description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PageProjectMarketDTO'
   /api/criteria-projects/{id}:
     get:
       tags:
@@ -3630,6 +3776,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3644,12 +3796,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3678,6 +3824,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3692,12 +3844,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3740,6 +3886,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3754,12 +3906,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3791,6 +3937,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3805,12 +3957,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3835,6 +3981,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3849,12 +4001,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -3890,6 +4036,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
         "409":
           description: Conflict
           content:
@@ -3904,12 +4056,6 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "403":
           description: Forbidden
-          content:
-            '*/*':
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-        "400":
-          description: Bad Request
           content:
             '*/*':
               schema:
@@ -4377,13 +4523,6 @@ components:
         maxMembers:
           type: integer
           format: int32
-    ProjectMarketDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        status:
-          type: string
     CriteriaProjectDTO:
       type: object
       properties:
@@ -4652,6 +4791,142 @@ components:
           format: int32
         available:
           type: boolean
+    Pageable:
+      type: object
+      properties:
+        page:
+          minimum: 0
+          type: integer
+          format: int32
+        size:
+          minimum: 1
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            type: string
+    PageProjectMarketDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectMarketDTO'
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+    ProjectMarketDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        projectName:
+          type: string
+        projectDescription:
+          type: string
+        ownerDetails:
+          $ref: '#/components/schemas/ProjectMarketOwnerDTO'
+        availableSlots:
+          type: string
+    ProjectMarketOwnerDTO:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        unsorted:
+          type: boolean
+        sorted:
+          type: boolean
+    ProjectMarketDetailsDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        projectName:
+          type: string
+        projectDescription:
+          type: string
+        technologies:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        ownerDetails:
+          $ref: '#/components/schemas/ProjectMarketOwnerDTO'
+        maxMembers:
+          type: integer
+          format: int32
+        contactData:
+          type: string
+        currentMembers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectMarketUserDataDTO'
+        creationDate:
+          type: string
+        modificationDate:
+          type: string
+    ProjectMarketUserDataDTO:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
     CriteriaProject:
       type: object
       properties:

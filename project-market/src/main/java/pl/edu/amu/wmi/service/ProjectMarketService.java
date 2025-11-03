@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.service;
 
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,8 +26,8 @@ public class ProjectMarketService {
         return projectMarketDAO.findByStatus(ProjectMarketStatus.ACTIVE, pageable);
     }
 
-    public List<ProjectMarket> searchActiveMarketsByName(String name) {
-        return projectMarketDAO.findByProject_NameContainingIgnoreCaseAndStatus(name, ProjectMarketStatus.ACTIVE);
+    public Page<ProjectMarket> searchActiveMarketsByNamePattern(String name, Pageable pageable) {
+        return projectMarketDAO.findByProject_NameContainingIgnoreCaseAndStatus(name, ProjectMarketStatus.ACTIVE, pageable);
     }
 
     public ProjectMarket getByProjectMarketId(Long id) {

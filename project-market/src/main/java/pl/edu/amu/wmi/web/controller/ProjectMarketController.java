@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.amu.wmi.exception.BusinessException;
 import pl.edu.amu.wmi.web.ProjectMarketFacade;
@@ -33,6 +34,15 @@ public class ProjectMarketController {
     public ResponseEntity<ProjectMarketDetailsDTO> getProjectMarketById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(projectMarketFacade.getMarketDetailsById(id));
+        }catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<ProjectMarketDTO>> searchByName(@RequestParam String name, Pageable pageable) {
+        try {
+            return ResponseEntity.ok(projectMarketFacade.searchProjectMarketsByNamePattern(name, pageable));
         }catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
