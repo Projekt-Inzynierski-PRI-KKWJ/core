@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.dao;
 
-import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +13,7 @@ public interface ProjectMarketDAO extends JpaRepository<ProjectMarket, Long> {
 
     Page<ProjectMarket> findByStatus(ProjectMarketStatus status, Pageable pageable);
 
-    List<ProjectMarket> findByProject_NameContainingIgnoreCaseAndStatus(String name, ProjectMarketStatus status);
+    Page<ProjectMarket> findByProject_NameContainingIgnoreCaseAndStatus(String name, ProjectMarketStatus status, Pageable pageable);
 
     Optional<ProjectMarket> findByProject_Id(Long projectId);
 }
