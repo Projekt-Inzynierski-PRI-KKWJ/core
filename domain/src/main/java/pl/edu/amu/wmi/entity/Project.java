@@ -65,7 +65,19 @@ public class Project extends AbstractEntity {
         studentProject.setProjectRole(projectRole);
         studentProject.setProjectAdmin(isProjectAdmin);
         assignedStudents.add(studentProject);
-//        student.getAssignedProjects().add(studentProject);
+    }
+
+    public void submit(Supervisor supervisor) {
+        this.supervisor = supervisor;
+        this.acceptanceStatus = AcceptanceStatus.PENDING;
+    }
+
+    public void accept() {
+        this.acceptanceStatus = AcceptanceStatus.ACCEPTED;
+    }
+
+    public void reject() {
+        this.acceptanceStatus = AcceptanceStatus.REJECTED;
     }
 
     public void removeStudentProject(Set<StudentProject> studentProjectSet) {
