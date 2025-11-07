@@ -33,7 +33,13 @@ public class ProjectApplication extends AbstractEntity {
     private ProjectApplicationStatus status;
 
     @Column(length = 2000)
-    private String message;
+    private String contactData;
+
+    @Column(length = 2000)
+    private String skills;
+
+    @Column(length = 2000)
+    private String otherInformation;
 
     private LocalDateTime decisionDate;
 

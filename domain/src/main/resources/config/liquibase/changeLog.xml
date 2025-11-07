@@ -34,4 +34,5 @@
     <include file="database/2025-10-27-create_project_market_db_structures.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-10-28-add_owner_and_additional_data_to_project_market.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-10-28-remove_owner_from_project_market.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-11-07-add_new_columns_to_project_application.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -24,8 +24,8 @@ paths:
               $ref: '#/components/schemas/ActualStudyYearDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -36,8 +36,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -72,8 +72,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -84,8 +84,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -122,8 +122,8 @@ paths:
               $ref: '#/components/schemas/DefenseScheduleModificationDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -134,8 +134,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -166,8 +166,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -178,8 +178,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -210,8 +210,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -222,8 +222,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -271,8 +271,8 @@ paths:
                 $ref: '#/components/schemas/SupervisorDefenseAssignmentDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -283,8 +283,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -319,8 +319,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -331,8 +331,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -376,8 +376,8 @@ paths:
               $ref: '#/components/schemas/ChairpersonAssignmentDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -388,8 +388,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -424,8 +424,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -436,8 +436,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -483,8 +483,8 @@ paths:
                 $ref: '#/components/schemas/SupervisorDefenseAssignmentDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -495,8 +495,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -533,8 +533,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -545,8 +545,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -587,8 +587,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -599,8 +599,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -641,8 +641,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -653,8 +653,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -695,8 +695,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -707,8 +707,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -754,8 +754,8 @@ paths:
               $ref: '#/components/schemas/ProjectDetailsDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -766,8 +766,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -802,8 +802,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -814,8 +814,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -846,8 +846,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -858,8 +858,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -903,8 +903,8 @@ paths:
                 $ref: '#/components/schemas/SupervisorAvailabilityDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -915,8 +915,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -953,8 +953,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -965,8 +965,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -997,8 +997,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1009,8 +1009,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1041,8 +1041,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1053,8 +1053,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1096,8 +1096,8 @@ paths:
               $ref: '#/components/schemas/SupervisorCreationRequestDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1108,8 +1108,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1144,8 +1144,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1156,8 +1156,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1199,8 +1199,8 @@ paths:
               $ref: '#/components/schemas/StudentCreationRequestDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1211,8 +1211,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1247,8 +1247,8 @@ paths:
               $ref: '#/components/schemas/CoordinatorDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1259,8 +1259,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1301,8 +1301,8 @@ paths:
               $ref: '#/components/schemas/DefenseScheduleConfigDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1313,8 +1313,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1345,8 +1345,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1357,8 +1357,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1400,8 +1400,8 @@ paths:
               $ref: '#/components/schemas/ProjectDetailsDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1412,8 +1412,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1466,8 +1466,8 @@ paths:
                   type: string
                   format: binary
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1478,8 +1478,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1532,8 +1532,8 @@ paths:
                   type: string
                   format: binary
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1544,8 +1544,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1592,8 +1592,8 @@ paths:
                   type: string
                   format: binary
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1604,8 +1604,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1647,8 +1647,8 @@ paths:
                   type: string
                   format: binary
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1659,8 +1659,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1685,8 +1685,8 @@ paths:
       - auth-controller
       operationId: refresh
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1697,8 +1697,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1733,8 +1733,8 @@ paths:
               $ref: '#/components/schemas/LoginRequest'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1745,8 +1745,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1781,8 +1781,8 @@ paths:
               $ref: '#/components/schemas/ProjectCreateRequestDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1793,8 +1793,59 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "200":
+          description: OK
+  /api/project-market/application/{marketId}/apply:
+    post:
+      tags:
+      - application-market-controller
+      operationId: applyToProject
+      parameters:
+      - name: marketId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyToProjectRequestDTO'
+        required: true
+      responses:
         "409":
           description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1819,8 +1870,8 @@ paths:
       - criteria-project-controller
       operationId: getAll
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1831,8 +1882,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1870,8 +1921,8 @@ paths:
                 $ref: '#/components/schemas/CriteriaProjectDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1882,8 +1933,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1920,8 +1971,8 @@ paths:
               $ref: '#/components/schemas/CriteriaProjectDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1932,8 +1983,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -1968,8 +2019,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -1980,8 +2031,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2025,8 +2076,8 @@ paths:
                 $ref: '#/components/schemas/ProjectDefenseDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2037,8 +2088,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2087,8 +2138,8 @@ paths:
               $ref: '#/components/schemas/ProjectDefensePatchDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2099,8 +2150,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2137,8 +2188,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2149,8 +2200,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2185,8 +2236,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2197,8 +2248,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2244,8 +2295,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2256,8 +2307,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2299,8 +2350,8 @@ paths:
               $ref: '#/components/schemas/SingleGroupGradeUpdateDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2311,8 +2362,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2353,8 +2404,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2365,8 +2416,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2412,8 +2463,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2424,8 +2475,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2467,8 +2518,8 @@ paths:
               $ref: '#/components/schemas/UpdateLevelDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2479,8 +2530,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2518,8 +2569,8 @@ paths:
               $ref: '#/components/schemas/UpdateEnableDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2530,8 +2581,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2569,8 +2620,8 @@ paths:
               $ref: '#/components/schemas/UpdateCommentDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2581,8 +2632,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2620,8 +2671,8 @@ paths:
               $ref: '#/components/schemas/UpdateCommentAndLevelDTO'
         required: true
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2632,8 +2683,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2664,8 +2715,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2676,8 +2727,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2706,8 +2757,8 @@ paths:
       - user-controller
       operationId: getUsersCount
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2718,8 +2769,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2755,8 +2806,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2767,8 +2818,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2799,8 +2850,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2811,8 +2862,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2849,8 +2900,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2861,8 +2912,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2897,8 +2948,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2909,8 +2960,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -2954,8 +3005,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -2966,8 +3017,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3044,8 +3095,8 @@ paths:
         schema:
           type: boolean
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3056,8 +3107,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3094,8 +3145,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3106,8 +3157,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3147,8 +3198,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3159,8 +3210,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3197,8 +3248,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3209,8 +3260,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3247,8 +3298,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3259,8 +3310,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3303,8 +3354,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3315,8 +3366,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3347,8 +3398,8 @@ paths:
       - data-export-controller
       operationId: getAvailableStudyYears
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3359,8 +3410,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3397,8 +3448,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3409,8 +3460,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3445,8 +3496,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3457,8 +3508,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3489,8 +3540,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3501,8 +3552,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3533,8 +3584,8 @@ paths:
         schema:
           type: string
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3545,8 +3596,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3571,8 +3622,8 @@ paths:
       - auth-controller
       operationId: logoutUser
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3583,8 +3634,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3607,6 +3658,55 @@ paths:
             '*/*':
               schema:
                 type: object
+  /api/project-market/student/{projectMarketId}/members:
+    get:
+      tags:
+      - student-market-controller
+      operationId: getProjectMembers
+      parameters:
+      - name: projectMarketId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "409":
+          description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProjectMembersDTO'
   /api/project-market/market:
     get:
       tags:
@@ -3619,8 +3719,8 @@ paths:
         schema:
           $ref: '#/components/schemas/Pageable'
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3631,8 +3731,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3668,8 +3768,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3680,8 +3780,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3721,8 +3821,8 @@ paths:
         schema:
           $ref: '#/components/schemas/Pageable'
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3733,8 +3833,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3770,8 +3870,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3782,8 +3882,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3818,8 +3918,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3830,8 +3930,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3880,8 +3980,8 @@ paths:
           - EXPECTED
           - MEASURABLE_IMPLEMENTATION_INDICATORS
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3892,8 +3992,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3931,8 +4031,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3943,8 +4043,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -3975,8 +4075,8 @@ paths:
       - criteria-project-controller
       operationId: ping
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -3987,8 +4087,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -4030,8 +4130,8 @@ paths:
           type: integer
           format: int64
       responses:
-        "404":
-          description: Not Found
+        "409":
+          description: Conflict
           content:
             '*/*':
               schema:
@@ -4042,8 +4142,8 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
-        "409":
-          description: Conflict
+        "404":
+          description: Not Found
           content:
             '*/*':
               schema:
@@ -4062,6 +4162,50 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "200":
           description: OK
+  /data/reset:
+    delete:
+      tags:
+      - data-feed-controller
+      operationId: resetDataFeed
+      responses:
+        "409":
+          description: Conflict
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
 components:
   schemas:
     ErrorInfo:
@@ -4523,6 +4667,15 @@ components:
         maxMembers:
           type: integer
           format: int32
+    ApplyToProjectRequestDTO:
+      type: object
+      properties:
+        contactData:
+          type: string
+        skills:
+          type: string
+        otherInformation:
+          type: string
     CriteriaProjectDTO:
       type: object
       properties:
@@ -4791,6 +4944,26 @@ components:
           format: int32
         available:
           type: boolean
+    ProjectMemberDTO:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+    ProjectMembersDTO:
+      type: object
+      properties:
+        availableSlots:
+          type: integer
+          format: int32
+        totalSlots:
+          type: integer
+          format: int32
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectMemberDTO'
     Pageable:
       type: object
       properties:
@@ -4809,16 +4982,21 @@ components:
     PageProjectMarketDTO:
       type: object
       properties:
+        totalPages:
+          type: integer
+          format: int32
         totalElements:
           type: integer
           format: int64
-        totalPages:
+        numberOfElements:
           type: integer
           format: int32
         first:
           type: boolean
         last:
           type: boolean
+        pageable:
+          $ref: '#/components/schemas/PageableObject'
         size:
           type: integer
           format: int32
@@ -4831,31 +5009,26 @@ components:
           format: int32
         sort:
           $ref: '#/components/schemas/SortObject'
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/PageableObject'
         empty:
           type: boolean
     PageableObject:
       type: object
       properties:
-        offset:
-          type: integer
-          format: int64
-        sort:
-          $ref: '#/components/schemas/SortObject'
-        paged:
-          type: boolean
-        unpaged:
-          type: boolean
         pageNumber:
           type: integer
           format: int32
         pageSize:
           type: integer
           format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/SortObject'
     ProjectMarketDTO:
       type: object
       properties:
@@ -4882,11 +5055,11 @@ components:
     SortObject:
       type: object
       properties:
-        empty:
+        sorted:
           type: boolean
         unsorted:
           type: boolean
-        sorted:
+        empty:
           type: boolean
     ProjectMarketDetailsDTO:
       type: object

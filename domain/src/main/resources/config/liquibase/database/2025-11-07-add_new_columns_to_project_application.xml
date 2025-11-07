@@ -1,0 +1,27 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                                       http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd
+                                       http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="add-new-columns-to-project-application" author="developer">
+        <dropColumn tableName="project_application">
+            <column name="message" type="VARCHAR(2000)"/>
+        </dropColumn>
+
+        <addColumn tableName="project_application">
+            <column name="contact_data" type="VARCHAR(2000)"/>
+        </addColumn>
+
+        <addColumn tableName="project_application">
+            <column name="skills" type="VARCHAR(2000)"/>
+        </addColumn>
+
+        <addColumn tableName="project_application">
+            <column name="other_information" type="VARCHAR(2000)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
