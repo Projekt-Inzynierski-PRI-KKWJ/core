@@ -21,7 +21,7 @@ public class NotificationController {
     private final NotificationService notificationService;
 
     @GetMapping("/receiver-data/{eMailTemplate}")
-    public ResponseEntity<List<EmailNotificationDataDTO>> getReceiverData(@RequestHeader("study-year") String studyYear,
+    public ResponseEntity<EmailNotificationDataDTO> getReceiverData(@RequestHeader("study-year") String studyYear,
                                                                           @PathVariable String eMailTemplate) {
         return ResponseEntity.ok(notificationService.getReceiverData(studyYear, EMailTemplate.valueOf(eMailTemplate)));
     }
