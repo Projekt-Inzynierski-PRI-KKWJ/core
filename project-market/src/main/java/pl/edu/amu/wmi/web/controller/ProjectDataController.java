@@ -17,9 +17,8 @@ public class ProjectDataController {
 
     @PostMapping
     public ResponseEntity<Void> createProjectAndPublishOnMarket(@Valid @RequestBody ProjectCreateRequestDTO request) {
-        //UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
-            projectMarketFacade.createMarket(request, "s485953");
+            projectMarketFacade.createMarket(request);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());

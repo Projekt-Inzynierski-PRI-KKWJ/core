@@ -5,9 +5,11 @@ import pl.edu.amu.wmi.entity.ProjectMarket;
 import pl.edu.amu.wmi.entity.Student;
 
 @Data
-public class ProjectApplicationRequest {
+public class ApplyToProjectRequest {
 
-    private String message;
     private ProjectMarket projectMarket;
     private Student student;
+    private String contactData;
+    private String skills;
+    private String otherInformation;
 }

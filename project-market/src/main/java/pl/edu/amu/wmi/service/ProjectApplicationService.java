@@ -5,23 +5,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.dao.ProjectApplicationDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
-import pl.edu.amu.wmi.mapper.ProjectApplicationMapper;
-import pl.edu.amu.wmi.model.ProjectApplicationRequest;
+import pl.edu.amu.wmi.mapper.ProjectApplicationEntityMapper;
+import pl.edu.amu.wmi.model.ApplyToProjectRequest;
 
 @Service
 @RequiredArgsConstructor
 public class ProjectApplicationService {
 
     private final ProjectApplicationDAO projectApplicationDAO;
-    private final ProjectApplicationMapper projectApplicationMapper;
+    private final ProjectApplicationEntityMapper projectApplicationEntityMapper;
 
-    public ProjectApplication applyToMarket(ProjectApplicationRequest request) {
+    public void applyToMarket(ApplyToProjectRequest request) {
         var exists = projectApplicationDAO.existsByStudent_IdAndProjectMarket_Id(request.getStudent().getId(),
             request.getProjectMarket().getId());
         if (exists) {
             throw new IllegalStateException("Student already applied to this project");
         }
-        return projectApplicationDAO.save(projectApplicationMapper.toEntity(request));
+        projectApplicationDAO.save(projectApplicationEntityMapper.toEntity(request));
     }
 
     public List<ProjectApplication> getApplicationForMarket(Long projectMarketId) {
