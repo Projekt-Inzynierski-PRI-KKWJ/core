@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.web;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,14 +10,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
+import pl.edu.amu.wmi.entity.Student;
+import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
 import pl.edu.amu.wmi.service.ProjectMarketService;
 import pl.edu.amu.wmi.service.ProjectService;
 import pl.edu.amu.wmi.web.mapper.ApplyToProjectRequestMapper;
+import pl.edu.amu.wmi.web.mapper.ProjectApplicationMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectMarketMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectMemberMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectRequestMapper;
 import pl.edu.amu.wmi.web.model.ApplyToProjectRequestDTO;
+import pl.edu.amu.wmi.web.model.ProjectApplicationDTO;
 import pl.edu.amu.wmi.web.model.ProjectCreateRequestDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDetailsDTO;
@@ -35,6 +40,7 @@ public class ProjectMarketFacade {
     private final ProjectMarketMapper projectMarketMapper;
     private final ProjectMemberMapper projectMemberMapper;
     private final ApplyToProjectRequestMapper applyToProjectRequestMapper;
+    private final ProjectApplicationMapper projectApplicationMapper;
 
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
@@ -65,10 +71,27 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void applyToProject(Long marketId, ApplyToProjectRequestDTO request) {
-        String indexNumber = "s485954";
+        String indexNumber = "s485940";
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         projectApplicationService.applyToMarket(applyToProjectRequestMapper.fromDTO(request, student, projectMarket));
+    }
+
+    public List<ProjectApplicationDTO> getProjectApplicationByMarketId(Long marketId) {
+        if (isCurrentUserOwnerOfProject(marketId)) {
+            var projectApplication = projectApplicationService.getApplicationForMarket(ProjectApplicationStatus.PENDING, marketId);
+            return projectApplicationMapper.map(projectApplication);
+        }
+        throw new IllegalStateException("You are not allowed to perform this operation");
+    }
+
+    private boolean isCurrentUserOwnerOfProject(Long marketId) {
+        var indexNumber = "s485953";
+        var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        var projectMarket = projectMarketService.getByProjectMarketId(marketId);
+        var owner = projectMarket.getProjectLeader();
+
+        return owner != null && owner.getStudent().equals(student);
     }
 
     //TODO use it when all will be ready

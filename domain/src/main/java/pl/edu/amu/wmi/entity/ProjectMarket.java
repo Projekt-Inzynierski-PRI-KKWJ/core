@@ -80,6 +80,11 @@ public class ProjectMarket extends AbstractEntity {
         return leader.map(studentProject -> studentProject.getStudent().getUserData()).orElse(null);
     }
 
+    public StudentProject getProjectLeader() {
+        var students = this.getProject().getAssignedStudents().stream().toList();
+        return students.stream().filter(StudentProject::isProjectAdmin).findFirst().orElse(null);
+    }
+
     public Integer getCurrentMembersCount() {
         return getMembers().size();
     }
