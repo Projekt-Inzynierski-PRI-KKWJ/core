@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.edu.amu.wmi.dao.ProjectApplicationDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
