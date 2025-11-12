@@ -22,6 +22,7 @@ public class UserData extends AbstractEntity {
     /**
      * index number is a username to log into the system (using ldap)
      */
+    @Column(unique = true, nullable = false)//Fof changing ID on index in criteria
     private String indexNumber;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
@@ -31,5 +32,6 @@ public class UserData extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
     )
     private Set<Role> roles = new HashSet<>();
+
 
 }

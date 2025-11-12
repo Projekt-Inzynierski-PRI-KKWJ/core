@@ -65,7 +65,7 @@ public class CriteriaProjectService {
 
         CriteriaProject entity = new CriteriaProject();
         entity.setCriterium(dto.getCriterium());
-        entity.setUserThatAddedTheCriterium(userDataRepository.findById(dto.getUserId()).orElseThrow());
+        entity.setUserThatAddedTheCriterium(userDataRepository.findByIndexNumber(dto.getIndex()).orElseThrow());
         entity.setLevelOfRealization(dto.getLevelOfRealization());
         entity.setSemester(dto.getSemester());
         entity.setType(dto.getType());
