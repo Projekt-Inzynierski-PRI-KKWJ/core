@@ -55,6 +55,7 @@ public class ProjectApplication extends AbstractEntity {
         if (ProjectApplicationStatus.REJECTED != this.status) {
             this.status = ProjectApplicationStatus.REJECTED;
             setModificationDate(LocalDateTime.now());
+            setDecisionDate(LocalDateTime.now());
         }
     }
 }

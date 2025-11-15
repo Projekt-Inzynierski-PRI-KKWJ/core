@@ -50,4 +50,14 @@ public class ApplicationMarketController {
             throw new BusinessException(ex.getMessage());
         }
     }
+
+    @PatchMapping("/{id}/reject")
+    public ResponseEntity<Void> rejectApplication(@PathVariable Long id) {
+        try {
+            projectMarketFacade.rejectCandidate(id);
+            return ResponseEntity.ok().build();
+        }catch (Exception ex) {
+            throw new BusinessException(ex.getMessage());
+        }
+    }
 }
