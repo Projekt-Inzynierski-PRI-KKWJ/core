@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
+import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectRole;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
@@ -44,6 +45,7 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
+        //add getIndexNumberFromContext
         var indexNumber = "s485953";
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
@@ -71,6 +73,7 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void applyToProject(Long marketId, ApplyToProjectRequestDTO request) {
+        //add getIndexNumberFromContext
         String indexNumber = "s485940";
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
@@ -87,17 +90,12 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void approveCandidate(Long applicationId) {
-        var application = projectApplicationService.findProjectApplicationById(applicationId)
-            .orElseThrow(() -> new IllegalStateException("Application with id " + applicationId + " not found"));
-
-        if(ProjectApplicationStatus.PENDING != application.getStatus()) {
-            throw new IllegalStateException("Application should be in PENDING state");
-        }
+        var application = checkAndGetProjectApplicationWithPendingStatus(applicationId);
 
         //add student to project
         var student = application.getStudent();
         var projectMarket = application.getProjectMarket();
-        var project =  projectMarket.getProject();
+        var project = projectMarket.getProject();
 
         project.addStudent(student, ProjectRole.NONE, false);
         studentDAO.save(student);
@@ -106,7 +104,25 @@ public class ProjectMarketFacade {
         projectApplicationService.accept(application);
     }
 
+    public void rejectCandidate(Long applicationId) {
+        var application = checkAndGetProjectApplicationWithPendingStatus(applicationId);
+
+        projectApplicationService.reject(application);
+    }
+
+    private ProjectApplication checkAndGetProjectApplicationWithPendingStatus(Long applicationId) {
+        //add checking if current logged user is an owner of project and can apply or reject application
+        var application = projectApplicationService.findProjectApplicationById(applicationId)
+            .orElseThrow(() -> new IllegalStateException("Application with id " + applicationId + " not found"));
+
+        if (ProjectApplicationStatus.PENDING != application.getStatus()) {
+            throw new IllegalStateException("Application should be in PENDING state");
+        }
+        return application;
+    }
+
     private boolean isCurrentUserOwnerOfProject(Long marketId) {
+        //add getIndexNumberFromContext
         var indexNumber = "s485953";
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
