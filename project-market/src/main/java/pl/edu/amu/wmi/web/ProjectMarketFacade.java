@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
+import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectRole;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
@@ -27,6 +28,7 @@ import pl.edu.amu.wmi.web.model.ProjectCreateRequestDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDetailsDTO;
 import pl.edu.amu.wmi.web.model.ProjectMembersDTO;
+import pl.edu.amu.wmi.web.model.StudentProjectApplicationDTO;
 
 @Component
 @RequiredArgsConstructor
@@ -83,7 +85,7 @@ public class ProjectMarketFacade {
     public List<ProjectApplicationDTO> getProjectApplicationByMarketId(Long marketId) {
         if (isCurrentUserOwnerOfProject(marketId)) {
             var projectApplication = projectApplicationService.getApplicationForMarket(ProjectApplicationStatus.PENDING, marketId);
-            return projectApplicationMapper.map(projectApplication);
+            return projectApplicationMapper.mapToProjectApplicationDTO(projectApplication);
         }
         throw new IllegalStateException("You are not allowed to perform this operation");
     }
@@ -110,8 +112,16 @@ public class ProjectMarketFacade {
         projectApplicationService.reject(application);
     }
 
+    public List<StudentProjectApplicationDTO> getApplicationsForStudent() {
+        var applications = projectApplicationService.getApplicationForStudent(getStudentFromContext());
+        return projectApplicationMapper.mapToStudentProjectApplicationDTO(applications);
+    }
+
+
     private ProjectApplication checkAndGetProjectApplicationWithPendingStatus(Long applicationId) {
-        //add checking if current logged user is an owner of project and can apply or reject application
+        if (!isCurrentUserOwnerOfProject(applicationId)) {
+            throw new IllegalStateException("You are not allowed to perform this operation");
+        }
         var application = projectApplicationService.findProjectApplicationById(applicationId)
             .orElseThrow(() -> new IllegalStateException("Application with id " + applicationId + " not found"));
 
@@ -129,6 +139,12 @@ public class ProjectMarketFacade {
         var owner = projectMarket.getProjectLeader();
 
         return owner != null && owner.getStudent().equals(student);
+    }
+
+    private Student getStudentFromContext() {
+        //add getIndexNumberFromContext
+        var indexNumber = "s485940";
+        return studentDAO.findByUserData_IndexNumber(indexNumber);
     }
 
     //TODO use it when all will be ready

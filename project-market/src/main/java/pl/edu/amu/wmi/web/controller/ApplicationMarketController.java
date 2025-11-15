@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.amu.wmi.exception.BusinessException;
 import pl.edu.amu.wmi.web.ProjectMarketFacade;
 import pl.edu.amu.wmi.web.model.ProjectApplicationDTO;
 import pl.edu.amu.wmi.web.model.ApplyToProjectRequestDTO;
+import pl.edu.amu.wmi.web.model.StudentProjectApplicationDTO;
 
 @RestController
 @RequiredArgsConstructor
@@ -60,4 +62,15 @@ public class ApplicationMarketController {
             throw new BusinessException(ex.getMessage());
         }
     }
+
+    @GetMapping("/student")
+    public ResponseEntity<List<StudentProjectApplicationDTO>> getApplicationsForStudent() {
+        try {
+            var applications = projectMarketFacade.getApplicationsForStudent();
+            return ResponseEntity.ok(applications);
+        }catch (Exception ex) {
+            throw new BusinessException(ex.getMessage());
+        }
+    }
+
 }

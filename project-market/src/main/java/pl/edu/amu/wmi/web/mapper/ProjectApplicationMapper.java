@@ -8,6 +8,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.web.model.ProjectApplicationDTO;
+import pl.edu.amu.wmi.web.model.StudentProjectApplicationDTO;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
@@ -16,7 +17,12 @@ public interface ProjectApplicationMapper {
 
     @Mapping(target = "firstName", source = "student.userData.firstName")
     @Mapping(target = "lastName", source = "student.userData.lastName")
-    ProjectApplicationDTO map(ProjectApplication projectApplication);
+    ProjectApplicationDTO mapToProjectApplicationDTO(ProjectApplication projectApplication);
 
-    List<ProjectApplicationDTO> map(List<ProjectApplication> projectApplications);
+    List<ProjectApplicationDTO> mapToProjectApplicationDTO(List<ProjectApplication> projectApplications);
+
+    @Mapping(target = "applicationDate", source = "creationDate")
+    StudentProjectApplicationDTO mapToStudentProjectApplicationDTO(ProjectApplication projectApplication);
+
+    List<StudentProjectApplicationDTO> mapToStudentProjectApplicationDTO(List<ProjectApplication> projectApplications);
 }
