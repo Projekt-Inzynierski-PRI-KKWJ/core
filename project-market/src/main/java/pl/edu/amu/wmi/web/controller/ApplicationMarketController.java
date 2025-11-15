@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,16 @@ public class ApplicationMarketController {
     public ResponseEntity<List<ProjectApplicationDTO>> getApplicationsForOwner(@PathVariable Long marketId) {
         try {
             return ResponseEntity.ok(projectMarketFacade.getProjectApplicationByMarketId(marketId));
+        }catch (Exception ex) {
+            throw new BusinessException(ex.getMessage());
+        }
+    }
+
+    @PatchMapping("/{id}/approve")
+    public ResponseEntity<Void> approveApplication(@PathVariable Long id) {
+        try {
+            projectMarketFacade.approveCandidate(id);
+            return ResponseEntity.ok().build();
         }catch (Exception ex) {
             throw new BusinessException(ex.getMessage());
         }

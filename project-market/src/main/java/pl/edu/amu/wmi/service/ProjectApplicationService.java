@@ -1,6 +1,8 @@
 package pl.edu.amu.wmi.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.dao.ProjectApplicationDAO;
@@ -29,9 +31,14 @@ public class ProjectApplicationService {
         return projectApplicationDAO.findByStatusAndProjectMarket_Id(status, projectMarketId);
     }
 
-    public ProjectApplication accept(ProjectApplication application) {
-        application.accept();
-        return projectApplicationDAO.save(application);
+    public Optional<ProjectApplication> findProjectApplicationById(Long id) {
+        return projectApplicationDAO.findById(id);
+    }
+
+    public void accept(ProjectApplication application) {
+        application.setStatus(ProjectApplicationStatus.ACCEPTED);
+        application.setDecisionDate(LocalDateTime.now());
+        projectApplicationDAO.save(application);
     }
 
     public ProjectApplication reject(ProjectApplication application) {
