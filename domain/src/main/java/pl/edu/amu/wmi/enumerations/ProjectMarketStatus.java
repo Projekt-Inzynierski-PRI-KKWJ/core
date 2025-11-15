@@ -1,5 +1,5 @@
 package pl.edu.amu.wmi.enumerations;
 
 public enum ProjectMarketStatus {
-    ACTIVE, CLOSED
+    ACTIVE, PENDING_APPROVAL, APPROVED, REJECTED
 }

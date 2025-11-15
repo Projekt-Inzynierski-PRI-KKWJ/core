@@ -13,6 +13,7 @@ import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
+import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
 import pl.edu.amu.wmi.enumerations.ProjectRole;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
 import pl.edu.amu.wmi.service.ProjectMarketService;
@@ -79,6 +80,9 @@ public class ProjectMarketFacade {
         String indexNumber = "s485940";
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
+        if (ProjectMarketStatus.ACTIVE != projectMarket.getStatus()) {
+            throw new IllegalStateException("Project market is not active.");
+        }
         projectApplicationService.applyToMarket(applyToProjectRequestMapper.fromDTO(request, student, projectMarket));
     }
 
