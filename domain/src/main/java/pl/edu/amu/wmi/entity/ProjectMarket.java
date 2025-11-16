@@ -31,7 +31,6 @@ public class ProjectMarket extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ProjectMarketStatus status;
 
-    private LocalDateTime publishedAt = LocalDateTime.now();
     private LocalDateTime closedAt;
 
     //TO REMOVE
