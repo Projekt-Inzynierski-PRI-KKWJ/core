@@ -30,6 +30,10 @@ public class ProjectMarketService {
         return projectMarketDAO.findByProject_NameContainingIgnoreCaseAndStatus(name, ProjectMarketStatus.ACTIVE, pageable);
     }
 
+    public void save(ProjectMarket projectMarket) {
+        projectMarketDAO.save(projectMarket);
+    }
+
     public ProjectMarket getByProjectMarketId(Long id) {
         return projectMarketDAO.getReferenceById(id);
     }

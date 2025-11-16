@@ -5,16 +5,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Version;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
@@ -32,10 +26,6 @@ public class ProjectMarket extends AbstractEntity {
     @OneToOne
     @JoinColumn(name = "project_id", nullable = false, unique = true)
     private Project project;
-
-    @ManyToOne
-    @JoinColumn(name = "supervisor_id")
-    private Supervisor supervisor;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -79,5 +69,11 @@ public class ProjectMarket extends AbstractEntity {
 
     public Integer getCurrentMembersCount() {
         return getMembers().size();
+    }
+
+    public void submit(Supervisor supervisor) {
+        this.status = ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR;
+        this.setModificationDate(LocalDateTime.now());
+        this.getProject().submit(supervisor);
     }
 }
