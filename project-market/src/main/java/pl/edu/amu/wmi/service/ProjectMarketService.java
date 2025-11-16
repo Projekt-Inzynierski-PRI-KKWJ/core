@@ -18,8 +18,8 @@ public class ProjectMarketService {
     private final ProjectMarketDAO projectMarketDAO;
     private final ProjectMarketEntityMapper projectMarketEntityMapper;
 
-    public ProjectMarket publishMarket(PublishProjectMarketRequest request) {
-        return projectMarketDAO.save(projectMarketEntityMapper.fromRequest(request));
+    public void publishMarket(PublishProjectMarketRequest request) {
+        projectMarketDAO.save(projectMarketEntityMapper.fromRequest(request));
     }
 
     public Page<ProjectMarket> listActiveMarkets(Pageable pageable) {
@@ -32,14 +32,5 @@ public class ProjectMarketService {
 
     public ProjectMarket getByProjectMarketId(Long id) {
         return projectMarketDAO.getReferenceById(id);
-    }
-
-    public ProjectMarket save(ProjectMarket projectMarket) {
-        return projectMarketDAO.save(projectMarket);
-    }
-
-    public ProjectMarket closeMarket(ProjectMarket projectMarket) {
-        projectMarket.close();
-        return projectMarketDAO.save(projectMarket);
     }
 }

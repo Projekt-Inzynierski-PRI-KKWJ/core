@@ -55,14 +55,6 @@ public class ProjectMarket extends AbstractEntity {
     @OneToMany(mappedBy = "projectMarket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProjectApplication> applications;
 
-    public void close() {
-        if (ProjectMarketStatus.CLOSED != this.status) {
-            this.status = ProjectMarketStatus.CLOSED;
-            this.closedAt = LocalDateTime.now();
-            setModificationDate(LocalDateTime.now());
-        }
-    }
-
     public List<UserData> getMembers() {
         var members = this.getProject().getAssignedStudents().stream().toList();
         if (members.isEmpty()) {

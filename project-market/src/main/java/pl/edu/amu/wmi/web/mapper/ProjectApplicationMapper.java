@@ -17,6 +17,7 @@ public interface ProjectApplicationMapper {
 
     @Mapping(target = "firstName", source = "student.userData.firstName")
     @Mapping(target = "lastName", source = "student.userData.lastName")
+    @Mapping(target = "applicationDate", source = "creationDate")
     ProjectApplicationDTO mapToProjectApplicationDTO(ProjectApplication projectApplication);
 
     List<ProjectApplicationDTO> mapToProjectApplicationDTO(List<ProjectApplication> projectApplications);

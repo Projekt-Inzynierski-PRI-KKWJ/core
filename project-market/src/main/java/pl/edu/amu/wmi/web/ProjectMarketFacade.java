@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
@@ -45,6 +46,7 @@ public class ProjectMarketFacade {
     private final ProjectMemberMapper projectMemberMapper;
     private final ApplyToProjectRequestMapper applyToProjectRequestMapper;
     private final ProjectApplicationMapper projectApplicationMapper;
+    private final ProjectDAO projectDAO;
 
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
@@ -83,11 +85,21 @@ public class ProjectMarketFacade {
         if (ProjectMarketStatus.ACTIVE != projectMarket.getStatus()) {
             throw new IllegalStateException("Project market is not active.");
         }
+        if (projectMarket.getMaxMembers() >= projectMarket.getMembers().size()) {
+            throw new IllegalStateException("Project market reached max number of members.");
+        }
+        if (projectApplicationService.existsByStudentAndMProjectMarket(student, projectMarket)) {
+            throw new IllegalStateException("Application already exists for this student and market.");
+        }
+        if (projectMarket.getMembers().stream().anyMatch(member -> member.getIndexNumber().equals(indexNumber))) {
+            throw new IllegalStateException("Student already exists in project.");
+        }
+
         projectApplicationService.applyToMarket(applyToProjectRequestMapper.fromDTO(request, student, projectMarket));
     }
 
-    public List<ProjectApplicationDTO> getProjectApplicationByMarketId(Long marketId) {
-        if (isCurrentUserOwnerOfProject(marketId)) {
+    public List<ProjectApplicationDTO> getProjectApplicationByMarketIdInPendingStatus(Long marketId) {
+        if (isOwnerByMarketId(marketId)) {
             var projectApplication = projectApplicationService.getApplicationForMarket(ProjectApplicationStatus.PENDING, marketId);
             return projectApplicationMapper.mapToProjectApplicationDTO(projectApplication);
         }
@@ -104,7 +116,7 @@ public class ProjectMarketFacade {
         var project = projectMarket.getProject();
 
         project.addStudent(student, ProjectRole.NONE, false);
-        studentDAO.save(student);
+        projectDAO.save(project);
 
         //approve application
         projectApplicationService.accept(application);
@@ -123,11 +135,11 @@ public class ProjectMarketFacade {
 
 
     private ProjectApplication checkAndGetProjectApplicationWithPendingStatus(Long applicationId) {
-        if (!isCurrentUserOwnerOfProject(applicationId)) {
-            throw new IllegalStateException("You are not allowed to perform this operation");
-        }
         var application = projectApplicationService.findProjectApplicationById(applicationId)
             .orElseThrow(() -> new IllegalStateException("Application with id " + applicationId + " not found"));
+        if (!isOwnerByApplication(application)) {
+            throw new IllegalStateException("You are not allowed to perform this operation");
+        }
 
         if (ProjectApplicationStatus.PENDING != application.getStatus()) {
             throw new IllegalStateException("Application should be in PENDING state");
@@ -135,12 +147,21 @@ public class ProjectMarketFacade {
         return application;
     }
 
-    private boolean isCurrentUserOwnerOfProject(Long marketId) {
+    private boolean isOwnerByMarketId(Long marketId) {
         //add getIndexNumberFromContext
         var indexNumber = "s485953";
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         var owner = projectMarket.getProjectLeader();
+
+        return owner != null && owner.getStudent().equals(student);
+    }
+
+    private boolean isOwnerByApplication(ProjectApplication application) {
+        //add getIndexNumberFromContext
+        var indexNumber = "s485953";
+        var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        var owner = application.getProjectMarket().getProjectLeader();
 
         return owner != null && owner.getStudent().equals(student);
     }
