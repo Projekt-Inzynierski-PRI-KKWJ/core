@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +54,16 @@ public class ProjectMarketController {
     public ResponseEntity<Void> submitProjectMarketToSupervisor(@PathVariable Long marketId, @PathVariable Long supervisorId) {
         try {
             projectMarketFacade.submitProjectMarketToSupervisor(marketId, supervisorId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{marketId}/close")
+    public ResponseEntity<Void> closeProjectMarket(@PathVariable Long marketId) {
+        try {
+            projectMarketFacade.closeProjectMarketByOwner(marketId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
