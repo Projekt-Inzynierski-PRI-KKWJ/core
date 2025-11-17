@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.web;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +37,9 @@ import pl.edu.amu.wmi.web.model.StudentProjectApplicationDTO;
 @Component
 @RequiredArgsConstructor
 public class ProjectMarketFacade {
+
+    private static final List<ProjectMarketStatus> PROJECT_MARKET_STATUSES_AVAILABLE_TO_CLOSE =
+        List.of(ProjectMarketStatus.ACTIVE, ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR);
 
     private final ProjectApplicationService projectApplicationService;
     private final ProjectMarketService projectMarketService;
@@ -151,6 +155,25 @@ public class ProjectMarketFacade {
         }
 
         market.submit(supervisor);
+        projectMarketService.save(market);
+    }
+
+    @Transactional
+    public void closeProjectMarketByOwner(Long marketId) {
+        if (!isOwnerByMarketId(marketId)) {
+            throw new IllegalStateException("Only project owner can close this project market.");
+        }
+        var market = projectMarketService.getByProjectMarketId(marketId);
+        var status = market.getStatus();
+        if (!PROJECT_MARKET_STATUSES_AVAILABLE_TO_CLOSE.contains(status)) {
+            throw new IllegalStateException(
+                "Project market is not available to close due to wrong status. Available statuses %s, current: %s".formatted(
+                    PROJECT_MARKET_STATUSES_AVAILABLE_TO_CLOSE.stream()
+                        .map(Enum::name)
+                        .collect(Collectors.joining()), status));
+        }
+
+        market.closeByOwner();
         projectMarketService.save(market);
     }
 

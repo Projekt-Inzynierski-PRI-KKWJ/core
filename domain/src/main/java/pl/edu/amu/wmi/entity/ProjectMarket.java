@@ -14,6 +14,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import pl.edu.amu.wmi.enumerations.AcceptanceStatus;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
 
 @Slf4j
@@ -32,10 +33,6 @@ public class ProjectMarket extends AbstractEntity {
     private ProjectMarketStatus status;
 
     private LocalDateTime closedAt;
-
-    //TO REMOVE
-    @Column(length = 2000)
-    private String descriptionOverride;
 
     private Integer maxMembers;
 
@@ -74,5 +71,11 @@ public class ProjectMarket extends AbstractEntity {
         this.status = ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR;
         this.setModificationDate(LocalDateTime.now());
         this.getProject().submit(supervisor);
+    }
+
+    public void closeByOwner() {
+        this.status = ProjectMarketStatus.CLOSED_BY_OWNER;
+        this.setModificationDate(LocalDateTime.now());
+        this.getProject().setAcceptanceStatus(AcceptanceStatus.REJECTED);
     }
 }
