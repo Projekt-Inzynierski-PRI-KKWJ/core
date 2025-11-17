@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,7 @@ public class ProjectMarketController {
     public ResponseEntity<ProjectMarketDetailsDTO> getProjectMarketById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(projectMarketFacade.getMarketDetailsById(id));
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
     }
@@ -43,7 +44,17 @@ public class ProjectMarketController {
     public ResponseEntity<Page<ProjectMarketDTO>> searchByName(@RequestParam String name, Pageable pageable) {
         try {
             return ResponseEntity.ok(projectMarketFacade.searchProjectMarketsByNamePattern(name, pageable));
-        }catch (Exception e) {
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/{marketId}/submit/{supervisorId}")
+    public ResponseEntity<Void> submitProjectMarketToSupervisor(@PathVariable Long marketId, @PathVariable Long supervisorId) {
+        try {
+            projectMarketFacade.submitProjectMarketToSupervisor(marketId, supervisorId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
     }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
+import pl.edu.amu.wmi.dao.SupervisorDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
@@ -47,6 +48,7 @@ public class ProjectMarketFacade {
     private final ApplyToProjectRequestMapper applyToProjectRequestMapper;
     private final ProjectApplicationMapper projectApplicationMapper;
     private final ProjectDAO projectDAO;
+    private final SupervisorDAO supervisorDAO;
 
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
@@ -131,6 +133,25 @@ public class ProjectMarketFacade {
     public List<StudentProjectApplicationDTO> getApplicationsForStudent() {
         var applications = projectApplicationService.getApplicationForStudent(getStudentFromContext());
         return projectApplicationMapper.mapToStudentProjectApplicationDTO(applications);
+    }
+
+    @Transactional
+    public void submitProjectMarketToSupervisor(Long marketId, Long supervisorId) {
+        if (!isOwnerByMarketId(marketId)) {
+            throw new IllegalStateException("Only project owner can submit");
+        }
+        var market = projectMarketService.getByProjectMarketId(marketId);
+        if (market.getStatus() != ProjectMarketStatus.ACTIVE) {
+            throw new IllegalStateException("Market is not active.");
+        }
+
+        var supervisor = supervisorDAO.getReferenceById(supervisorId);
+        if (supervisor.getProjects().size() >= supervisor.getMaxNumberOfProjects()) {
+            throw new IllegalStateException("Maximum number of projects reached by supervisor.");
+        }
+
+        market.submit(supervisor);
+        projectMarketService.save(market);
     }
 
 
