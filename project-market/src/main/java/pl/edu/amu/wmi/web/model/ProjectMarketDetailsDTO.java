@@ -17,4 +17,5 @@ public class ProjectMarketDetailsDTO {
     private List<ProjectMarketUserDataDTO> currentMembers;
     private String creationDate;
     private String modificationDate;
+    private String studyYear;
 }

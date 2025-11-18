@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.ProjectMarket;
-import pl.edu.amu.wmi.entity.Student;
-import pl.edu.amu.wmi.entity.StudentProject;
 import pl.edu.amu.wmi.model.PublishProjectMarketRequest;
 import pl.edu.amu.wmi.web.model.ProjectCreateRequestDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
@@ -26,7 +24,7 @@ public abstract class ProjectMarketMapper {
 
     private static final String AVAILABLE_SLOTS_PATTERN = "%s/%s";
 
-    private ProjectMarketUserDataDTOMapper projectMarketUserDataDTOMapper;
+    private ProjectMarketUserDataMapper projectMarketUserDataMapper;
 
     @Mapping(target = "project", source = "project")
     @Mapping(target = "maxMembers", source = "requestDTO.maxMembers")
@@ -38,6 +36,7 @@ public abstract class ProjectMarketMapper {
     @Mapping(target = "technologies", source = "project.technologies")
     @Mapping(target = "ownerDetails", expression = "java(getOwner(projectMarket))")
     @Mapping(target = "currentMembers", expression = "java(getCurrentMembers(projectMarket))")
+    @Mapping(target = "studyYear", expression = "java(getStudyYear(projectMarket))")
     public abstract ProjectMarketDetailsDTO toProjectMarketDetailsDTO(ProjectMarket projectMarket);
 
 
@@ -45,6 +44,7 @@ public abstract class ProjectMarketMapper {
     @Mapping(target = "projectDescription", source = "project.description")
     @Mapping(target = "ownerDetails", expression = "java(getOwner(projectMarket))")
     @Mapping(target = "availableSlots", expression = "java(calculateAvailableSlots(projectMarket))")
+    @Mapping(target = "studyYear", expression = "java(getStudyYear(projectMarket))")
     public abstract ProjectMarketDTO toProjectMarketDTO(ProjectMarket projectMarket);
 
     public Page<ProjectMarketDTO> toProjectMarketDTOList(Page<ProjectMarket> projectMarkets) {
@@ -52,11 +52,11 @@ public abstract class ProjectMarketMapper {
     }
 
     protected ProjectMarketOwnerDTO getOwner(ProjectMarket projectMarket) {
-        return projectMarketUserDataDTOMapper.mapToProjectMarketOwner(projectMarket.getLeader());
+        return projectMarketUserDataMapper.mapToProjectMarketOwner(projectMarket.getLeader());
     }
 
     protected List<ProjectMarketUserDataDTO> getCurrentMembers(ProjectMarket projectMarket) {
-        return projectMarketUserDataDTOMapper.mapToProjectMarketUserData(projectMarket.getMembers());
+        return projectMarketUserDataMapper.mapToProjectMarketUserData(projectMarket.getMembers());
     }
 
     protected static String calculateAvailableSlots(ProjectMarket projectMarket) {
@@ -65,8 +65,12 @@ public abstract class ProjectMarketMapper {
         return AVAILABLE_SLOTS_PATTERN.formatted(currentlyEnrolledInProject, maxSlots);
     }
 
+    protected static String getStudyYear(ProjectMarket projectMarket) {
+        return projectMarket.getProject().getStudyYear().getStudyYear();
+    }
+
     @Autowired
-    public void setProjectMarketUserDataDTOMapper(ProjectMarketUserDataDTOMapper projectMarketUserDataDTOMapper) {
-        this.projectMarketUserDataDTOMapper = projectMarketUserDataDTOMapper;
+    public void setProjectMarketUserDataDTOMapper(ProjectMarketUserDataMapper projectMarketUserDataMapper) {
+        this.projectMarketUserDataMapper = projectMarketUserDataMapper;
     }
 }

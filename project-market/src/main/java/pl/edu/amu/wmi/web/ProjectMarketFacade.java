@@ -24,6 +24,7 @@ import pl.edu.amu.wmi.service.ProjectService;
 import pl.edu.amu.wmi.web.mapper.ApplyToProjectRequestMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectApplicationMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectMarketMapper;
+import pl.edu.amu.wmi.web.mapper.ProjectMarketSupervisorMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectMemberMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectRequestMapper;
 import pl.edu.amu.wmi.web.model.ApplyToProjectRequestDTO;
@@ -31,6 +32,7 @@ import pl.edu.amu.wmi.web.model.ProjectApplicationDTO;
 import pl.edu.amu.wmi.web.model.ProjectCreateRequestDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketDetailsDTO;
+import pl.edu.amu.wmi.web.model.ProjectMarketSupervisorDTO;
 import pl.edu.amu.wmi.web.model.ProjectMembersDTO;
 import pl.edu.amu.wmi.web.model.StudentProjectApplicationDTO;
 
@@ -44,15 +46,18 @@ public class ProjectMarketFacade {
     private final ProjectApplicationService projectApplicationService;
     private final ProjectMarketService projectMarketService;
     private final ProjectService projectService;
+
+    private final ProjectDAO projectDAO;
+    private final SupervisorDAO supervisorDAO;
     private final StudentDAO studentDAO;
     private final StudyYearDAO studyYearDAO;
+
     private final ProjectRequestMapper projectRequestMapper;
     private final ProjectMarketMapper projectMarketMapper;
     private final ProjectMemberMapper projectMemberMapper;
     private final ApplyToProjectRequestMapper applyToProjectRequestMapper;
     private final ProjectApplicationMapper projectApplicationMapper;
-    private final ProjectDAO projectDAO;
-    private final SupervisorDAO supervisorDAO;
+    private final ProjectMarketSupervisorMapper projectMarketSupervisorMapper;
 
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
@@ -139,6 +144,11 @@ public class ProjectMarketFacade {
         return projectApplicationMapper.mapToStudentProjectApplicationDTO(applications);
     }
 
+    public List<ProjectMarketSupervisorDTO> getSupervisors(String studyYear) {
+        var supervisors = supervisorDAO.findAllByStudyYear(studyYear);
+        return projectMarketSupervisorMapper.map(supervisors);
+    }
+
     @Transactional
     public void submitProjectMarketToSupervisor(Long marketId, Long supervisorId) {
         if (!isOwnerByMarketId(marketId)) {
@@ -176,7 +186,6 @@ public class ProjectMarketFacade {
         market.closeByOwner();
         projectMarketService.save(market);
     }
-
 
     private ProjectApplication checkAndGetProjectApplicationWithPendingStatus(Long applicationId) {
         var application = projectApplicationService.findProjectApplicationById(applicationId)
