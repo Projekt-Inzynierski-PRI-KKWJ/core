@@ -30,8 +30,8 @@ public class DataExportServiceImpl implements DataExportService {
     private final StudyYearDAO studyYearDAO;
     private final ProjectMapper projectMapper;
 
-    public DataExportServiceImpl(ProjectDAO projectDAO, 
-                                StudentDAO studentDAO, 
+    public DataExportServiceImpl(ProjectDAO projectDAO,
+                                StudentDAO studentDAO,
                                 SupervisorDAO supervisorDAO,
                                 StudyYearDAO studyYearDAO,
                                 ProjectMapper projectMapper) {
@@ -45,19 +45,19 @@ public class DataExportServiceImpl implements DataExportService {
     @Override
     public StudyYearDataExportDTO exportStudyYearData(String studyYear) {
         log.info("Starting data export for study year: {}", studyYear);
-        
+
         StudyYearDataExportDTO exportDTO = new StudyYearDataExportDTO();
         exportDTO.setStudyYear(studyYear);
-        
+
         // Export projects with all related data
         log.info("Querying projects for study year: {}", studyYear);
-        List<Project> projects = projectDAO.findAllByStudyYear_StudyYear(studyYear);
+        List<Project> projects = projectDAO.findAllBySupervisorIsNotNullAndStudyYear_StudyYear(studyYear);
         log.info("Found {} projects for study year: {}", projects.size(), studyYear);
         List<ProjectDetailsDTO> projectDTOs = projects.stream()
                 .map(projectMapper::mapToProjectDetailsDto)
                 .toList();
         exportDTO.setProjects(projectDTOs);
-        
+
         // Export students
         log.info("Querying students for study year: {}", studyYear);
         List<Student> students = studentDAO.findAllByStudyYear(studyYear);
@@ -66,7 +66,7 @@ public class DataExportServiceImpl implements DataExportService {
                 .map(this::mapStudentToExportDTO)
                 .toList();
         exportDTO.setStudents(studentDTOs);
-        
+
         // Export supervisors
         log.info("Querying supervisors for study year: {}", studyYear);
         List<Supervisor> supervisors = supervisorDAO.findAllByStudyYear(studyYear);
@@ -75,7 +75,7 @@ public class DataExportServiceImpl implements DataExportService {
                 .map(this::mapSupervisorToExportDTO)
                 .toList();
         exportDTO.setSupervisors(supervisorDTOs);
-        
+
         // Create metadata
         StudyYearDataExportDTO.ExportMetadata metadata = new StudyYearDataExportDTO.ExportMetadata();
         metadata.setExportDate(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
@@ -88,16 +88,16 @@ public class DataExportServiceImpl implements DataExportService {
         metadata.setConfirmedProjects((int) students.stream()
                 .filter(Student::isProjectConfirmed)
                 .count());
-        
+
         exportDTO.setMetadata(metadata);
-        
-        log.info("Data export completed for study year: {}. Projects: {}, Students: {}, Supervisors: {}", 
+
+        log.info("Data export completed for study year: {}. Projects: {}, Students: {}, Supervisors: {}",
                 studyYear, projects.size(), students.size(), supervisors.size());
         log.info("Export DTO study year field: {}", exportDTO.getStudyYear());
-        
+
         return exportDTO;
     }
-    
+
     private StudyYearDataExportDTO.StudentExportDTO mapStudentToExportDTO(Student student) {
         StudyYearDataExportDTO.StudentExportDTO dto = new StudyYearDataExportDTO.StudentExportDTO();
         dto.setIndexNumber(student.getUserData().getIndexNumber());
@@ -107,12 +107,12 @@ public class DataExportServiceImpl implements DataExportService {
         dto.setStudyYear(student.getStudyYear());
         dto.setAccepted(student.isProjectConfirmed());
         dto.setProjectAdmin(student.isProjectAdmin());
-        dto.setConfirmedProjectId(student.getConfirmedProject() != null ? 
+        dto.setConfirmedProjectId(student.getConfirmedProject() != null ?
                 String.valueOf(student.getConfirmedProject().getId()) : null);
         dto.setRole(student.getProjectRole() != null ? student.getProjectRole().name() : null);
         return dto;
     }
-    
+
     private StudyYearDataExportDTO.SupervisorExportDTO mapSupervisorToExportDTO(Supervisor supervisor) {
         StudyYearDataExportDTO.SupervisorExportDTO dto = new StudyYearDataExportDTO.SupervisorExportDTO();
         dto.setIndexNumber(supervisor.getUserData().getIndexNumber());
@@ -122,28 +122,28 @@ public class DataExportServiceImpl implements DataExportService {
         dto.setStudyYear(supervisor.getStudyYear());
         dto.setMaxProjects(supervisor.getMaxNumberOfProjects() != null ? supervisor.getMaxNumberOfProjects() : 0);
         dto.setCurrentProjects(supervisor.getProjects() != null ? supervisor.getProjects().size() : 0);
-        
+
         // Calculate availability based on existing logic from SupervisorProjectServiceImpl
-        int acceptedProjectCount = supervisor.getProjects() != null ? 
+        int acceptedProjectCount = supervisor.getProjects() != null ?
                 (int) supervisor.getProjects().stream()
                         .filter(project -> project.getAcceptanceStatus() == AcceptanceStatus.ACCEPTED)
                         .count() : 0;
         int maxProjects = supervisor.getMaxNumberOfProjects() != null ? supervisor.getMaxNumberOfProjects() : 0;
         dto.setAvailable(acceptedProjectCount < maxProjects);
-        
+
         return dto;
     }
-    
+
     @Override
     public List<String> getAvailableStudyYears() {
         log.info("Retrieving all available study years");
-        
+
         List<StudyYear> studyYears = studyYearDAO.findAll();
         List<String> studyYearStrings = studyYears.stream()
                 .map(StudyYear::getStudyYear)
                 .sorted() // Sort alphabetically
                 .toList();
-        
+
         log.info("Found {} study years", studyYearStrings.size());
         return studyYearStrings;
     }
