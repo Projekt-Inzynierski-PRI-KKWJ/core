@@ -15,6 +15,7 @@ import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.entity.Student;
+import pl.edu.amu.wmi.entity.Supervisor;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
 import pl.edu.amu.wmi.enumerations.ProjectRole;
@@ -187,6 +188,16 @@ public class ProjectMarketFacade {
         projectMarketService.save(market);
     }
 
+    public Page<ProjectMarketDTO> getProjectMarketsForSupervisor(Pageable pageable) {
+        var currentLoggedSupervisor = getSupervisorFromContext();
+        if(currentLoggedSupervisor == null) {
+            throw new IllegalStateException("Could not get supervisor data");
+        }
+
+        var projectMarkets = projectMarketService.findByAssignedSupervisor(currentLoggedSupervisor, pageable);
+        return projectMarketMapper.toProjectMarketDTOList(projectMarkets);
+    }
+
     private ProjectApplication checkAndGetProjectApplicationWithPendingStatus(Long applicationId) {
         var application = projectApplicationService.findProjectApplicationById(applicationId)
             .orElseThrow(() -> new IllegalStateException("Application with id " + applicationId + " not found"));
@@ -223,6 +234,12 @@ public class ProjectMarketFacade {
         //add getIndexNumberFromContext
         var indexNumber = "s485940";
         return studentDAO.findByUserData_IndexNumber(indexNumber);
+    }
+
+    private Supervisor getSupervisorFromContext() {
+        //add getIndexNumberFromContext
+        var indexNumber = "marcinsz";
+        return supervisorDAO.findByUserData_IndexNumber(indexNumber);
     }
 
     //TODO use it when all will be ready
