@@ -62,9 +62,7 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
-        //add getIndexNumberFromContext
-        var indexNumber = "s485953";
-        var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        var student = getStudentFromContext();
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
 
         var project = projectService.createProject(projectRequestMapper.fromDto(request, studyYear, student));
@@ -90,8 +88,7 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void applyToProject(Long marketId, ApplyToProjectRequestDTO request) {
-        //add getIndexNumberFromContext
-        String indexNumber = "s485940";
+        var indexNumber = getIndexNumberFromContext();
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         if (ProjectMarketStatus.ACTIVE != projectMarket.getStatus()) {
@@ -190,7 +187,7 @@ public class ProjectMarketFacade {
 
     public Page<ProjectMarketDTO> getProjectMarketsForSupervisor(Pageable pageable) {
         var currentLoggedSupervisor = getSupervisorFromContext();
-        if(currentLoggedSupervisor == null) {
+        if (currentLoggedSupervisor == null) {
             throw new IllegalStateException("Could not get supervisor data");
         }
 
@@ -212,37 +209,28 @@ public class ProjectMarketFacade {
     }
 
     private boolean isOwnerByMarketId(Long marketId) {
-        //add getIndexNumberFromContext
-        var indexNumber = "s485953";
-        var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        var student = getStudentFromContext();
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         var owner = projectMarket.getProjectLeader();
-
         return owner != null && owner.getStudent().equals(student);
     }
 
     private boolean isOwnerByApplication(ProjectApplication application) {
-        //add getIndexNumberFromContext
-        var indexNumber = "s485953";
-        var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        var student = getStudentFromContext();
         var owner = application.getProjectMarket().getProjectLeader();
-
         return owner != null && owner.getStudent().equals(student);
     }
 
     private Student getStudentFromContext() {
-        //add getIndexNumberFromContext
-        var indexNumber = "s485940";
+        var indexNumber = getIndexNumberFromContext();
         return studentDAO.findByUserData_IndexNumber(indexNumber);
     }
 
     private Supervisor getSupervisorFromContext() {
-        //add getIndexNumberFromContext
-        var indexNumber = "marcinsz";
+        var indexNumber = getIndexNumberFromContext();
         return supervisorDAO.findByUserData_IndexNumber(indexNumber);
     }
 
-    //TODO use it when all will be ready
     private String getIndexNumberFromContext() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return String.valueOf(userDetails.getUsername());
