@@ -13,7 +13,7 @@ import pl.edu.amu.wmi.web.model.ProjectMembersDTO;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/project-market/student")
-public class StudentMarketController {
+public class ProjectMarketStudentController {
 
     private final ProjectMarketFacade projectMarketFacade;
 

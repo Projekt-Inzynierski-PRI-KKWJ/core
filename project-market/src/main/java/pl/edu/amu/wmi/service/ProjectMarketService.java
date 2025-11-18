@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.dao.ProjectMarketDAO;
 import pl.edu.amu.wmi.entity.ProjectMarket;
+import pl.edu.amu.wmi.entity.Supervisor;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
 import pl.edu.amu.wmi.mapper.ProjectMarketEntityMapper;
 import pl.edu.amu.wmi.model.PublishProjectMarketRequest;
@@ -36,5 +37,9 @@ public class ProjectMarketService {
 
     public ProjectMarket getByProjectMarketId(Long id) {
         return projectMarketDAO.getReferenceById(id);
+    }
+
+    public Page<ProjectMarket> findByAssignedSupervisor(Supervisor supervisor, Pageable pageable) {
+        return projectMarketDAO.findByProject_Supervisor(supervisor, pageable);
     }
 }
