@@ -10,5 +10,6 @@ public class ProjectMarketDTO {
     private String projectDescription;
     private ProjectMarketOwnerDTO ownerDetails;
     private String availableSlots;
+    private String studyYear;
 
 }
