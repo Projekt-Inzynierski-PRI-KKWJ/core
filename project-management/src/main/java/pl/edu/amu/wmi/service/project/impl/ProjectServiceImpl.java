@@ -237,7 +237,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private Comparator<Project> createComparatorBySupervisorAssignedAndAcceptedProjects(Supervisor supervisor) {
         return Comparator
-                .comparing((Project p) -> !p.getSupervisor().equals(supervisor))
+                .comparing((Project p) -> !supervisor.equals(p.getSupervisor()))
                 .thenComparing((Project p) -> !p.getAcceptanceStatus().equals(ACCEPTED));
     }
 

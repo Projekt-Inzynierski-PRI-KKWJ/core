@@ -13,15 +13,21 @@ import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
+import pl.edu.amu.wmi.entity.EvaluationCard;
+import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.entity.Supervisor;
+import pl.edu.amu.wmi.enumerations.EvaluationPhase;
+import pl.edu.amu.wmi.enumerations.EvaluationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
 import pl.edu.amu.wmi.enumerations.ProjectRole;
+import pl.edu.amu.wmi.enumerations.Semester;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
 import pl.edu.amu.wmi.service.ProjectMarketService;
 import pl.edu.amu.wmi.service.ProjectService;
+import pl.edu.amu.wmi.service.grade.EvaluationCardService;
 import pl.edu.amu.wmi.web.mapper.ApplyToProjectRequestMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectApplicationMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectMarketMapper;
@@ -37,6 +43,8 @@ import pl.edu.amu.wmi.web.model.ProjectMarketSupervisorDTO;
 import pl.edu.amu.wmi.web.model.ProjectMembersDTO;
 import pl.edu.amu.wmi.web.model.StudentProjectApplicationDTO;
 
+import static pl.edu.amu.wmi.enumerations.EvaluationStatus.INACTIVE;
+
 @Component
 @RequiredArgsConstructor
 public class ProjectMarketFacade {
@@ -47,6 +55,7 @@ public class ProjectMarketFacade {
     private final ProjectApplicationService projectApplicationService;
     private final ProjectMarketService projectMarketService;
     private final ProjectService projectService;
+    private final EvaluationCardService evaluationCardService;
 
     private final ProjectDAO projectDAO;
     private final SupervisorDAO supervisorDAO;
@@ -68,6 +77,9 @@ public class ProjectMarketFacade {
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
 
         var project = projectService.createProject(projectRequestMapper.fromDto(request, studyYear, student));
+        addEvaluationCardToProject(project, studyYear.getStudyYear(), Semester.FIRST);
+        addEvaluationCardToProject(project, studyYear.getStudyYear(), Semester.SECOND);
+
         projectMarketService.publishMarket(projectMarketMapper.toPublishRequest(request, project));
     }
 
@@ -246,5 +258,19 @@ public class ProjectMarketFacade {
     private String getIndexNumberFromContext() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return String.valueOf(userDetails.getUsername());
+    }
+
+    private void addEvaluationCardToProject(Project project, String studyYear, Semester semester) {
+        EvaluationCard evaluationCard = new EvaluationCard();
+        project.addEvaluationCard(evaluationCard);
+        evaluationCard.setProject(project);
+
+        switch (semester) {
+            case FIRST -> evaluationCardService.createEvaluationCard(project, studyYear,
+                Semester.FIRST, EvaluationPhase.SEMESTER_PHASE, EvaluationStatus.ACTIVE, Boolean.TRUE);
+            case SECOND -> evaluationCardService.createEvaluationCard(project, studyYear,
+                Semester.SECOND, EvaluationPhase.SEMESTER_PHASE, INACTIVE, Boolean.FALSE);
+        }
+
     }
 }
