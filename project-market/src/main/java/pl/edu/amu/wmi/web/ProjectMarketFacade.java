@@ -55,7 +55,6 @@ public class ProjectMarketFacade {
     private final ProjectApplicationService projectApplicationService;
     private final ProjectMarketService projectMarketService;
     private final ProjectService projectService;
-    private final EvaluationCardService evaluationCardService;
 
     private final ProjectDAO projectDAO;
     private final SupervisorDAO supervisorDAO;
@@ -77,8 +76,6 @@ public class ProjectMarketFacade {
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
 
         var project = projectService.createProject(projectRequestMapper.fromDto(request, studyYear, student));
-        addEvaluationCardToProject(project, studyYear.getStudyYear(), Semester.FIRST);
-        addEvaluationCardToProject(project, studyYear.getStudyYear(), Semester.SECOND);
 
         projectMarketService.publishMarket(projectMarketMapper.toPublishRequest(request, project));
     }
@@ -258,19 +255,5 @@ public class ProjectMarketFacade {
     private String getIndexNumberFromContext() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return String.valueOf(userDetails.getUsername());
-    }
-
-    private void addEvaluationCardToProject(Project project, String studyYear, Semester semester) {
-        EvaluationCard evaluationCard = new EvaluationCard();
-        project.addEvaluationCard(evaluationCard);
-        evaluationCard.setProject(project);
-
-        switch (semester) {
-            case FIRST -> evaluationCardService.createEvaluationCard(project, studyYear,
-                Semester.FIRST, EvaluationPhase.SEMESTER_PHASE, EvaluationStatus.ACTIVE, Boolean.TRUE);
-            case SECOND -> evaluationCardService.createEvaluationCard(project, studyYear,
-                Semester.SECOND, EvaluationPhase.SEMESTER_PHASE, INACTIVE, Boolean.FALSE);
-        }
-
     }
 }
