@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
-import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
+import pl.edu.amu.wmi.enumerations.ProjectRole;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
 import pl.edu.amu.wmi.service.ProjectMarketService;
 import pl.edu.amu.wmi.service.ProjectService;
@@ -83,6 +83,27 @@ public class ProjectMarketFacade {
             return projectApplicationMapper.map(projectApplication);
         }
         throw new IllegalStateException("You are not allowed to perform this operation");
+    }
+
+    @Transactional
+    public void approveCandidate(Long applicationId) {
+        var application = projectApplicationService.findProjectApplicationById(applicationId)
+            .orElseThrow(() -> new IllegalStateException("Application with id " + applicationId + " not found"));
+
+        if(ProjectApplicationStatus.PENDING != application.getStatus()) {
+            throw new IllegalStateException("Application should be in PENDING state");
+        }
+
+        //add student to project
+        var student = application.getStudent();
+        var projectMarket = application.getProjectMarket();
+        var project =  projectMarket.getProject();
+
+        project.addStudent(student, ProjectRole.NONE, false);
+        studentDAO.save(student);
+
+        //approve application
+        projectApplicationService.accept(application);
     }
 
     private boolean isCurrentUserOwnerOfProject(Long marketId) {
