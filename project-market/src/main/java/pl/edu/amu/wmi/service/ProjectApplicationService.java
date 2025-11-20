@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.dao.ProjectApplicationDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
+import pl.edu.amu.wmi.entity.ProjectMarket;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.mapper.ProjectApplicationEntityMapper;
@@ -37,6 +38,10 @@ public class ProjectApplicationService {
 
     public Optional<ProjectApplication> findProjectApplicationById(Long id) {
         return projectApplicationDAO.findById(id);
+    }
+
+    public boolean existsByStudentAndMProjectMarket(Student student, ProjectMarket projectMarket) {
+        return projectApplicationDAO.existsByStudentAndProjectMarket(student, projectMarket);
     }
 
     public void accept(ProjectApplication application) {

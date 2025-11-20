@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.web.model;
 
+import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
@@ -11,5 +12,7 @@ public class ProjectApplicationDTO {
     private String contactData;
     private String skills;
     private String otherInformation;
-
+    private String status;
+    private LocalDateTime applicationDate;
+    private LocalDateTime decisionDate;
 }
