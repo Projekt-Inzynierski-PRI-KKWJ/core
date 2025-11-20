@@ -32,5 +32,8 @@
     <include file="database/2025-06-09-external_link_with_file_support.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-06-22-create_external_link_history_table.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-11-11-change_ID_int_on_index_string.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-10-27-create_project_market_db_structures.xml" relativeToChangelogFile="true"/>
+
+
 
 </databaseChangeLog>
