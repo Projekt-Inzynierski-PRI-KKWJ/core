@@ -78,4 +78,16 @@ public class ProjectMarket extends AbstractEntity {
         this.setModificationDate(LocalDateTime.now());
         this.getProject().setAcceptanceStatus(AcceptanceStatus.REJECTED);
     }
+
+    public void approveBySupervisor() {
+        this.status = ProjectMarketStatus.APPROVED_BY_SUPERVISOR;
+        this.setModificationDate(LocalDateTime.now());
+        this.getProject().accept();
+    }
+
+    public void rejectBySupervisor() {
+        this.status = ProjectMarketStatus.REJECTED_BY_SUPERVISOR;
+        this.setModificationDate(LocalDateTime.now());
+        this.getProject().reject();
+    }
 }

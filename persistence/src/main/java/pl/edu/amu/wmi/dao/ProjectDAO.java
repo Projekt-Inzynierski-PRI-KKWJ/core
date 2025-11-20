@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ProjectDAO extends JpaRepository<Project, Long> {
 
-    List<Project> findAllByStudyYear_StudyYear(String studyYear);
+    List<Project> findAllBySupervisorIsNotNullAndStudyYear_StudyYear(String studyYear);
 
     @Query("SELECT p.id FROM Project p WHERE p.studyYear.studyYear = :studyYear")
     List<Long> findProjectIdsByStudyYear(String studyYear);

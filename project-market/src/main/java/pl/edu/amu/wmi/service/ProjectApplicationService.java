@@ -25,7 +25,11 @@ public class ProjectApplicationService {
         if (exists) {
             throw new IllegalStateException("Student already applied to this project");
         }
-        projectApplicationDAO.save(projectApplicationEntityMapper.toEntity(request));
+        save(projectApplicationEntityMapper.toEntity(request));
+    }
+
+    public void save(ProjectApplication application) {
+        projectApplicationDAO.save(application);
     }
 
     public List<ProjectApplication> getApplicationForMarket(ProjectApplicationStatus status, Long projectMarketId) {
@@ -42,15 +46,5 @@ public class ProjectApplicationService {
 
     public boolean existsByStudentAndMProjectMarket(Student student, ProjectMarket projectMarket) {
         return projectApplicationDAO.existsByStudentAndProjectMarket(student, projectMarket);
-    }
-
-    public void accept(ProjectApplication application) {
-        application.accept();
-        projectApplicationDAO.save(application);
-    }
-
-    public void reject(ProjectApplication application) {
-        application.reject();
-        projectApplicationDAO.save(application);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,26 @@ public class ProjectMarketSupervisorController {
         try {
             var markets = projectMarketFacade.getProjectMarketsForSupervisor(pageable);
             return ResponseEntity.ok(markets);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/{marketId}/approve")
+    public ResponseEntity<Void> approveProjectAndCloseMarket(@PathVariable Long marketId) {
+        try {
+            projectMarketFacade.approveProjectAndCloseMarket(marketId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/{marketId}/reject")
+    public ResponseEntity<Void> rejectProjectAndCloseMarket(@PathVariable Long marketId) {
+        try {
+            projectMarketFacade.rejectProjectAndCloseMarket(marketId);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
