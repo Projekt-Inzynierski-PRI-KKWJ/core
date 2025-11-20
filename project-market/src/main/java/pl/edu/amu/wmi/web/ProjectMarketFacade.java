@@ -13,15 +13,21 @@ import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
+import pl.edu.amu.wmi.entity.EvaluationCard;
+import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.entity.Supervisor;
+import pl.edu.amu.wmi.enumerations.EvaluationPhase;
+import pl.edu.amu.wmi.enumerations.EvaluationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
 import pl.edu.amu.wmi.enumerations.ProjectRole;
+import pl.edu.amu.wmi.enumerations.Semester;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
 import pl.edu.amu.wmi.service.ProjectMarketService;
 import pl.edu.amu.wmi.service.ProjectService;
+import pl.edu.amu.wmi.service.grade.EvaluationCardService;
 import pl.edu.amu.wmi.web.mapper.ApplyToProjectRequestMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectApplicationMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectMarketMapper;
@@ -36,6 +42,8 @@ import pl.edu.amu.wmi.web.model.ProjectMarketDetailsDTO;
 import pl.edu.amu.wmi.web.model.ProjectMarketSupervisorDTO;
 import pl.edu.amu.wmi.web.model.ProjectMembersDTO;
 import pl.edu.amu.wmi.web.model.StudentProjectApplicationDTO;
+
+import static pl.edu.amu.wmi.enumerations.EvaluationStatus.INACTIVE;
 
 @Component
 @RequiredArgsConstructor
@@ -68,6 +76,7 @@ public class ProjectMarketFacade {
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
 
         var project = projectService.createProject(projectRequestMapper.fromDto(request, studyYear, student));
+
         projectMarketService.publishMarket(projectMarketMapper.toPublishRequest(request, project));
     }
 
