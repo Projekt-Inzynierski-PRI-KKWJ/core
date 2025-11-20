@@ -62,4 +62,25 @@ public class ProjectMarket extends AbstractEntity {
             setModificationDate(LocalDateTime.now());
         }
     }
+
+    public List<UserData> getMembers() {
+        var members = this.getProject().getAssignedStudents().stream().toList();
+        if (members.isEmpty()) {
+            return List.of();
+        }
+        return members.stream()
+            .map(StudentProject::getStudent)
+            .map(Student::getUserData)
+            .toList();
+    }
+
+    public UserData getLeader() {
+        var students = this.getProject().getAssignedStudents().stream().toList();
+        var leader = students.stream().filter(StudentProject::isProjectAdmin).findFirst();
+        return leader.map(studentProject -> studentProject.getStudent().getUserData()).orElse(null);
+    }
+
+    public Integer getCurrentMembersCount() {
+        return getMembers().size();
+    }
 }

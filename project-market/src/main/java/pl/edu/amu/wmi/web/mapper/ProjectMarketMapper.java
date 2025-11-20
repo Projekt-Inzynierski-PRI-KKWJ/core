@@ -52,30 +52,16 @@ public abstract class ProjectMarketMapper {
     }
 
     protected ProjectMarketOwnerDTO getOwner(ProjectMarket projectMarket) {
-        var students = projectMarket.getProject().getAssignedStudents().stream().toList();
-        var leader = students.stream().filter(StudentProject::isProjectAdmin).findFirst();
-        if (leader.isEmpty()) {
-            return null;
-        }
-        var userData = leader.get().getStudent().getUserData();
-        return projectMarketUserDataDTOMapper.mapToProjectMarketOwner(userData);
+        return projectMarketUserDataDTOMapper.mapToProjectMarketOwner(projectMarket.getLeader());
     }
 
     protected List<ProjectMarketUserDataDTO> getCurrentMembers(ProjectMarket projectMarket) {
-        var members = projectMarket.getProject().getAssignedStudents().stream().toList();
-        if (members.isEmpty()) {
-            return List.of();
-        }
-        var usersData = members.stream()
-            .map(StudentProject::getStudent)
-            .map(Student::getUserData)
-            .toList();
-        return projectMarketUserDataDTOMapper.mapToProjectMarketUserData(usersData);
+        return projectMarketUserDataDTOMapper.mapToProjectMarketUserData(projectMarket.getMembers());
     }
 
     protected static String calculateAvailableSlots(ProjectMarket projectMarket) {
         int maxSlots = projectMarket.getMaxMembers();
-        int currentlyEnrolledInProject = projectMarket.getProject().getAssignedStudents().size();
+        int currentlyEnrolledInProject = projectMarket.getCurrentMembersCount();
         return AVAILABLE_SLOTS_PATTERN.formatted(currentlyEnrolledInProject, maxSlots);
     }
 
