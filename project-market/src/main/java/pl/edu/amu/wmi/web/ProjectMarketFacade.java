@@ -42,4 +42,8 @@ public class ProjectMarketFacade {
     public ProjectMarketDetailsDTO getMarketDetailsById(Long id) {
         return projectMarketMapper.toProjectMarketDetailsDTO(projectMarketService.getByProjectMarketId(id));
     }
+
+    public Page<ProjectMarketDTO> searchProjectMarketsByNamePattern(String name, Pageable pageable) {
+        return projectMarketMapper.toProjectMarketDTOList(projectMarketService.searchActiveMarketsByNamePattern(name, pageable));
+    }
 }
