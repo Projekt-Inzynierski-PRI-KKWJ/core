@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +35,12 @@ public class ProjectApplicationService {
     }
 
     public void accept(ProjectApplication application) {
-        application.setStatus(ProjectApplicationStatus.ACCEPTED);
-        application.setDecisionDate(LocalDateTime.now());
+        application.accept();
         projectApplicationDAO.save(application);
     }
 
-    public ProjectApplication reject(ProjectApplication application) {
+    public void reject(ProjectApplication application) {
         application.reject();
-        return projectApplicationDAO.save(application);
+        projectApplicationDAO.save(application);
     }
 }
