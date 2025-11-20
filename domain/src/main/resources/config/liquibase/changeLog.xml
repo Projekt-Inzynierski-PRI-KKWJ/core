@@ -33,7 +33,8 @@
     <include file="database/2025-06-22-create_external_link_history_table.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-11-11-change_ID_int_on_index_string.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-10-27-create_project_market_db_structures.xml" relativeToChangelogFile="true"/>
-
+    <include file="database/2025-10-28-add_owner_and_additional_data_to_project_market.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-10-28-remove_owner_from_project_market.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>

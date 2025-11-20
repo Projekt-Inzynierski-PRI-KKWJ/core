@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.entity.Project;
-import pl.edu.amu.wmi.mapper.ProjectMapper;
+import pl.edu.amu.wmi.mapper.ProjectEntityMapper;
 import pl.edu.amu.wmi.model.ProjectCreateRequest;
 import pl.edu.amu.wmi.model.SubmitProjectRequest;
 
@@ -13,10 +13,10 @@ import pl.edu.amu.wmi.model.SubmitProjectRequest;
 public class ProjectService {
 
     private final ProjectDAO projectDAO;
-    private final ProjectMapper projectMapper;
+    private final ProjectEntityMapper projectEntityMapper;
 
     public Project createProject(ProjectCreateRequest request) {
-        return projectDAO.save(projectMapper.toEntity(request));
+        return projectDAO.save(projectEntityMapper.toEntity(request));
     }
 
     public Project getProjectById(Long id) {

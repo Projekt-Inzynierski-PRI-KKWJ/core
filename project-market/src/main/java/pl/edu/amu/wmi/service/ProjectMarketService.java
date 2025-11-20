@@ -7,20 +7,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.dao.ProjectMarketDAO;
-import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.ProjectMarket;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
-import pl.edu.amu.wmi.mapper.ProjectMarketMapper;
+import pl.edu.amu.wmi.mapper.ProjectMarketEntityMapper;
+import pl.edu.amu.wmi.model.PublishProjectMarketRequest;
 
 @Service
 @RequiredArgsConstructor
 public class ProjectMarketService {
 
     private final ProjectMarketDAO projectMarketDAO;
-    private final ProjectMarketMapper projectMarketMapper;
+    private final ProjectMarketEntityMapper projectMarketEntityMapper;
 
-    public ProjectMarket publishMarket(Project project) {
-        return projectMarketDAO.save(projectMarketMapper.fromProject(project));
+    public ProjectMarket publishMarket(PublishProjectMarketRequest request) {
+        return projectMarketDAO.save(projectMarketEntityMapper.fromRequest(request));
     }
 
     public Page<ProjectMarket> listActiveMarkets(Pageable pageable) {
