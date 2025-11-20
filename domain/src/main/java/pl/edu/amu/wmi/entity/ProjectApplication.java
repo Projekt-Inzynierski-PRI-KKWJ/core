@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
+import pl.edu.amu.wmi.enumerations.ProjectRole;
 
 @Slf4j
 @Getter
@@ -44,18 +45,18 @@ public class ProjectApplication extends AbstractEntity {
     private LocalDateTime decisionDate;
 
     public void accept() {
-        if (ProjectApplicationStatus.ACCEPTED != this.status) {
-            this.status = ProjectApplicationStatus.ACCEPTED;
-            setModificationDate(LocalDateTime.now());
-            setDecisionDate(LocalDateTime.now());
-        }
+        var student = this.getStudent();
+        var projectMarket = this.getProjectMarket();
+        var project = projectMarket.getProject();
+        project.addStudent(student, ProjectRole.NONE, false);
+        this.status = ProjectApplicationStatus.ACCEPTED;
+        setModificationDate(LocalDateTime.now());
+        setDecisionDate(LocalDateTime.now());
     }
 
     public void reject() {
-        if (ProjectApplicationStatus.REJECTED != this.status) {
-            this.status = ProjectApplicationStatus.REJECTED;
-            setModificationDate(LocalDateTime.now());
-            setDecisionDate(LocalDateTime.now());
-        }
+        this.status = ProjectApplicationStatus.REJECTED;
+        setModificationDate(LocalDateTime.now());
+        setDecisionDate(LocalDateTime.now());
     }
 }

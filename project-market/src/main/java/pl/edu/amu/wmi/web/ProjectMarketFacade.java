@@ -2,6 +2,7 @@ package pl.edu.amu.wmi.web;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,21 +15,15 @@ import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
-import pl.edu.amu.wmi.entity.EvaluationCard;
-import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.ProjectApplication;
+import pl.edu.amu.wmi.entity.ProjectMarket;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.entity.Supervisor;
-import pl.edu.amu.wmi.enumerations.EvaluationPhase;
-import pl.edu.amu.wmi.enumerations.EvaluationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
-import pl.edu.amu.wmi.enumerations.ProjectRole;
-import pl.edu.amu.wmi.enumerations.Semester;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
 import pl.edu.amu.wmi.service.ProjectMarketService;
 import pl.edu.amu.wmi.service.ProjectService;
-import pl.edu.amu.wmi.service.grade.EvaluationCardService;
 import pl.edu.amu.wmi.web.mapper.ApplyToProjectRequestMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectApplicationMapper;
 import pl.edu.amu.wmi.web.mapper.ProjectMarketMapper;
@@ -44,7 +39,6 @@ import pl.edu.amu.wmi.web.model.ProjectMarketSupervisorDTO;
 import pl.edu.amu.wmi.web.model.ProjectMembersDTO;
 import pl.edu.amu.wmi.web.model.StudentProjectApplicationDTO;
 
-import static pl.edu.amu.wmi.enumerations.EvaluationStatus.INACTIVE;
 
 @Component
 @RequiredArgsConstructor
@@ -130,24 +124,12 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void approveCandidate(Long applicationId) {
-        var application = checkAndGetProjectApplicationWithPendingStatus(applicationId);
-
-        //add student to project
-        var student = application.getStudent();
-        var projectMarket = application.getProjectMarket();
-        var project = projectMarket.getProject();
-
-        project.addStudent(student, ProjectRole.NONE, false);
-        projectDAO.save(project);
-
-        //approve application
-        projectApplicationService.accept(application);
+        manipulateProjectApplicationByOwner(applicationId, ProjectApplication::accept);
     }
 
+    @Transactional
     public void rejectCandidate(Long applicationId) {
-        var application = checkAndGetProjectApplicationWithPendingStatus(applicationId);
-
-        projectApplicationService.reject(application);
+        manipulateProjectApplicationByOwner(applicationId, ProjectApplication::reject);
     }
 
     public List<StudentProjectApplicationDTO> getApplicationsForStudent() {
@@ -210,7 +192,22 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void approveProjectAndCloseMarket(Long marketId) {
+        manipulateProjectMarketBySupervisor(marketId, ProjectMarket::approveBySupervisor);
+    }
+
+    @Transactional
+    public void rejectProjectAndCloseMarket(Long marketId) {
+        manipulateProjectMarketBySupervisor(marketId, ProjectMarket::rejectBySupervisor);
+    }
+
+    private void manipulateProjectMarketBySupervisor(Long marketId, Consumer<ProjectMarket> consumer) {
         var market = projectMarketService.getByProjectMarketId(marketId);
+        checkIfIsPossibleToManipulateProjectDataBySupervisor(market);
+        consumer.accept(market);
+        projectMarketService.save(market);
+    }
+
+    private void checkIfIsPossibleToManipulateProjectDataBySupervisor(ProjectMarket market) {
         var supervisor = getSupervisorFromContext();
         if (supervisor == null || !Objects.equals(market.getProject().getSupervisor().getId(), supervisor.getId())) {
             throw new IllegalStateException("Supervisor not found or is not assigned to this project market");
@@ -218,8 +215,12 @@ public class ProjectMarketFacade {
         if (market.getStatus() != ProjectMarketStatus.ACTIVE) {
             throw new IllegalStateException("Market is not active.");
         }
-        market.approveBySupervisor();
-        projectMarketService.save(market);
+    }
+
+    private void manipulateProjectApplicationByOwner(Long applicationId, Consumer<ProjectApplication> consumer) {
+        var application = checkAndGetProjectApplicationWithPendingStatus(applicationId);
+        consumer.accept(application);
+        projectApplicationService.save(application);
     }
 
     private ProjectApplication checkAndGetProjectApplicationWithPendingStatus(Long applicationId) {
