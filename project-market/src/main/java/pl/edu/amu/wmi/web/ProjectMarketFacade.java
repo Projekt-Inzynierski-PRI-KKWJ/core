@@ -2,6 +2,9 @@ package pl.edu.amu.wmi.web;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,7 @@ import pl.edu.amu.wmi.dao.SupervisorDAO;
 import pl.edu.amu.wmi.entity.EvaluationCard;
 import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.ProjectApplication;
+import pl.edu.amu.wmi.entity.ProjectMarket;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.entity.Supervisor;
 import pl.edu.amu.wmi.enumerations.EvaluationPhase;
@@ -210,7 +214,22 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void approveProjectAndCloseMarket(Long marketId) {
+        manipulateProjectMarketBySupervisor(marketId, ProjectMarket::approveBySupervisor);
+    }
+
+    @Transactional
+    public void rejectProjectAndCloseMarket(Long marketId) {
+        manipulateProjectMarketBySupervisor(marketId, ProjectMarket::rejectBySupervisor);
+    }
+
+    private void manipulateProjectMarketBySupervisor(Long marketId, Consumer<ProjectMarket> consumer) {
         var market = projectMarketService.getByProjectMarketId(marketId);
+        checkIfIsPossibleToManipulateProjectDataBySupervisor(market);
+        consumer.accept(market);
+        projectMarketService.save(market);
+    }
+
+    private void checkIfIsPossibleToManipulateProjectDataBySupervisor(ProjectMarket market) {
         var supervisor = getSupervisorFromContext();
         if (supervisor == null || !Objects.equals(market.getProject().getSupervisor().getId(), supervisor.getId())) {
             throw new IllegalStateException("Supervisor not found or is not assigned to this project market");
@@ -218,8 +237,6 @@ public class ProjectMarketFacade {
         if (market.getStatus() != ProjectMarketStatus.ACTIVE) {
             throw new IllegalStateException("Market is not active.");
         }
-        market.approveBySupervisor();
-        projectMarketService.save(market);
     }
 
     private ProjectApplication checkAndGetProjectApplicationWithPendingStatus(Long applicationId) {
