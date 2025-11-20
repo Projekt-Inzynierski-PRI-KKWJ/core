@@ -11,7 +11,7 @@ import pl.edu.amu.wmi.web.model.ProjectCreateRequestDTO;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/project-market/project")
-public class ProjectDataController {
+public class ProjectMarketProjectController {
 
     private final ProjectMarketFacade projectMarketFacade;
 
