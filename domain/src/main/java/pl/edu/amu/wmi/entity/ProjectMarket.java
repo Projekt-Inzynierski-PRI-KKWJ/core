@@ -44,6 +44,7 @@ public class ProjectMarket extends AbstractEntity {
     private LocalDateTime publishedAt = LocalDateTime.now();
     private LocalDateTime closedAt;
 
+    //TO REMOVE
     @Column(length = 2000)
     private String descriptionOverride;
 
