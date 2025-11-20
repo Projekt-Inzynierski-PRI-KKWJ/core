@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.web;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -199,12 +200,26 @@ public class ProjectMarketFacade {
 
     public Page<ProjectMarketDTO> getProjectMarketsForSupervisor(Pageable pageable) {
         var currentLoggedSupervisor = getSupervisorFromContext();
-        if(currentLoggedSupervisor == null) {
+        if (currentLoggedSupervisor == null) {
             throw new IllegalStateException("Could not get supervisor data");
         }
 
         var projectMarkets = projectMarketService.findByAssignedSupervisor(currentLoggedSupervisor, pageable);
         return projectMarketMapper.toProjectMarketDTOList(projectMarkets);
+    }
+
+    @Transactional
+    public void approveProjectAndCloseMarket(Long marketId) {
+        var market = projectMarketService.getByProjectMarketId(marketId);
+        var supervisor = getSupervisorFromContext();
+        if (supervisor == null || !Objects.equals(market.getProject().getSupervisor().getId(), supervisor.getId())) {
+            throw new IllegalStateException("Supervisor not found or is not assigned to this project market");
+        }
+        if (market.getStatus() != ProjectMarketStatus.ACTIVE) {
+            throw new IllegalStateException("Market is not active.");
+        }
+        market.approveBySupervisor();
+        projectMarketService.save(market);
     }
 
     private ProjectApplication checkAndGetProjectApplicationWithPendingStatus(Long applicationId) {
