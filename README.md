@@ -2,6 +2,7 @@
 
 ## List of modules
 
+
 | Module                  | Description                                                  | Application Version |
 |-------------------------|--------------------------------------------------------------|---------------------|
 | aggregated-test-report  | creates aggregated test report (using jacoco)                | 1.0.0               |
