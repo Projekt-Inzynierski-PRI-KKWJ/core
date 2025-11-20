@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.edu.amu.wmi.dao.ProjectApplicationDAO;
 import pl.edu.amu.wmi.entity.ProjectApplication;
+import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.mapper.ProjectApplicationEntityMapper;
 import pl.edu.amu.wmi.model.ApplyToProjectRequest;
 
@@ -24,8 +25,8 @@ public class ProjectApplicationService {
         projectApplicationDAO.save(projectApplicationEntityMapper.toEntity(request));
     }
 
-    public List<ProjectApplication> getApplicationForMarket(Long projectMarketId) {
-        return projectApplicationDAO.findByProjectMarket_Id(projectMarketId);
+    public List<ProjectApplication> getApplicationForMarket(ProjectApplicationStatus status, Long projectMarketId) {
+        return projectApplicationDAO.findByStatusAndProjectMarket_Id(status, projectMarketId);
     }
 
     public ProjectApplication accept(ProjectApplication application) {
