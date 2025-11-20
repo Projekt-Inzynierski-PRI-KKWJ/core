@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
@@ -51,7 +50,6 @@ public class ProjectMarketFacade {
     private final ProjectMarketService projectMarketService;
     private final ProjectService projectService;
 
-    private final ProjectDAO projectDAO;
     private final SupervisorDAO supervisorDAO;
     private final StudentDAO studentDAO;
     private final StudyYearDAO studyYearDAO;
