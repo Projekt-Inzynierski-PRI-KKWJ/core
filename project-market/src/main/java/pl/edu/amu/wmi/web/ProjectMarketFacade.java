@@ -64,8 +64,10 @@ public class ProjectMarketFacade {
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
         var student = getStudentFromContext();
+        if(student == null) {
+            throw new IllegalStateException("Student not found");
+        }
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
-
         var project = projectService.createProject(projectRequestMapper.fromDto(request, studyYear, student));
 
         projectMarketService.publishMarket(projectMarketMapper.toPublishRequest(request, project));
@@ -92,6 +94,9 @@ public class ProjectMarketFacade {
     public void applyToProject(Long marketId, ApplyToProjectRequestDTO request) {
         var indexNumber = getIndexNumberFromContext();
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        if (student == null) {
+            throw new IllegalStateException("Student not found");
+        }
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         if (ProjectMarketStatus.ACTIVE != projectMarket.getStatus()) {
             throw new IllegalStateException("Project market is not active.");
@@ -233,6 +238,9 @@ public class ProjectMarketFacade {
 
     private boolean isOwnerByMarketId(Long marketId) {
         var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException("Student not found.");
+        }
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         var owner = projectMarket.getProjectLeader();
         return owner != null && owner.getStudent().equals(student);
@@ -240,6 +248,9 @@ public class ProjectMarketFacade {
 
     private boolean isOwnerByApplication(ProjectApplication application) {
         var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException("Student not found.");
+        }
         var owner = application.getProjectMarket().getProjectLeader();
         return owner != null && owner.getStudent().equals(student);
     }
