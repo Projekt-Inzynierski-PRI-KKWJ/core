@@ -51,4 +51,14 @@ public class ProjectMarketSupervisorController {
             throw new BusinessException(e.getMessage());
         }
     }
+
+    @PatchMapping("/{marketId}/reject")
+    public ResponseEntity<Void> rejectProjectAndCloseMarket(@PathVariable Long marketId) {
+        try {
+            projectMarketFacade.rejectProjectAndCloseMarket(marketId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
 }
