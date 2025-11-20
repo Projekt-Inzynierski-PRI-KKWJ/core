@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
@@ -51,7 +50,6 @@ public class ProjectMarketFacade {
     private final ProjectMarketService projectMarketService;
     private final ProjectService projectService;
 
-    private final ProjectDAO projectDAO;
     private final SupervisorDAO supervisorDAO;
     private final StudentDAO studentDAO;
     private final StudyYearDAO studyYearDAO;
@@ -65,11 +63,11 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
-        //add getIndexNumberFromContext
-        var indexNumber = "s485953";
-        var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        var student = getStudentFromContext();
+        if(student == null) {
+            throw new IllegalStateException("Student not found");
+        }
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
-
         var project = projectService.createProject(projectRequestMapper.fromDto(request, studyYear, student));
 
         projectMarketService.publishMarket(projectMarketMapper.toPublishRequest(request, project));
@@ -94,9 +92,11 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void applyToProject(Long marketId, ApplyToProjectRequestDTO request) {
-        //add getIndexNumberFromContext
-        String indexNumber = "s485940";
+        var indexNumber = getIndexNumberFromContext();
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        if (student == null) {
+            throw new IllegalStateException("Student not found");
+        }
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         if (ProjectMarketStatus.ACTIVE != projectMarket.getStatus()) {
             throw new IllegalStateException("Project market is not active.");
@@ -237,37 +237,34 @@ public class ProjectMarketFacade {
     }
 
     private boolean isOwnerByMarketId(Long marketId) {
-        //add getIndexNumberFromContext
-        var indexNumber = "s485953";
-        var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException("Student not found.");
+        }
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         var owner = projectMarket.getProjectLeader();
-
         return owner != null && owner.getStudent().equals(student);
     }
 
     private boolean isOwnerByApplication(ProjectApplication application) {
-        //add getIndexNumberFromContext
-        var indexNumber = "s485953";
-        var student = studentDAO.findByUserData_IndexNumber(indexNumber);
+        var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException("Student not found.");
+        }
         var owner = application.getProjectMarket().getProjectLeader();
-
         return owner != null && owner.getStudent().equals(student);
     }
 
     private Student getStudentFromContext() {
-        //add getIndexNumberFromContext
-        var indexNumber = "s485940";
+        var indexNumber = getIndexNumberFromContext();
         return studentDAO.findByUserData_IndexNumber(indexNumber);
     }
 
     private Supervisor getSupervisorFromContext() {
-        //add getIndexNumberFromContext
-        var indexNumber = "marcinsz";
+        var indexNumber = getIndexNumberFromContext();
         return supervisorDAO.findByUserData_IndexNumber(indexNumber);
     }
 
-    //TODO use it when all will be ready
     private String getIndexNumberFromContext() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return String.valueOf(userDetails.getUsername());
