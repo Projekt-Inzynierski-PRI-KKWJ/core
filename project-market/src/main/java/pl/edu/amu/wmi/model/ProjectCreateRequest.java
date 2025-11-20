@@ -1,0 +1,14 @@
+package pl.edu.amu.wmi.model;
+
+import java.util.List;
+import lombok.Data;
+
+@Data
+public class ProjectCreateRequest {
+
+    private String name;
+    private String description;
+    private List<String> technologies;
+    private String studyYear;
+    private Long supervisorId;
+}
