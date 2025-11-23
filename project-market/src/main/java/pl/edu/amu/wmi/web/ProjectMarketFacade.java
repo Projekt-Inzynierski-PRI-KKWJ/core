@@ -45,6 +45,7 @@ public class ProjectMarketFacade {
 
     private static final List<ProjectMarketStatus> PROJECT_MARKET_STATUSES_AVAILABLE_TO_CLOSE =
         List.of(ProjectMarketStatus.ACTIVE, ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR);
+    private static final String MARKET_IS_NOT_ACTIVE = "Market is not active.";
 
     private final ProjectApplicationService projectApplicationService;
     private final ProjectMarketService projectMarketService;
@@ -65,7 +66,6 @@ public class ProjectMarketFacade {
     public void createMarket(ProjectCreateRequestDTO request) {
         var student = getStudentFromContext();
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
-
         var project = projectService.createProject(projectRequestMapper.fromDto(request, studyYear, student));
 
         projectMarketService.publishMarket(projectMarketMapper.toPublishRequest(request, project));
@@ -94,9 +94,9 @@ public class ProjectMarketFacade {
         var student = studentDAO.findByUserData_IndexNumber(indexNumber);
         var projectMarket = projectMarketService.getByProjectMarketId(marketId);
         if (ProjectMarketStatus.ACTIVE != projectMarket.getStatus()) {
-            throw new IllegalStateException("Project market is not active.");
+            throw new IllegalStateException(MARKET_IS_NOT_ACTIVE);
         }
-        if (projectMarket.getMaxMembers() >= projectMarket.getMembers().size()) {
+        if (projectMarket.getMaxMembers() <= projectMarket.getMembers().size()) {
             throw new IllegalStateException("Project market reached max number of members.");
         }
         if (projectApplicationService.existsByStudentAndMProjectMarket(student, projectMarket)) {
@@ -139,12 +139,12 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void submitProjectMarketToSupervisor(Long marketId, Long supervisorId) {
+        var market = projectMarketService.getByProjectMarketId(marketId);
         if (!isOwnerByMarketId(marketId)) {
             throw new IllegalStateException("Only project owner can submit");
         }
-        var market = projectMarketService.getByProjectMarketId(marketId);
         if (market.getStatus() != ProjectMarketStatus.ACTIVE) {
-            throw new IllegalStateException("Market is not active.");
+            throw new IllegalStateException(MARKET_IS_NOT_ACTIVE);
         }
 
         var supervisor = supervisorDAO.getReferenceById(supervisorId);
@@ -207,8 +207,8 @@ public class ProjectMarketFacade {
         if (supervisor == null || !Objects.equals(market.getProject().getSupervisor().getId(), supervisor.getId())) {
             throw new IllegalStateException("Supervisor not found or is not assigned to this project market");
         }
-        if (market.getStatus() != ProjectMarketStatus.ACTIVE) {
-            throw new IllegalStateException("Market is not active.");
+        if (market.getStatus() != ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR) {
+            throw new IllegalStateException("Market status is not SENT_FOR_APPROVAL_TO_SUPERVISOR");
         }
     }
 
