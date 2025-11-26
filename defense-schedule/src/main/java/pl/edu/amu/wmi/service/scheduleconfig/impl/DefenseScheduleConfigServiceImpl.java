@@ -24,15 +24,22 @@ import java.util.Set;
 import static pl.edu.amu.wmi.util.CommonDateUtils.commonDateFormatter;
 
 
+
+
+
 @Slf4j
 @Service
 public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigService {
+
+
 
     private final DefenseTimeSlotService defenseTimeSlotService;
     private final SupervisorDefenseAssignmentService supervisorDefenseAssignmentService;
     private final DefenseScheduleConfigDAO defenseScheduleConfigDAO;
     private final DefenseScheduleConfigMapper defenseScheduleConfigMapper;
     private final ProjectDefenseService projectDefenseService;
+
+
 
 
     @Autowired
@@ -47,6 +54,8 @@ public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigSe
         this.projectDefenseService = projectDefenseService;
     }
 
+
+
     @Override
     @Transactional
     public void createDefenseScheduleConfig(String studyYear, DefenseScheduleConfigDTO defenseScheduleConfig) {
@@ -60,6 +69,7 @@ public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigSe
         defenseTimeSlotService.createDefenseTimeSlots(studyYear, defenseScheduleConfigEntity.getId());
         supervisorDefenseAssignmentService.createSupervisorDefenseAssignments(studyYear, defenseScheduleConfigEntity.getId(), null);
     }
+
 
     @Override
     @Transactional
@@ -81,6 +91,8 @@ public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigSe
         return new DefensePhaseDTO(defenseScheduleConfig.getDefensePhase().getPhaseName());
     }
 
+
+
     @Override
     @Transactional
     public DefensePhaseDTO closeRegistrationForDefense(String studyYear) {
@@ -90,11 +102,13 @@ public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigSe
             throw new BusinessException("Closing registration for defense unsuccessful - process in incorrect phase");
         }
 
+
         defenseScheduleConfig.setDefensePhase(DefensePhase.DEFENSE_PROJECT);
         defenseScheduleConfig = defenseScheduleConfigDAO.save(defenseScheduleConfig);
         log.info("Registration for projects defenses was closed for study year: {}", studyYear);
         return new DefensePhaseDTO(defenseScheduleConfig.getDefensePhase().getPhaseName());
     }
+
 
     @Override
     public DefensePhaseDTO getCurrentDefensePhase(String studyYear) {
@@ -104,6 +118,8 @@ public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigSe
         }
         return new DefensePhaseDTO(defenseScheduleConfig.getDefensePhase().getPhaseName());
     }
+
+
 
     @Override
     @Transactional
@@ -129,6 +145,7 @@ public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigSe
 
     }
 
+
     @Override
     @Transactional
     public void archiveDefenseScheduleConfig(String studyYear) {
@@ -141,6 +158,7 @@ public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigSe
         defenseScheduleConfigDAO.save(defenseScheduleConfig);
         log.info("Defense schedule config for study year: {} with id: {} has beed archived", studyYear, defenseScheduleConfig.getId());
     }
+
 
     @Override
     @Transactional
@@ -162,5 +180,9 @@ public class DefenseScheduleConfigServiceImpl implements DefenseScheduleConfigSe
         log.info("Defense day {} was successfully added to an active defense schedule for a study year: {}", defenseScheduleModificationDTO.date(), studyYear);
 
     }
+
+
+
+
 
 }

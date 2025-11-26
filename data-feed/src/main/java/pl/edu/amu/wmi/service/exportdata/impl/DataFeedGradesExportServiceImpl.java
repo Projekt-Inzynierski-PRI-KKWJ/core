@@ -21,18 +21,24 @@ import java.util.Objects;
 
 @Component
 @Slf4j
-public class DataFeedGradesExportServiceImpl implements DataFeedExportService {
+public class DataFeedGradesExportServiceImpl implements DataFeedExportService
+{
 
     private final StudentDAO studentDAO;
 
+
     private static final String INDEX_REGEX_PATTERN = "^s\\d{6}";
+
 
     public DataFeedGradesExportServiceImpl(StudentDAO studentDAO) {
         this.studentDAO = studentDAO;
     }
 
+
+
     @Override
-    public void exportData(Writer writer, String studyYear) throws Exception {
+    public void exportData(Writer writer, String studyYear) throws Exception
+    {
         try (CSVWriter csvWriter = new CSVWriter(writer, ';', ICSVWriter.NO_QUOTE_CHARACTER, ICSVWriter.DEFAULT_ESCAPE_CHARACTER, ICSVWriter.DEFAULT_LINE_END);) {
             csvWriter.writeNext(createHeaders());
             List<Student> students = studentDAO.findAllByStudyYear(studyYear);
@@ -42,13 +48,17 @@ public class DataFeedGradesExportServiceImpl implements DataFeedExportService {
                     csvWriter.writeNext(createGradesData(student));
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             log.error("Error during parsing csv file with grades data", e);
             throw new CsvException();
         }
     }
 
-    private String[] createGradesData(Student student) {
+
+
+    private String[] createGradesData(Student student)
+    {
         List<EvaluationCard> evaluationCards = student.getConfirmedProject().getEvaluationCards();
 
         return new String[]{
@@ -60,12 +70,16 @@ public class DataFeedGradesExportServiceImpl implements DataFeedExportService {
         };
     }
 
-    private String adjustIndexNumber(String indexNumber) {
+
+    private String adjustIndexNumber(String indexNumber)
+    {
         if (indexNumber.matches(INDEX_REGEX_PATTERN)) {
             return indexNumber.substring(1);
         }
         return indexNumber;
     }
+
+
 
     private String extractGradeForSemesterAndTerm(List<EvaluationCard> evaluationCards, Semester semester, EvaluationPhase phase, EvaluationStatus status) {
         EvaluationCard evaluationCard = evaluationCards.stream()
@@ -79,10 +93,14 @@ public class DataFeedGradesExportServiceImpl implements DataFeedExportService {
         return String.valueOf(evaluationCard.getFinalGrade());
     }
 
+
+
     @Override
     public DataFeedType getType() {
         return DataFeedType.GRADES;
     }
+
+
 
     private String[] createHeaders() {
         return new String[]{
@@ -94,7 +112,12 @@ public class DataFeedGradesExportServiceImpl implements DataFeedExportService {
                 };
     }
 
-    private static class CSVHeaders {
+
+
+
+
+    private static class CSVHeaders
+    {
         private static final String INDEX = "INDEKS";
         private static final String GRADE_FIRST_SEMESTER_FIRST_TERM = "OCENA I SEMESTR I TERMIN";
         private static final String GRADE_FIRST_SEMESTER_SECOND_TERM = "OCENA I SEMESTR II TERMIN";
