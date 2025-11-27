@@ -15,14 +15,18 @@ import pl.edu.amu.wmi.enumerations.TypeOfCriterium;
 @Table(name = "CRITERIA_PROJECT")
 public class CriteriaProject extends AbstractEntity {
 
+
     private String criterium;
+
 
     @ManyToOne(fetch = FetchType.LAZY)//Changed ID on index
     @JoinColumn(name = "USER_DATA_INDEX", referencedColumnName = "indexNumber", nullable = false)
     private UserData userThatAddedTheCriterium;
 
+
     @Enumerated(EnumType.STRING)
     private Semester semester;
+
 
     @Enumerated(EnumType.STRING)
     private LevelOfRealization levelOfRealization;
@@ -38,7 +42,9 @@ public class CriteriaProject extends AbstractEntity {
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     private Project project;
 
+
     private Boolean enableForModification;
+
 
 
 

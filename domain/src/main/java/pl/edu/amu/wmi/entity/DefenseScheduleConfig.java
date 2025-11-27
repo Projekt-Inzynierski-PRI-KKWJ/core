@@ -35,6 +35,15 @@ public class DefenseScheduleConfig extends AbstractEntity {
 
     private Set<String> additionalDays = new TreeSet<>();
 
+
     @Enumerated(EnumType.STRING)
     private DefensePhase defensePhase;
+
+
 }
+
+
+
+
+
+

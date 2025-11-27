@@ -15,4 +15,13 @@ public class UserInfoDTO {
 
     private String email;
 
+
+
+
+
+
 }
+
+
+
+

@@ -31,9 +31,23 @@ public class DefenseTimeSlot extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private DefenseScheduleConfig defenseScheduleConfig;
 
-    public void addSupervisorDefenseAssignment(SupervisorDefenseAssignment assignment) {
+    public void addSupervisorDefenseAssignment(SupervisorDefenseAssignment assignment)
+    {
         supervisorDefenseAssignments.add(assignment);
         assignment.setDefenseTimeSlot(this);
+
     }
 
+
+
+
+
+
+
 }
+
+
+
+
+
+

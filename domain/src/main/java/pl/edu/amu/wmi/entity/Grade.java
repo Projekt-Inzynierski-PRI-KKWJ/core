@@ -31,7 +31,19 @@ public class Grade extends AbstractEntity {
         this.criteriaGroup = criteriaGroup;
     }
 
-    public Grade createACopy() {
+    public Grade createACopy()
+    {
         return new Grade(this.criteriaGroup, this.points, this.pointsWithWeight, this.isDisqualifying);
+
     }
+
+
+
+
+
+
+
 }
+
+
+
