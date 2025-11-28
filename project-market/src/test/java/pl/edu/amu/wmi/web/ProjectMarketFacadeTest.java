@@ -36,12 +36,12 @@ import pl.edu.amu.wmi.model.PublishProjectMarketRequest;
 import pl.edu.amu.wmi.service.ProjectApplicationService;
 import pl.edu.amu.wmi.service.ProjectMarketService;
 import pl.edu.amu.wmi.service.ProjectService;
-import pl.edu.amu.wmi.web.helper.ApplyToProjectRequestDTOHelper;
-import pl.edu.amu.wmi.web.helper.ProjectApplicationHelper;
-import pl.edu.amu.wmi.web.helper.ProjectCreateRequestDTOHelper;
-import pl.edu.amu.wmi.web.helper.ProjectMarketHelper;
-import pl.edu.amu.wmi.web.helper.StudentHelper;
-import pl.edu.amu.wmi.web.helper.SupervisorHelper;
+import pl.edu.amu.wmi.helper.ApplyToProjectRequestDTOHelper;
+import pl.edu.amu.wmi.helper.ProjectApplicationHelper;
+import pl.edu.amu.wmi.helper.ProjectCreateRequestDTOHelper;
+import pl.edu.amu.wmi.helper.ProjectMarketHelper;
+import pl.edu.amu.wmi.helper.StudentHelper;
+import pl.edu.amu.wmi.helper.SupervisorHelper;
 import pl.edu.amu.wmi.web.mapper.ApplyToProjectRequestMapper;
 import pl.edu.amu.wmi.web.mapper.ApplyToProjectRequestMapperImpl;
 import pl.edu.amu.wmi.web.mapper.ProjectApplicationMapper;
@@ -71,6 +71,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static pl.edu.amu.wmi.helper.PaginationHelper.createPage;
 
 @ExtendWith(MockitoExtension.class)
 class ProjectMarketFacadeTest {
@@ -975,15 +976,5 @@ class ProjectMarketFacadeTest {
     private static Stream<Arguments> projectApplicationStatuses() {
         return Stream.of(Arguments.of(ProjectApplicationStatus.REJECTED),
             Arguments.of(ProjectApplicationStatus.ACCEPTED));
-    }
-
-    @SafeVarargs
-    private static <T> Page<T> createPage(T... data) {
-        List<T> collection = new ArrayList<>(Arrays.asList(data));
-        return new PageImpl<>(
-            collection,
-            PageRequest.of(0, 10),
-            collection.size()
-        );
     }
 }

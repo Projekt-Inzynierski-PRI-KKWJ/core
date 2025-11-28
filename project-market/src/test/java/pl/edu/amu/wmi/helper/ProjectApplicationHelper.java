@@ -1,10 +1,12 @@
-package pl.edu.amu.wmi.web.helper;
+package pl.edu.amu.wmi.helper;
 
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
+import pl.edu.amu.wmi.web.model.ProjectApplicationDTO;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ProjectApplicationHelper {
@@ -19,5 +21,22 @@ public final class ProjectApplicationHelper {
         projectApplication.setOtherInformation(RandomStringUtils.randomAlphanumeric(20));
 
         return projectApplication;
+    }
+
+    public static ProjectApplicationDTO.ProjectApplicationDTOBuilder builderDTO() {
+        return ProjectApplicationDTO.builder()
+            .id(Long.valueOf(RandomStringUtils.randomNumeric(5)))
+            .firstName(RandomStringUtils.randomAlphanumeric(20))
+            .lastName(RandomStringUtils.randomAlphanumeric(20))
+            .contactData(RandomStringUtils.randomAlphanumeric(20))
+            .skills(RandomStringUtils.randomAlphanumeric(20))
+            .otherInformation(RandomStringUtils.randomAlphanumeric(20))
+            .status(ProjectApplicationStatus.PENDING.name())
+            .applicationDate(LocalDateTime.now())
+            .decisionDate(LocalDateTime.now());
+    }
+
+    public static ProjectApplicationDTO defaultDTO() {
+       return builderDTO().build();
     }
 }

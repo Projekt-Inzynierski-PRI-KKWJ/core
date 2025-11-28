@@ -32,10 +32,10 @@ public class ProjectMarketController {
         }
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<ProjectMarketDetailsDTO> getProjectMarketById(@PathVariable Long id) {
+    @GetMapping("{projectMarketId}")
+    public ResponseEntity<ProjectMarketDetailsDTO> getProjectMarketById(@PathVariable Long projectMarketId) {
         try {
-            return ResponseEntity.ok(projectMarketFacade.getMarketDetailsById(id));
+            return ResponseEntity.ok(projectMarketFacade.getMarketDetailsById(projectMarketId));
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
@@ -46,24 +46,24 @@ public class ProjectMarketController {
         try {
             return ResponseEntity.ok(projectMarketFacade.searchProjectMarketsByNamePattern(name, pageable));
         } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
+            return ResponseEntity.ok(Page.empty(pageable));
         }
     }
 
-    @PatchMapping("/{marketId}/submit/{supervisorId}")
-    public ResponseEntity<Void> submitProjectMarketToSupervisor(@PathVariable Long marketId, @PathVariable Long supervisorId) {
+    @PatchMapping("/{projectMarketId}/submit/{supervisorId}")
+    public ResponseEntity<Void> submitProjectMarketToSupervisor(@PathVariable Long projectMarketId, @PathVariable Long supervisorId) {
         try {
-            projectMarketFacade.submitProjectMarketToSupervisor(marketId, supervisorId);
+            projectMarketFacade.submitProjectMarketToSupervisor(projectMarketId, supervisorId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
     }
 
-    @DeleteMapping("{marketId}/close")
-    public ResponseEntity<Void> closeProjectMarket(@PathVariable Long marketId) {
+    @DeleteMapping("{projectMarketId}/close")
+    public ResponseEntity<Void> closeProjectMarketByOwner(@PathVariable Long projectMarketId) {
         try {
-            projectMarketFacade.closeProjectMarketByOwner(marketId);
+            projectMarketFacade.closeProjectMarketByOwner(projectMarketId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());

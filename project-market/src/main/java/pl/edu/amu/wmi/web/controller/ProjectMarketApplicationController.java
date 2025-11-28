@@ -42,10 +42,10 @@ public class ProjectMarketApplicationController {
         }
     }
 
-    @PatchMapping("/{id}/approve")
-    public ResponseEntity<Void> approveApplication(@PathVariable Long id) {
+    @PatchMapping("/{applicationId}/approve")
+    public ResponseEntity<Void> approveApplication(@PathVariable Long applicationId) {
         try {
-            projectMarketFacade.approveCandidate(id);
+            projectMarketFacade.approveCandidate(applicationId);
             return ResponseEntity.ok().build();
         }catch (Exception ex) {
             throw new BusinessException(ex.getMessage());

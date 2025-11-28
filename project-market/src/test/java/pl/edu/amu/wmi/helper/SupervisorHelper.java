@@ -1,4 +1,4 @@
-package pl.edu.amu.wmi.web.helper;
+package pl.edu.amu.wmi.helper;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.Supervisor;
+import pl.edu.amu.wmi.web.model.ProjectMarketSupervisorDTO;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SupervisorHelper {
@@ -28,5 +29,16 @@ public final class SupervisorHelper {
         supervisor.setStudyYear(studyYear);
 
         return supervisor;
+    }
+
+    public static ProjectMarketSupervisorDTO.ProjectMarketSupervisorDTOBuilder builderDTO() {
+        return ProjectMarketSupervisorDTO.builder()
+            .firstName(RandomStringUtils.randomAlphanumeric(4))
+            .lastName(RandomStringUtils.randomAlphanumeric(4))
+            .id(Long.parseLong(RandomStringUtils.randomNumeric(4)));
+    }
+
+    public static ProjectMarketSupervisorDTO defaultsDTO() {
+        return builderDTO().build();
     }
 }

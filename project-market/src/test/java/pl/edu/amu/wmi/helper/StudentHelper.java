@@ -1,11 +1,10 @@
-package pl.edu.amu.wmi.web.helper;
+package pl.edu.amu.wmi.helper;
 
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import pl.edu.amu.wmi.entity.Student;
-import pl.edu.amu.wmi.entity.UserData;
 import pl.edu.amu.wmi.enumerations.ProjectRole;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

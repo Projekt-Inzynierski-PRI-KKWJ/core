@@ -1,4 +1,4 @@
-package pl.edu.amu.wmi.web.helper;
+package pl.edu.amu.wmi.helper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

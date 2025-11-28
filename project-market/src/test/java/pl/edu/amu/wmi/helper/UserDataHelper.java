@@ -1,4 +1,4 @@
-package pl.edu.amu.wmi.web.helper;
+package pl.edu.amu.wmi.helper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,12 +17,7 @@ public final class UserDataHelper {
         userData.setFirstName(RandomStringUtils.randomAlphabetic(6));
         userData.setLastName(RandomStringUtils.randomAlphabetic(8));
         userData.setIndexNumber(indexNumber);
-        userData.setEmail(
-            userData.getFirstName().toLowerCase() +
-                "." +
-                userData.getLastName().toLowerCase() +
-                "@example.com"
-        );
+        userData.setEmail(userData.getFirstName().toLowerCase() + "." + userData.getLastName().toLowerCase() + "@example.com");
         return userData;
     }
 }

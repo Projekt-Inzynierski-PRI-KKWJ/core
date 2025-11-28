@@ -28,34 +28,34 @@ public class ProjectMarketSupervisorController {
         try {
             return ResponseEntity.ok(projectMarketFacade.getSupervisors(studyYear));
         } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
+            return ResponseEntity.ok(List.of());
         }
     }
 
     @GetMapping("/projects")
-    public ResponseEntity<Page<ProjectMarketDTO>> getProjectMarketsByForSupervisor(Pageable pageable) {
+    public ResponseEntity<Page<ProjectMarketDTO>> getProjectMarketsForSupervisor(Pageable pageable) {
         try {
             var markets = projectMarketFacade.getProjectMarketsForSupervisor(pageable);
             return ResponseEntity.ok(markets);
         } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
+            return ResponseEntity.ok(Page.empty());
         }
     }
 
-    @PatchMapping("/{marketId}/approve")
-    public ResponseEntity<Void> approveProjectAndCloseMarket(@PathVariable Long marketId) {
+    @PatchMapping("/{projectMarketId}/approve")
+    public ResponseEntity<Void> approveProjectAndCloseMarket(@PathVariable Long projectMarketId) {
         try {
-            projectMarketFacade.approveProjectAndCloseMarket(marketId);
+            projectMarketFacade.approveProjectAndCloseMarket(projectMarketId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
     }
 
-    @PatchMapping("/{marketId}/reject")
-    public ResponseEntity<Void> rejectProjectAndCloseMarket(@PathVariable Long marketId) {
+    @PatchMapping("/{projectMarketId}/reject")
+    public ResponseEntity<Void> rejectProjectAndCloseMarket(@PathVariable Long projectMarketId) {
         try {
-            projectMarketFacade.rejectProjectAndCloseMarket(marketId);
+            projectMarketFacade.rejectProjectAndCloseMarket(projectMarketId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
