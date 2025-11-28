@@ -1,18 +1,21 @@
 package pl.edu.amu.wmi.controller;
 
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.amu.wmi.model.project.ProjectDTO;
 import pl.edu.amu.wmi.service.StatisticsService;
 
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/statistics")
-@CrossOrigin(origins = "*")
+@Slf4j
 public class StatisticsController {
 
     private final StatisticsService statisticsService;
@@ -23,7 +26,9 @@ public class StatisticsController {
     }
 
     @GetMapping("/projects")
-    public List<ProjectDTO> getAllProjects() {
+    public List<ProjectDTO> getAllProjects()
+    {
+        log.info("ENDPOINT!!! URUCHOMIONY");
         return statisticsService.getAllProjects();
     }
 }

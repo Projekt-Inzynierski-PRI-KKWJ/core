@@ -1,13 +1,19 @@
 package pl.edu.amu.wmi.security;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
 import jakarta.servlet.*;
 
+
+
 @Component
+@Slf4j
 public class MaintenanceFilter implements Filter
 {
+
+
     private MaintenanceMode maintenanceMode;
 
     public MaintenanceFilter(MaintenanceMode maintenanceMode)
@@ -24,10 +30,20 @@ public class MaintenanceFilter implements Filter
         if (maintenanceMode.getIsInMaintenanceMode()) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
-            httpResponse.getWriter().write("System is in maintenance, please try again later.");
+            httpResponse.getWriter().write("System is in maintenance, please try again in a moment.");
+            log.info("System is in maintenance, please try again in a moment. Database is probably being reset");
             return;
         }
 
+
         chain.doFilter(request, response);
     }
+
+
+
 }
+
+
+
+
+
