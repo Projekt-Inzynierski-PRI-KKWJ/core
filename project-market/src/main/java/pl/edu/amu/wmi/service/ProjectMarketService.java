@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.service;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +34,7 @@ public class ProjectMarketService {
         projectMarketDAO.save(projectMarket);
     }
 
-    public ProjectMarket getByProjectMarketId(Long id) {
+    public ProjectMarket getProjectMarketById(Long id) {
         return projectMarketDAO.getReferenceById(id);
     }
 

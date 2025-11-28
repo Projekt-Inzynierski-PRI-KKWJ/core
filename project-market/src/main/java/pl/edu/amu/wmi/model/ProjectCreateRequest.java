@@ -13,7 +13,6 @@ public class ProjectCreateRequest {
     private List<String> technologies;
     private StudyYear studyYear;
     private Student student;
-    private Long supervisorId;
     private String contactData;
     private int maxMembers;
 }

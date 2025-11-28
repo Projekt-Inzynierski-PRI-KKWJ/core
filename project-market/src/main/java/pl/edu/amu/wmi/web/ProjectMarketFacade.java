@@ -46,6 +46,7 @@ public class ProjectMarketFacade {
     private static final List<ProjectMarketStatus> PROJECT_MARKET_STATUSES_AVAILABLE_TO_CLOSE =
         List.of(ProjectMarketStatus.ACTIVE, ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR);
     private static final String MARKET_IS_NOT_ACTIVE = "Market is not active.";
+    public static final String STUDENT_NOT_FOUND = "Student not found.";
 
     private final ProjectApplicationService projectApplicationService;
     private final ProjectMarketService projectMarketService;
@@ -79,7 +80,7 @@ public class ProjectMarketFacade {
     }
 
     public ProjectMarketDetailsDTO getMarketDetailsById(Long id) {
-        return projectMarketMapper.toProjectMarketDetailsDTO(projectMarketService.getByProjectMarketId(id));
+        return projectMarketMapper.toProjectMarketDetailsDTO(projectMarketService.getProjectMarketById(id));
     }
 
     public Page<ProjectMarketDTO> searchProjectMarketsByNamePattern(String name, Pageable pageable) {
@@ -87,7 +88,7 @@ public class ProjectMarketFacade {
     }
 
     public ProjectMembersDTO getProjectMembersByMarketId(Long marketId) {
-        var projectMarket = projectMarketService.getByProjectMarketId(marketId);
+        var projectMarket = projectMarketService.getProjectMarketById(marketId);
         return projectMemberMapper.fromProjectMarket(projectMarket);
     }
 
@@ -98,7 +99,7 @@ public class ProjectMarketFacade {
         if (student == null) {
             throw new IllegalStateException("Student not found");
         }
-        var projectMarket = projectMarketService.getByProjectMarketId(marketId);
+        var projectMarket = projectMarketService.getProjectMarketById(marketId);
         if (ProjectMarketStatus.ACTIVE != projectMarket.getStatus()) {
             throw new IllegalStateException(MARKET_IS_NOT_ACTIVE);
         }
@@ -145,9 +146,9 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void submitProjectMarketToSupervisor(Long marketId, Long supervisorId) {
-        var market = projectMarketService.getByProjectMarketId(marketId);
+        var market = projectMarketService.getProjectMarketById(marketId);
         if (!isOwnerByMarketId(marketId)) {
-            throw new IllegalStateException("Only project owner can submit");
+            throw new IllegalStateException("Only project owner can submit project to supervisor");
         }
         if (market.getStatus() != ProjectMarketStatus.ACTIVE) {
             throw new IllegalStateException(MARKET_IS_NOT_ACTIVE);
@@ -164,10 +165,10 @@ public class ProjectMarketFacade {
 
     @Transactional
     public void closeProjectMarketByOwner(Long marketId) {
-        if (!isOwnerByMarketId(marketId)) {
+        var market = projectMarketService.getProjectMarketById(marketId);
+        if (!isOwnerByMarket(market)) {
             throw new IllegalStateException("Only project owner can close this project market.");
         }
-        var market = projectMarketService.getByProjectMarketId(marketId);
         var status = market.getStatus();
         if (!PROJECT_MARKET_STATUSES_AVAILABLE_TO_CLOSE.contains(status)) {
             throw new IllegalStateException(
@@ -202,7 +203,7 @@ public class ProjectMarketFacade {
     }
 
     private void manipulateProjectMarketBySupervisor(Long marketId, Consumer<ProjectMarket> consumer) {
-        var market = projectMarketService.getByProjectMarketId(marketId);
+        var market = projectMarketService.getProjectMarketById(marketId);
         checkIfIsPossibleToManipulateProjectDataBySupervisor(market);
         consumer.accept(market);
         projectMarketService.save(market);
@@ -214,7 +215,7 @@ public class ProjectMarketFacade {
             throw new IllegalStateException("Supervisor not found or is not assigned to this project market");
         }
         if (market.getStatus() != ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR) {
-            throw new IllegalStateException("Market status is not SENT_FOR_APPROVAL_TO_SUPERVISOR");
+            throw new IllegalStateException("Project market status is not SENT_FOR_APPROVAL_TO_SUPERVISOR");
         }
     }
 
@@ -240,20 +241,29 @@ public class ProjectMarketFacade {
     private boolean isOwnerByMarketId(Long marketId) {
         var student = getStudentFromContext();
         if (student == null) {
-            throw new IllegalStateException("Student not found.");
+            throw new IllegalStateException(STUDENT_NOT_FOUND);
         }
-        var projectMarket = projectMarketService.getByProjectMarketId(marketId);
+        var projectMarket = projectMarketService.getProjectMarketById(marketId);
         var owner = projectMarket.getProjectLeader();
-        return owner != null && owner.getStudent().equals(student);
+        return owner != null && owner.getStudent().getId().equals(student.getId());
+    }
+
+    private boolean isOwnerByMarket(ProjectMarket projectMarket) {
+        var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException(STUDENT_NOT_FOUND);
+        }
+        var owner = projectMarket.getProjectLeader();
+        return owner != null && owner.getStudent().getId().equals(student.getId());
     }
 
     private boolean isOwnerByApplication(ProjectApplication application) {
         var student = getStudentFromContext();
         if (student == null) {
-            throw new IllegalStateException("Student not found.");
+            throw new IllegalStateException(STUDENT_NOT_FOUND);
         }
         var owner = application.getProjectMarket().getProjectLeader();
-        return owner != null && owner.getStudent().equals(student);
+        return owner != null && owner.getStudent().getId().equals(student.getId());
     }
 
     private Student getStudentFromContext() {
