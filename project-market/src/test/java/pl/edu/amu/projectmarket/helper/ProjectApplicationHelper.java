@@ -14,7 +14,7 @@ public final class ProjectApplicationHelper {
     public static ProjectApplication defaults() {
         ProjectApplication projectApplication = new ProjectApplication();
         projectApplication.setProjectMarket(ProjectMarketHelper.defaults());
-        projectApplication.setStudent(StudentHelper.createDefaultStudent());
+        projectApplication.setStudent(StudentHelper.defaults());
         projectApplication.setStatus(ProjectApplicationStatus.PENDING);
         projectApplication.setContactData(RandomStringUtils.randomAlphanumeric(20));
         projectApplication.setSkills(RandomStringUtils.randomAlphanumeric(20));

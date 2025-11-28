@@ -1,5 +1,6 @@
 package pl.edu.amu.projectmarket.helper;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ public final class ProjectHelper {
         project.setName("Project-" + RandomStringUtils.randomAlphanumeric(8));
         project.setDescription(RandomStringUtils.randomAlphanumeric(100));
 
-        Student student = StudentHelper.createDefaultStudent(indexNumber);
+        Student student = StudentHelper.defaults(indexNumber);
         project.setStudents(Set.of(student));
         student.setConfirmedProject(project);
 
@@ -58,7 +59,9 @@ public final class ProjectHelper {
         evaluationCard.setProject(project);
         evaluationCard.setEvaluationStatus(EvaluationStatus.ACTIVE);
         evaluationCard.setEvaluationPhase(EvaluationPhase.SEMESTER_PHASE);
-        project.setEvaluationCards(List.of(evaluationCard));
+        List<EvaluationCard> evaluationCards = new ArrayList<>();
+        evaluationCards.add(evaluationCard);
+        project.setEvaluationCards(evaluationCards);
 
         StudentProject sp = new StudentProject(student, project);
         sp.setProjectAdmin(true);

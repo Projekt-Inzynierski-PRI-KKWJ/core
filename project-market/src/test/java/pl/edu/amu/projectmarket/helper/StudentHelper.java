@@ -10,11 +10,11 @@ import pl.edu.amu.wmi.enumerations.ProjectRole;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class StudentHelper {
 
-    public static Student createDefaultStudent() {
-        return createDefaultStudent(RandomStringUtils.randomAlphanumeric(5));
+    public static Student defaults() {
+        return defaults(RandomStringUtils.randomAlphanumeric(5));
     }
 
-    public static Student createDefaultStudent(String indexNumber) {
+    public static Student defaults(String indexNumber) {
         Student student = new Student();
         student.setId(1L);
 

@@ -32,11 +32,11 @@ public class ProjectApplicationService {
         projectApplicationDAO.save(application);
     }
 
-    public List<ProjectApplication> getApplicationForMarket(ProjectApplicationStatus status, Long projectMarketId) {
+    public List<ProjectApplication> getApplicationsForMarket(ProjectApplicationStatus status, Long projectMarketId) {
         return projectApplicationDAO.findByStatusAndProjectMarket_Id(status, projectMarketId);
     }
 
-    public List<ProjectApplication> getApplicationForStudent(Student student) {
+    public List<ProjectApplication> getApplicationsForStudent(Student student) {
         return projectApplicationDAO.findByStudent(student);
     }
 
@@ -44,7 +44,7 @@ public class ProjectApplicationService {
         return projectApplicationDAO.findById(id);
     }
 
-    public boolean existsByStudentAndMProjectMarket(Student student, ProjectMarket projectMarket) {
+    public boolean existsByStudentAndProjectMarket(Student student, ProjectMarket projectMarket) {
         return projectApplicationDAO.existsByStudentAndProjectMarket(student, projectMarket);
     }
 }

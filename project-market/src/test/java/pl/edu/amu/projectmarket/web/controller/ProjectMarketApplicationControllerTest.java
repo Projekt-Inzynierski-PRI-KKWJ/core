@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import pl.edu.amu.projectmarket.helper.ApplyToProjectRequestDTOHelper;
+import pl.edu.amu.projectmarket.helper.ApplyToProjectRequestHelper;
 import pl.edu.amu.projectmarket.helper.ProjectApplicationHelper;
 import pl.edu.amu.projectmarket.helper.StudentProjectApplicationDTOHelper;
 import pl.edu.amu.projectmarket.web.ProjectMarketFacade;
@@ -33,7 +33,7 @@ class ProjectMarketApplicationControllerTest {
     void shouldApplyToProject() {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(5));
-        var request = ApplyToProjectRequestDTOHelper.defaults();
+        var request = ApplyToProjectRequestHelper.defaultsDTO();
 
         //when
         ResponseEntity<Void> result = controller.applyToProject(marketId, request);
@@ -47,7 +47,7 @@ class ProjectMarketApplicationControllerTest {
     void shouldNotApplyToProjectWhenExceptionThrows() {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(5));
-        var request = ApplyToProjectRequestDTOHelper.defaults();
+        var request = ApplyToProjectRequestHelper.defaultsDTO();
         var exceptionMessage = "exceptionMessage";
         var exception = new IllegalStateException(exceptionMessage);
         doThrow(exception).when(projectMarketFacade).applyToProject(marketId, request);

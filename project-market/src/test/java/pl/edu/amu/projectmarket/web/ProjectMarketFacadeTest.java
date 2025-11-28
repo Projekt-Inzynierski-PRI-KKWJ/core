@@ -33,9 +33,9 @@ import pl.edu.amu.projectmarket.model.PublishProjectMarketRequest;
 import pl.edu.amu.projectmarket.service.ProjectApplicationService;
 import pl.edu.amu.projectmarket.service.ProjectMarketService;
 import pl.edu.amu.projectmarket.service.ProjectService;
-import pl.edu.amu.projectmarket.helper.ApplyToProjectRequestDTOHelper;
+import pl.edu.amu.projectmarket.helper.ApplyToProjectRequestHelper;
 import pl.edu.amu.projectmarket.helper.ProjectApplicationHelper;
-import pl.edu.amu.projectmarket.helper.ProjectCreateRequestDTOHelper;
+import pl.edu.amu.projectmarket.helper.ProjectCreateRequestHelper;
 import pl.edu.amu.projectmarket.helper.ProjectMarketHelper;
 import pl.edu.amu.projectmarket.helper.StudentHelper;
 import pl.edu.amu.projectmarket.helper.SupervisorHelper;
@@ -126,7 +126,7 @@ class ProjectMarketFacadeTest {
     void shouldCreateProjectMarket() {
         //given
         getIndexNumberFromContext();
-        var request = ProjectCreateRequestDTOHelper.defaults();
+        var request = ProjectCreateRequestHelper.defaultsDTO();
         Student student = mock(Student.class);
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
@@ -167,7 +167,7 @@ class ProjectMarketFacadeTest {
     @Test
     void shouldNotCreateProjectMarketWhenStudentNotFound() {
         getIndexNumberFromContext();
-        var request = ProjectCreateRequestDTOHelper.defaults();
+        var request = ProjectCreateRequestHelper.defaultsDTO();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(null);
 
         //when
@@ -272,7 +272,7 @@ class ProjectMarketFacadeTest {
     void shouldApplyToProjectSuccessfully() {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
-        var applyToProjectRequest = ApplyToProjectRequestDTOHelper.defaults();
+        var applyToProjectRequest = ApplyToProjectRequestHelper.defaultsDTO();
         getIndexNumberFromContext();
         var student = mock(Student.class);
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
@@ -281,7 +281,7 @@ class ProjectMarketFacadeTest {
         projectMarket.setMaxMembers(100);
         when(projectMarketService.getProjectMarketById(marketId)).thenReturn(projectMarket);
 
-        when(projectApplicationService.existsByStudentAndMProjectMarket(student, projectMarket)).thenReturn(false);
+        when(projectApplicationService.existsByStudentAndProjectMarket(student, projectMarket)).thenReturn(false);
 
         //when
         projectMarketFacade.applyToProject(marketId, applyToProjectRequest);
@@ -294,7 +294,7 @@ class ProjectMarketFacadeTest {
     void shouldNotApplyToProjectWhenStudentNotExist() {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
-        var applyToProjectRequest = ApplyToProjectRequestDTOHelper.defaults();
+        var applyToProjectRequest = ApplyToProjectRequestHelper.defaultsDTO();
         getIndexNumberFromContext();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(null);
 
@@ -312,7 +312,7 @@ class ProjectMarketFacadeTest {
     void shouldNotApplyToProjectWhenProjectMarketIsNotActive(ProjectMarketStatus projectMarketStatus) {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
-        var applyToProjectRequest = ApplyToProjectRequestDTOHelper.defaults();
+        var applyToProjectRequest = ApplyToProjectRequestHelper.defaultsDTO();
         getIndexNumberFromContext();
         var student = mock(Student.class);
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
@@ -334,7 +334,7 @@ class ProjectMarketFacadeTest {
     @Test
     void shouldNotApplyToProjectWhenProjectMarkedReachedMaxMembers() {
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
-        var applyToProjectRequest = ApplyToProjectRequestDTOHelper.defaults();
+        var applyToProjectRequest = ApplyToProjectRequestHelper.defaultsDTO();
         getIndexNumberFromContext();
         var student = mock(Student.class);
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
@@ -355,7 +355,7 @@ class ProjectMarketFacadeTest {
     @Test
     void shouldNotApplyToProjectWhenApplicationAlreadyExists() {
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
-        var applyToProjectRequest = ApplyToProjectRequestDTOHelper.defaults();
+        var applyToProjectRequest = ApplyToProjectRequestHelper.defaultsDTO();
         getIndexNumberFromContext();
         var student = mock(Student.class);
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
@@ -364,7 +364,7 @@ class ProjectMarketFacadeTest {
         projectMarket.setMaxMembers(100);
         when(projectMarketService.getProjectMarketById(marketId)).thenReturn(projectMarket);
 
-        when(projectApplicationService.existsByStudentAndMProjectMarket(student, projectMarket)).thenReturn(true);
+        when(projectApplicationService.existsByStudentAndProjectMarket(student, projectMarket)).thenReturn(true);
 
         //when
         assertThatThrownBy(() -> projectMarketFacade.applyToProject(marketId, applyToProjectRequest))
@@ -378,7 +378,7 @@ class ProjectMarketFacadeTest {
     @Test
     void shouldNotApplyToProjectWhenStudentIsAlreadyInProject() {
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
-        var applyToProjectRequest = ApplyToProjectRequestDTOHelper.defaults();
+        var applyToProjectRequest = ApplyToProjectRequestHelper.defaultsDTO();
         getIndexNumberFromContext();
         var student = mock(Student.class);
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
@@ -387,7 +387,7 @@ class ProjectMarketFacadeTest {
         projectMarket.setMaxMembers(100);
         when(projectMarketService.getProjectMarketById(marketId)).thenReturn(projectMarket);
 
-        when(projectApplicationService.existsByStudentAndMProjectMarket(student, projectMarket)).thenReturn(false);
+        when(projectApplicationService.existsByStudentAndProjectMarket(student, projectMarket)).thenReturn(false);
 
         //when
         assertThatThrownBy(() -> projectMarketFacade.applyToProject(marketId, applyToProjectRequest))
@@ -403,14 +403,14 @@ class ProjectMarketFacadeTest {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         var projectMarket = ProjectMarketHelper.defaults(INDEX_NUMBER);
         when(projectMarketService.getProjectMarketById(marketId)).thenReturn(projectMarket);
 
         var projectApplication = ProjectApplicationHelper.defaults();
-        when(projectApplicationService.getApplicationForMarket(ProjectApplicationStatus.PENDING, marketId)).thenReturn(List.of(projectApplication));
+        when(projectApplicationService.getApplicationsForMarket(ProjectApplicationStatus.PENDING, marketId)).thenReturn(List.of(projectApplication));
 
         //when
         List<ProjectApplicationDTO> result = projectMarketFacade.getProjectApplicationByMarketIdInPendingStatus(marketId);
@@ -442,7 +442,7 @@ class ProjectMarketFacadeTest {
             .hasMessage("You are not allowed to perform this operation");
 
         //then
-        verify(projectApplicationService, times(0)).getApplicationForMarket(any(), any());
+        verify(projectApplicationService, times(0)).getApplicationsForMarket(any(), any());
     }
 
     @Test
@@ -458,7 +458,7 @@ class ProjectMarketFacadeTest {
             .hasMessage("Student not found.");
 
         //then
-        verify(projectApplicationService, times(0)).getApplicationForMarket(any(), any());
+        verify(projectApplicationService, times(0)).getApplicationsForMarket(any(), any());
     }
 
     @Test
@@ -470,7 +470,7 @@ class ProjectMarketFacadeTest {
         when(projectApplicationService.findProjectApplicationById(applicationId)).thenReturn(Optional.of(projectApplication));
 
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         //when
@@ -549,7 +549,7 @@ class ProjectMarketFacadeTest {
         when(projectApplicationService.findProjectApplicationById(applicationId)).thenReturn(Optional.of(projectApplication));
 
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         //when
@@ -570,7 +570,7 @@ class ProjectMarketFacadeTest {
         when(projectApplicationService.findProjectApplicationById(applicationId)).thenReturn(Optional.of(projectApplication));
 
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         //when
@@ -585,11 +585,11 @@ class ProjectMarketFacadeTest {
     void shouldGetApplicationsForStudent() {
         //given
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         var projectApplication = ProjectApplicationHelper.defaults();
-        when(projectApplicationService.getApplicationForStudent(student)).thenReturn(List.of(projectApplication));
+        when(projectApplicationService.getApplicationsForStudent(student)).thenReturn(List.of(projectApplication));
 
         //when
         List<StudentProjectApplicationDTO> result = projectMarketFacade.getApplicationsForStudent();
@@ -634,7 +634,7 @@ class ProjectMarketFacadeTest {
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
 
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         var projectMarket = ProjectMarketHelper.defaults(INDEX_NUMBER);
@@ -657,7 +657,7 @@ class ProjectMarketFacadeTest {
     void shouldNotSubmitProjectMarketToSupervisorWhenSupervisorReachedMaximumNumberOfProjects() {
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         var projectMarket = ProjectMarketHelper.defaults(INDEX_NUMBER);
@@ -682,7 +682,7 @@ class ProjectMarketFacadeTest {
     void shouldNotSubmitProjectMarketToSupervisorWhenMarketHasWrongStatus(ProjectMarketStatus status) {
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         var projectMarket = ProjectMarketHelper.defaults(INDEX_NUMBER);
@@ -725,7 +725,7 @@ class ProjectMarketFacadeTest {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         var projectMarket = ProjectMarketHelper.defaults(INDEX_NUMBER);
@@ -747,7 +747,7 @@ class ProjectMarketFacadeTest {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));
         getIndexNumberFromContext();
-        var student = StudentHelper.createDefaultStudent();
+        var student = StudentHelper.defaults();
         when(studentDAO.findByUserData_IndexNumber(INDEX_NUMBER)).thenReturn(student);
 
         var projectMarket = ProjectMarketHelper.defaults(INDEX_NUMBER);

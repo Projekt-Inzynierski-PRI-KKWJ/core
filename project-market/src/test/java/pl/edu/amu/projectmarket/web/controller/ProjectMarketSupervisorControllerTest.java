@@ -93,6 +93,22 @@ class ProjectMarketSupervisorControllerTest {
     }
 
     @Test
+    void shouldNotGetProjectMarketsForSupervisorWhenExceptionIsThrown() {
+        //given
+        Pageable pageable = PageRequest.of(0, 10);
+        var exceptionMessage = "exceptionMessage";
+        var exception = new IllegalStateException(exceptionMessage);
+        doThrow(exception).when(projectMarketFacade).getProjectMarketsForSupervisor(pageable);
+
+        //when
+        ResponseEntity<Page<ProjectMarketDTO>> result = controller.getProjectMarketsForSupervisor(pageable);
+
+        //then
+        assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+        assertThat(result.getBody()).hasSize(0);
+    }
+
+    @Test
     void shouldApproveProjectAndCloseMarket() {
         //given
         var marketId = Long.parseLong(RandomStringUtils.randomNumeric(4));

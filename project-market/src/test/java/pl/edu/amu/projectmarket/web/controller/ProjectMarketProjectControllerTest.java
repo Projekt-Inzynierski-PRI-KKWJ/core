@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatusCode;
-import pl.edu.amu.projectmarket.helper.ProjectCreateRequestDTOHelper;
+import pl.edu.amu.projectmarket.helper.ProjectCreateRequestHelper;
 import pl.edu.amu.projectmarket.web.ProjectMarketFacade;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +27,7 @@ class ProjectMarketProjectControllerTest {
     @Test
     void shouldCreateProjectAndPublishOnMarket() {
         //given
-        var request = ProjectCreateRequestDTOHelper.defaults();
+        var request = ProjectCreateRequestHelper.defaultsDTO();
 
         //when
         var result = controller.createProjectAndPublishOnMarket(request);
@@ -40,7 +40,7 @@ class ProjectMarketProjectControllerTest {
     @Test
     void shouldNotCreateProjectAndPublishOnMarketWhenExceptionIsThrown() {
         //given
-        var request = ProjectCreateRequestDTOHelper.defaults();
+        var request = ProjectCreateRequestHelper.defaultsDTO();
         var exceptionMessage = "exceptionMessage";
         var exception = new IllegalStateException(exceptionMessage);
         doThrow(exception).when(projectMarketFacade).createMarket(request);

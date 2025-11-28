@@ -106,7 +106,7 @@ public class ProjectMarketFacade {
         if (projectMarket.getMaxMembers() <= projectMarket.getMembers().size()) {
             throw new IllegalStateException("Project market reached max number of members.");
         }
-        if (projectApplicationService.existsByStudentAndMProjectMarket(student, projectMarket)) {
+        if (projectApplicationService.existsByStudentAndProjectMarket(student, projectMarket)) {
             throw new IllegalStateException("Application already exists for this student and market.");
         }
         if (projectMarket.getMembers().stream().anyMatch(member -> member.getIndexNumber().equals(indexNumber))) {
@@ -118,7 +118,7 @@ public class ProjectMarketFacade {
 
     public List<ProjectApplicationDTO> getProjectApplicationByMarketIdInPendingStatus(Long marketId) {
         if (isOwnerByMarketId(marketId)) {
-            var projectApplication = projectApplicationService.getApplicationForMarket(ProjectApplicationStatus.PENDING, marketId);
+            var projectApplication = projectApplicationService.getApplicationsForMarket(ProjectApplicationStatus.PENDING, marketId);
             return projectApplicationMapper.mapToProjectApplicationDTO(projectApplication);
         }
         throw new IllegalStateException("You are not allowed to perform this operation");
@@ -135,7 +135,7 @@ public class ProjectMarketFacade {
     }
 
     public List<StudentProjectApplicationDTO> getApplicationsForStudent() {
-        var applications = projectApplicationService.getApplicationForStudent(getStudentFromContext());
+        var applications = projectApplicationService.getApplicationsForStudent(getStudentFromContext());
         return projectApplicationMapper.mapToStudentProjectApplicationDTO(applications);
     }
 
