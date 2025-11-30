@@ -18,7 +18,6 @@
         <module>aggregated-test-report</module>
         <module>criteria-project</module>
         <module>statistics-module</module>
-        <module>statistics-module</module>
     </modules>
 
     <parent>

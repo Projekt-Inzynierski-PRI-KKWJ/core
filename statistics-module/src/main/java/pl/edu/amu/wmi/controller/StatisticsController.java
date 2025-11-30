@@ -31,4 +31,15 @@ public class StatisticsController {
         log.info("ENDPOINT!!! URUCHOMIONY");
         return statisticsService.getAllProjects();
     }
+
+
+
+    @GetMapping("/ping")
+    public String x()
+    {
+        log.info("ENDPOINT!!! XXXXXXXXXXXXXXXXXXXX URUCHOMIONY");
+        return "X";
+    }
+
+
 }

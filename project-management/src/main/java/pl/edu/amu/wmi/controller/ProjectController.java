@@ -320,7 +320,8 @@ public class ProjectController {
                         "externalLinkId", externalLinkId.toString()
                     ));
             }
-            
+
+
             // 10MB file size limit
             if (file.getSize() > 10 * 1024 * 1024) {
                 log.error("File too large ({} bytes) for external link {}", file.getSize(), externalLinkId);
@@ -380,6 +381,7 @@ public class ProjectController {
         }
     }
 
+
     @Secured({"PROJECT_ADMIN", "COORDINATOR", "STUDENT", "SUPERVISOR"})
     @GetMapping("/{projectId}/external-link/{externalLinkId}/download")
     public ResponseEntity<byte[]> downloadExternalLinkFile(
@@ -388,13 +390,18 @@ public class ProjectController {
         try {
             ExternalLink externalLink = externalLinkService.findById(externalLinkId);
             byte[] fileContent = externalLinkService.getInternalFileContent(externalLinkId);
-            
+
+
             HttpHeaders headers = new HttpHeaders();
-            if (externalLink.getContentType() != null) {
+            if (externalLink.getContentType() != null)
+            {
                 headers.setContentType(MediaType.parseMediaType(externalLink.getContentType()));
-            } else {
+            }
+            else
+            {
                 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             }
+
             
             String filename = externalLink.getOriginalFileName() != null 
                     ? externalLink.getOriginalFileName() 
@@ -412,6 +419,7 @@ public class ProjectController {
         }
     }
 
+
     @Secured({"PROJECT_ADMIN", "COORDINATOR", "STUDENT", "SUPERVISOR"})
     @DeleteMapping("/{projectId}/external-link/{externalLinkId}/file")
     public ResponseEntity<Void> deleteExternalLinkFile(
@@ -425,5 +433,14 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("Check");
+    }
+
+
+
 
 }
