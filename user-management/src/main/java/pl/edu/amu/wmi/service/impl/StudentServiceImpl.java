@@ -47,6 +47,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<StudentDTO> findAllWithProjectsAndGrades(String studyYear) {
+        return studentUserMapper.mapToDtoList(studentDAO.findAllByStudyYearWithProjects(studyYear));
+    }
+
+    @Override
     public Student findById(Long id) {
         return studentDAO.findById(id).orElseThrow(() ->
                 new UserManagementException(MessageFormat.format("User with id: {0} not found", id)));

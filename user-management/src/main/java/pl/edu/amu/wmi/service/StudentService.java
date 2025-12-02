@@ -10,6 +10,8 @@ public interface StudentService {
 
     List<StudentDTO> findAll(String studyYear);
 
+    List<StudentDTO> findAllWithProjectsAndGrades(String studyYear);
+
     AbstractEntity findById(Long id);
 
     StudentDTO create(StudentCreationRequestDTO student, String studyYear);
