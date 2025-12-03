@@ -25,25 +25,16 @@ public class StatisticsServiceImpl implements StatisticsService {
         this.projectMapper = projectMapper;
     }
 
-//    @Override
-//    public List<ProjectDTO> getAllProjects() {
-//        List<Project> projects = projectDAO.findAll();
-//        return projects.stream()
-//                .map(projectMapper::mapToProjectDto)
-//                .collect(Collectors.toList());
-//    }
-
-
     @Override
     public List<ProjectDTO> getAllProjects() {
         List<Project> projects = projectDAO.findAll();
 
 
 
-        log.info("=== [STATISTICS] Pobieranie wszystkich projektów – znaleziono {} elementów ===", projects.size());
+        log.info("Pobieranie wszystkich projektów [– znaleziono {} elementów ===", projects.size());
 
         for (Project project : projects) {
-            log.info("Projekt, Name: {}, Supervisor: {}",
+            log.info("Project, Name: {}, Supervisor: {}",
                     project.getName(),
                     project.getSupervisor() != null ? project.getSupervisor().getFullName() : "BRAK"
             );
@@ -53,7 +44,7 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .map(projectMapper::mapToProjectDto)
                 .collect(Collectors.toList());
 
-        log.info("=== [STATISTICS] Zmapowano projekty do DTO – liczba: {} ===", result.size());
+        log.info("Zmapowano projekty do DTO – liczba: {} ===", result.size());
 
         return result;
     }

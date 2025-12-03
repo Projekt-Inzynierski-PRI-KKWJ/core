@@ -28,7 +28,6 @@ public class StatisticsController {
     @GetMapping("/projects")
     public List<ProjectDTO> getAllProjects()
     {
-        log.info("ENDPOINT!!! URUCHOMIONY");
         return statisticsService.getAllProjects();
     }
 
@@ -37,8 +36,8 @@ public class StatisticsController {
     @GetMapping("/ping")
     public String x()
     {
-        log.info("ENDPOINT!!! XXXXXXXXXXXXXXXXXXXX URUCHOMIONY");
-        return "X";
+        log.info("It works!! Yay!!!");
+        return "OK";
     }
 
 
