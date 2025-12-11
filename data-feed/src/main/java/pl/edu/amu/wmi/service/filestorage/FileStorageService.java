@@ -16,6 +16,8 @@ import java.util.UUID;
 @Service
 public class FileStorageService {
 
+
+
     @Value("${app.file-storage-path:files}")
     private String fileStoragePath;
     
@@ -35,7 +37,7 @@ public class FileStorageService {
             throw new RuntimeException("Failed to store empty file");
         }
         
-        // Generate a unique file name
+        // generate a unique file name
         String originalFilename = file.getOriginalFilename();
         String fileExtension = "";
         if (originalFilename != null && originalFilename.contains(".")) {
@@ -48,13 +50,14 @@ public class FileStorageService {
             init();
         }
         
-        // Copy the file to the storage location
+        // copy the file to the storage location
         Path targetPath = rootLocation.resolve(storedFilename);
         Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
         
         return storedFilename;
     }
-    
+
+
     public Path loadFile(String filename) {
         return rootLocation.resolve(filename);
     }
@@ -63,4 +66,6 @@ public class FileStorageService {
         Path file = loadFile(filename);
         Files.deleteIfExists(file);
     }
+
+
 }

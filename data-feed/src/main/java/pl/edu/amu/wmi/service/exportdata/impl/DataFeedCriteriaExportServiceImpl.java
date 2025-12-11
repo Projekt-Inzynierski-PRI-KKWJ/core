@@ -10,6 +10,7 @@ import pl.edu.amu.wmi.service.exportdata.DataFeedExportService;
 
 import java.io.Writer;
 
+
 @Component
 @Slf4j
 public class DataFeedCriteriaExportServiceImpl implements DataFeedExportService {
@@ -20,6 +21,8 @@ public class DataFeedCriteriaExportServiceImpl implements DataFeedExportService 
         this.evaluationCriteriaService = evaluationCriteriaService;
     }
 
+
+
     @Override
     public void exportData(Writer writer, String studyYear) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -28,8 +31,10 @@ public class DataFeedCriteriaExportServiceImpl implements DataFeedExportService 
         writer.write(content);
     }
 
+
     @Override
     public DataFeedType getType() {
         return DataFeedType.CRITERIA;
     }
+
 }

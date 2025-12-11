@@ -13,6 +13,9 @@ public interface ProjectDAO extends JpaRepository<Project, Long> {
 
     List<Project> findAllByStudyYear_StudyYear(String studyYear);
 
+    Project findByName(String name);
+
+
     @Query("SELECT p.id FROM Project p WHERE p.studyYear.studyYear = :studyYear")
     List<Long> findProjectIdsByStudyYear(String studyYear);
 

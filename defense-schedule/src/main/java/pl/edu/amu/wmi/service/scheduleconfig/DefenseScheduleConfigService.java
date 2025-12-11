@@ -8,6 +8,11 @@ import pl.edu.amu.wmi.model.scheduleconfig.DefenseScheduleModificationDTO;
 
 public interface DefenseScheduleConfigService {
 
+
+
+
+
+
     void createDefenseScheduleConfig(String studyYear, DefenseScheduleConfigDTO defenseScheduleConfig);
 
     /**
@@ -30,6 +35,8 @@ public interface DefenseScheduleConfigService {
     void deleteActiveScheduleConfig(String studyYear);
 
     void archiveDefenseScheduleConfig(String studyYear);
+
+
 
     /**
      * Add defense day based on date from dto object to already defined active defense schedule for a study year

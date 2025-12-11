@@ -68,4 +68,8 @@ public interface ProjectMapper {
     @IterableMapping(qualifiedByName = "mapWithoutRestrictions")
     List<ProjectDTO> mapToDTOs(List<Project> projectEntityList);
 
+
+
+
+
 }

@@ -8,4 +8,7 @@ public interface DataFeedImportService {
     DataFeedType getType();
 
     void saveRecords(MultipartFile data, String studyYear) throws Exception;
+
+
+
 }

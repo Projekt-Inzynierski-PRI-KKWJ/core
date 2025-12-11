@@ -16,11 +16,17 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
+
+
 @Component
 @Slf4j
 public class DataFeedStudentGroupsExportServiceImpl implements DataFeedExportService {
 
+
     private final StudentDAO studentDAO;
+
+
+
 
     private final StudyYearDAO studyYearDAO;
 
@@ -29,13 +35,20 @@ public class DataFeedStudentGroupsExportServiceImpl implements DataFeedExportSer
         this.studyYearDAO = studyYearDAO;
     }
 
+
+
+
     @Override
     public DataFeedType getType() {
         return DataFeedType.STUDENT_GROUPS;
     }
 
+
+
+
     @Override
-    public void exportData(Writer writer, String studyYearName) throws Exception {
+    public void exportData(Writer writer, String studyYearName) throws Exception
+    {
         try (CSVWriter csvWriter = new CSVWriter(writer, ';', ICSVWriter.NO_QUOTE_CHARACTER, ICSVWriter.DEFAULT_ESCAPE_CHARACTER, ICSVWriter.DEFAULT_LINE_END);) {
 
             csvWriter.writeNext(createHeaders());
@@ -52,7 +65,9 @@ public class DataFeedStudentGroupsExportServiceImpl implements DataFeedExportSer
         }
     }
 
-    private String[] createStudentData(Student student, StudyYear studyYear) {
+
+    private String[] createStudentData(Student student, StudyYear studyYear)
+    {
         return new String[]{student.getPesel(),
                 student.getIndexNumber(),
                 student.getUserData().getFirstName(),
@@ -68,13 +83,21 @@ public class DataFeedStudentGroupsExportServiceImpl implements DataFeedExportSer
         };
     }
 
-    private String getGroupNumber(Student student) {
+
+
+    private String getGroupNumber(Student student)
+    {
         // TODO: 6/23/2023 use better method from performance point of view
-        if (student.getConfirmedProject() != null) {
+        if (student.getConfirmedProject() != null)
+        {
             return student.getConfirmedProject().getSupervisor().getGroupNumber().toString();
         }
         return "";
     }
+
+
+
+
 
     private String[] createHeaders() {
         return new String[]{CSVHeaders.PESEL,
@@ -89,7 +112,9 @@ public class DataFeedStudentGroupsExportServiceImpl implements DataFeedExportSer
                 CSVHeaders.PRG_KOD};
     }
 
-    private static class CSVHeaders {
+
+    private static class CSVHeaders
+    {
         private static final String PESEL = "PESEL";
         private static final String INDEKS = "INDEKS";
         private static final String IMIE = "IMIE";
@@ -101,4 +126,10 @@ public class DataFeedStudentGroupsExportServiceImpl implements DataFeedExportSer
         private static final String GR_NR = "GR_NR";
         private static final String PRG_KOD = "PRG_KOD";
     }
+
+
+
+
+
+
 }
