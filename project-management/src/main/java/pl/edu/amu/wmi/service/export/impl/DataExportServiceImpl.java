@@ -57,8 +57,10 @@ public class DataExportServiceImpl implements DataExportService {
 
         // Export projects with all related data
         log.info("Querying projects for study year: {}", studyYear);
+
         List<Project> projects = projectDAO.findAllBySupervisorIsNotNullAndStudyYear_StudyYear(studyYear);
-        log.info("Found {} projects for study year: {}", projects.size(), studyYear);
+
+                log.info("Found {} projects for study year: {}", projects.size(), studyYear);
         List<ProjectDetailsDTO> projectDTOs = projects.stream()
                 .map(project -> {
                     ProjectDetailsDTO dto = projectMapper.mapToProjectDetailsDto(project);

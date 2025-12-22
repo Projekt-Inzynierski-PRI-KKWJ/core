@@ -34,4 +34,5 @@ public interface ProjectDAO extends JpaRepository<Project, Long> {
             "WHERE sy.studyYear = :studyYear AND p.acceptanceStatus = 'ACCEPTED'")
     List<Tuple> findAcceptedProjectsWithDefenseInfoForStudyYear(String studyYear);
 
+
 }
