@@ -51,11 +51,6 @@
             <artifactId>criteria-project</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>pl.edu.amu.wmi</groupId>
-            <artifactId>statistics-module</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <!--        -->
         <dependency>
