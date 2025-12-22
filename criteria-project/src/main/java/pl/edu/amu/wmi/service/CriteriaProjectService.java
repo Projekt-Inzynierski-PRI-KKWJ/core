@@ -117,4 +117,10 @@ public class CriteriaProjectService {
         criteriaProjectRepository.save(entity);
     }
 
+    public List<CriteriaProject> findByProjectName(String name) {
+        return criteriaProjectRepository.findByProject_Name(name);
+    }
+
+
+
 }
