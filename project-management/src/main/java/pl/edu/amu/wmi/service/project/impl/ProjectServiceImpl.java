@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.service.project.impl;
 
+import java.time.LocalTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,6 @@ import pl.edu.amu.wmi.entity.*;
 import pl.edu.amu.wmi.enumerations.AcceptanceStatus;
 import pl.edu.amu.wmi.enumerations.EvaluationPhase;
 import pl.edu.amu.wmi.enumerations.EvaluationStatus;
-import pl.edu.amu.wmi.enumerations.ProjectRole;
 import pl.edu.amu.wmi.enumerations.Semester;
 import pl.edu.amu.wmi.exception.BusinessException;
 import pl.edu.amu.wmi.exception.project.ProjectManagementException;
@@ -199,7 +199,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectDTO> findAllWithSortingAndRestrictions(String studyYear, String userIndexNumber) {
-        List<Project> projectEntityList = projectDAO.findAllByStudyYear_StudyYear(studyYear);
+        List<Project> projectEntityList = projectDAO.findAllBySupervisorIsNotNullAndStudyYear_StudyYear(studyYear);
         Student student = studentDAO.findByStudyYearAndUserData_IndexNumber(studyYear, userIndexNumber);
         Supervisor supervisor = supervisorDAO.findByStudyYearAndUserData_IndexNumber(studyYear, userIndexNumber);
 
@@ -236,7 +236,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private Comparator<Project> createComparatorBySupervisorAssignedAndAcceptedProjects(Supervisor supervisor) {
         return Comparator
-                .comparing((Project p) -> !p.getSupervisor().equals(supervisor))
+                .comparing((Project p) -> !supervisor.equals(p.getSupervisor()))
                 .thenComparing((Project p) -> !p.getAcceptanceStatus().equals(ACCEPTED));
     }
 
@@ -335,7 +335,16 @@ public class ProjectServiceImpl implements ProjectService {
     private static String extractDateAndTime(ProjectDefense projectDefense) {
         LocalDate date = projectDefense.getDefenseTimeslot().getDate();
         return date.format(dateTimeFormatter)
-                + " " + projectDefense.getDefenseTimeslot().getStartTime() + " | " + getDayOfWeek(date);
+                + " " + generateRandomLocalTime() + " | " + getDayOfWeek(date);
+    }
+
+    public static LocalTime generateRandomLocalTime() {
+        Random random = new Random();
+        int hour = random.nextInt(24);       // od 0 do 23
+        int minute = random.nextInt(60);     // od 0 do 59
+        int second = random.nextInt(60);     // od 0 do 59
+
+        return LocalTime.of(hour, minute, second);
     }
 
     public static String getDayOfWeek(LocalDate date) {

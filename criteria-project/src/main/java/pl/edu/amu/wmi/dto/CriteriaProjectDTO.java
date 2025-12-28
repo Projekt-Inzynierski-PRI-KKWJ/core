@@ -19,7 +19,7 @@ public class CriteriaProjectDTO
 
     private Long projectId;
 
-    private Long userId;
+    private String index;
 
     private String comment;
 
