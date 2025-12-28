@@ -32,5 +32,14 @@
     <include file="database/2025-06-09-external_link_with_file_support.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-06-22-create_external_link_history_table.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-11-11-change_ID_int_on_index_string.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-10-27-create_project_market_db_structures.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-10-28-add_owner_and_additional_data_to_project_market.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-10-28-remove_owner_from_project_market.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-11-07-add_new_columns_to_project_application.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-11-16-remove_published_at_from_project_market.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-11-16-remove_supervisor_from_project_market.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-11-17-remove_unused_description_override_column_from_project_market.xml" relativeToChangelogFile="true"/>
+
+
 
 </databaseChangeLog>
