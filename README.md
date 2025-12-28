@@ -141,4 +141,4 @@ To run all tests (unit tests and integration tests) with code coverage, run the 
 mvn clean verify
 ```
 
-The aggregated test report is created in aggregated-test-report module (path: `target/site/jacoco-aggregate/index.html`)
+The aggregated test report is created in aggregated-test-report module (path: `target/site/jacoco-aggregate/index.html`) 

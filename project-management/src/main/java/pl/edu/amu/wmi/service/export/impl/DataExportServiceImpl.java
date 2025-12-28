@@ -6,15 +6,18 @@ import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
+import pl.edu.amu.wmi.entity.EvaluationCard;
 import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.entity.StudyYear;
 import pl.edu.amu.wmi.entity.Supervisor;
 import pl.edu.amu.wmi.enumerations.AcceptanceStatus;
+import pl.edu.amu.wmi.enumerations.Semester;
 import pl.edu.amu.wmi.mapper.project.ProjectMapper;
 import pl.edu.amu.wmi.model.export.StudyYearDataExportDTO;
 import pl.edu.amu.wmi.model.project.ProjectDetailsDTO;
 import pl.edu.amu.wmi.service.export.DataExportService;
+import pl.edu.amu.wmi.service.grade.EvaluationCardService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,17 +32,20 @@ public class DataExportServiceImpl implements DataExportService {
     private final SupervisorDAO supervisorDAO;
     private final StudyYearDAO studyYearDAO;
     private final ProjectMapper projectMapper;
+    private final EvaluationCardService evaluationCardService;
 
     public DataExportServiceImpl(ProjectDAO projectDAO,
                                 StudentDAO studentDAO,
                                 SupervisorDAO supervisorDAO,
                                 StudyYearDAO studyYearDAO,
-                                ProjectMapper projectMapper) {
+                                ProjectMapper projectMapper,
+                                EvaluationCardService evaluationCardService) {
         this.projectDAO = projectDAO;
         this.studentDAO = studentDAO;
         this.supervisorDAO = supervisorDAO;
         this.studyYearDAO = studyYearDAO;
         this.projectMapper = projectMapper;
+        this.evaluationCardService = evaluationCardService;
     }
 
     @Override
@@ -51,10 +57,20 @@ public class DataExportServiceImpl implements DataExportService {
 
         // Export projects with all related data
         log.info("Querying projects for study year: {}", studyYear);
+
         List<Project> projects = projectDAO.findAllBySupervisorIsNotNullAndStudyYear_StudyYear(studyYear);
-        log.info("Found {} projects for study year: {}", projects.size(), studyYear);
+
+                log.info("Found {} projects for study year: {}", projects.size(), studyYear);
         List<ProjectDetailsDTO> projectDTOs = projects.stream()
-                .map(projectMapper::mapToProjectDetailsDto)
+                .map(project -> {
+                    ProjectDetailsDTO dto = projectMapper.mapToProjectDetailsDto(project);
+                    // Populate grade information
+                    dto.setFirstSemesterGrade(evaluationCardService.getPointsForSemester(project, Semester.FIRST));
+                    dto.setSecondSemesterGrade(evaluationCardService.getPointsForSemester(project, Semester.SECOND));
+                    dto.setFinalGrade(getFinalGrade(project));
+                    dto.setCriteriaMet(getCriteriaMet(project));
+                    return dto;
+                })
                 .toList();
         exportDTO.setProjects(projectDTOs);
 
@@ -134,6 +150,20 @@ public class DataExportServiceImpl implements DataExportService {
         return dto;
     }
 
+
+
+    private Boolean getCriteriaMet(Project project) {
+        return evaluationCardService.findTheMostRecentEvaluationCard(project.getEvaluationCards(), null)
+                .map(card -> !card.isDisqualified())
+                .orElse(null);
+    }
+    
+    private Double getFinalGrade(Project project) {
+        return evaluationCardService.findTheMostRecentEvaluationCard(project.getEvaluationCards(), null)
+                .map(EvaluationCard::getFinalGrade)
+                .orElse(null);
+    }
+
     @Override
     public List<String> getAvailableStudyYears() {
         log.info("Retrieving all available study years");
@@ -147,4 +177,7 @@ public class DataExportServiceImpl implements DataExportService {
         log.info("Found {} study years", studyYearStrings.size());
         return studyYearStrings;
     }
+
+
 }
+

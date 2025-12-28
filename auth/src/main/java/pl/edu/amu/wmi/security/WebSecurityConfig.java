@@ -99,7 +99,7 @@ public class WebSecurityConfig {
     }
 
 
-    @Bean  // it needs to be changed when deploying ???
+    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200","https://pri.wmi.amu.edu.pl/"));

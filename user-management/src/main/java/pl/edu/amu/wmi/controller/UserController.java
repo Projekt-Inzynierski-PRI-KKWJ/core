@@ -103,10 +103,18 @@ public class UserController {
     }
 
 
+    @Secured({"COORDINATOR", "SUPERVISOR"})
     @GetMapping("/student")
     public ResponseEntity<List<StudentDTO>> getStudents(@RequestHeader("study-year") String studyYear) {
         return ResponseEntity.ok()
                 .body(studentService.findAll(studyYear));
+    }
+
+    @Secured({"COORDINATOR", "SUPERVISOR"})
+    @GetMapping("/student/detailed")
+    public ResponseEntity<List<StudentDTO>> getStudentsDetailed(@RequestHeader("study-year") String studyYear) {
+        return ResponseEntity.ok()
+                .body(studentService.findAllWithProjectsAndGrades(studyYear));
     }
 
     @Secured({"COORDINATOR"})

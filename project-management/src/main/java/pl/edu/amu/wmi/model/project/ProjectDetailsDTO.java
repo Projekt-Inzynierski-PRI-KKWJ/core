@@ -54,4 +54,13 @@ public class ProjectDetailsDTO {
 
     private String committee;
 
+    // Grade information
+    private String firstSemesterGrade;   // eg. 75.50%
+
+    private String secondSemesterGrade;  // eg. 82.30%
+
+    private Double finalGrade;           // eg. 4.5
+
+    private Boolean criteriaMet;
+
 }

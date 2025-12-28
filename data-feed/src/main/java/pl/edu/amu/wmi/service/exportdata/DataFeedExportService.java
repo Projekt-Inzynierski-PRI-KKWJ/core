@@ -8,6 +8,13 @@ public interface DataFeedExportService {
 
     void exportData(Writer writer, String studyYear) throws Exception;
 
+
     DataFeedType getType();
+
+
+
+
+
+
 
 }

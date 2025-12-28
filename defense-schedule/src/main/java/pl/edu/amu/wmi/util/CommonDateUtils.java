@@ -14,9 +14,11 @@ import java.util.stream.IntStream;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+
 public class CommonDateUtils {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
 
     public static DateTimeFormatter commonDateFormatter() {
         return dateTimeFormatter;
@@ -37,8 +39,12 @@ public class CommonDateUtils {
         if (Objects.nonNull(additionalDays) && !additionalDays.isEmpty()) {
             additionalDays.forEach(day -> defenseDays.add(LocalDate.parse(day, commonDateFormatter())));
         }
+
+
         return defenseDays;
     }
+
+
 
     public static String getDateStringWithTheDayOfWeek(LocalDate date) {
         String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.SHORT_STANDALONE, Locale.US);
@@ -49,5 +55,6 @@ public class CommonDateUtils {
         String dateWithoutTheDayOfTheWeek = date.split(" ")[0];
         return LocalDate.parse(dateWithoutTheDayOfTheWeek, commonDateFormatter());
     }
+
 
 }

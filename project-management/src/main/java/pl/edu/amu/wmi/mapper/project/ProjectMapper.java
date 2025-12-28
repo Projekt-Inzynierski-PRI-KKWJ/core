@@ -24,11 +24,19 @@ public interface ProjectMapper {
 
     @Mapping(target = "accepted", source = "acceptanceStatus", qualifiedByName = "AcceptedToBoolean")
     @Mapping(target = "confirmed", source = "acceptanceStatus", qualifiedByName = "ConfirmedToBoolean")
+    @Mapping(target = "firstSemesterGrade", ignore = true)
+    @Mapping(target = "secondSemesterGrade", ignore = true)
+    @Mapping(target = "finalGrade", ignore = true)
+    @Mapping(target = "criteriaMet", ignore = true)
     ProjectDetailsDTO mapToProjectDetailsDto(Project project);
 
     @Mapping(target = "accepted", source = "acceptanceStatus", qualifiedByName = "AcceptedToBoolean")
     @Mapping(target = "confirmed", source = "acceptanceStatus", qualifiedByName = "ConfirmedToBoolean")
     @Mapping(target = "externalLinks", ignore = true)
+    @Mapping(target = "firstSemesterGrade", ignore = true)
+    @Mapping(target = "secondSemesterGrade", ignore = true)
+    @Mapping(target = "finalGrade", ignore = true)
+    @Mapping(target = "criteriaMet", ignore = true)
     ProjectDetailsDTO mapToProjectDetailsWithRestrictionsDto(Project project);
 
 
@@ -67,5 +75,9 @@ public interface ProjectMapper {
 
     @IterableMapping(qualifiedByName = "mapWithoutRestrictions")
     List<ProjectDTO> mapToDTOs(List<Project> projectEntityList);
+
+
+
+
 
 }
