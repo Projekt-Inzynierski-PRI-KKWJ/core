@@ -4,6 +4,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.edu.amu.wmi.entity.ProjectMarket;
 import pl.edu.amu.wmi.entity.Supervisor;
@@ -19,4 +21,7 @@ public interface ProjectMarketDAO extends JpaRepository<ProjectMarket, Long> {
     Optional<ProjectMarket> findByProject_Id(Long projectId);
 
     Page<ProjectMarket> findByProject_Supervisor(Supervisor supervisor, Pageable pageable);
+
+    @Query("SELECT pm FROM ProjectMarket pm JOIN pm.project.assignedStudents sp WHERE sp.student.id = :studentId AND sp.isProjectAdmin = true")
+    Page<ProjectMarket> findByProjectLeader(@Param("studentId") Long studentId, Pageable pageable);
 }

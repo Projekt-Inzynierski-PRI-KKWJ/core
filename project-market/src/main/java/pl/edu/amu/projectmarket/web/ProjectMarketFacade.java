@@ -192,6 +192,15 @@ public class ProjectMarketFacade {
         return projectMarketMapper.toProjectMarketDTOList(projectMarkets);
     }
 
+    public Page<ProjectMarketDTO> getMyProjects(Pageable pageable) {
+        var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException(STUDENT_NOT_FOUND);
+        }
+        return projectMarketMapper.toProjectMarketDTOList(
+            projectMarketService.findByProjectLeader(student.getId(), pageable));
+    }
+
     @Transactional
     public void approveProjectAndCloseMarket(Long marketId) {
         manipulateProjectMarketBySupervisor(marketId, ProjectMarket::approveBySupervisor);

@@ -50,6 +50,15 @@ public class ProjectMarketController {
         }
     }
 
+    @GetMapping("/my-projects")
+    public ResponseEntity<Page<ProjectMarketDTO>> getMyProjects(Pageable pageable) {
+        try {
+            return ResponseEntity.ok(projectMarketFacade.getMyProjects(pageable));
+        } catch (Exception e) {
+            return ResponseEntity.ok(Page.empty(pageable));
+        }
+    }
+
     @PatchMapping("/{projectMarketId}/submit/{supervisorId}")
     public ResponseEntity<Void> submitProjectMarketToSupervisor(@PathVariable Long projectMarketId, @PathVariable Long supervisorId) {
         try {
