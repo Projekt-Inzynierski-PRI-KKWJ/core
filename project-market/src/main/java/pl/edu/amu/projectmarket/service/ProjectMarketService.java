@@ -41,4 +41,8 @@ public class ProjectMarketService {
     public Page<ProjectMarket> findByAssignedSupervisor(Supervisor supervisor, Pageable pageable) {
         return projectMarketDAO.findByProject_Supervisor(supervisor, pageable);
     }
+
+    public Page<ProjectMarket> findByProjectLeader(Long studentId, Pageable pageable) {
+        return projectMarketDAO.findByProjectLeader(studentId, pageable);
+    }
 }
