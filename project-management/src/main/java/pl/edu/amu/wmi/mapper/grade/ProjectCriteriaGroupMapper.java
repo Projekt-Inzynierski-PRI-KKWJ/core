@@ -15,6 +15,8 @@ import java.util.Map;
 @Mapper(componentModel = "spring", uses = { PointsMapper.class })
 public interface ProjectCriteriaGroupMapper {
 
+
+
     @Mapping(target = "gradeWeight", source = "gradeWeight", qualifiedByName = "PointsToPercent")
     @Mapping(target = "selectedCriterion", ignore = true)
     @Mapping(target = "criteria", ignore = true)
@@ -30,6 +32,8 @@ public interface ProjectCriteriaGroupMapper {
                 new CriterionDTO(criterion.getDescription(), criterion.isDisqualifying())));
         dto.setCriteria(criteria);
     }
+
+
 
 }
 

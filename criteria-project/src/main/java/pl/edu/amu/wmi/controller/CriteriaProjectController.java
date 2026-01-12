@@ -54,6 +54,19 @@ public class CriteriaProjectController {
         return ResponseEntity.ok(criteriaProjectService.findByProjectAndSemester(projectId, semester,type));
     }
 
+    @GetMapping("/name")
+    public ResponseEntity<List<CriteriaProjectDTO>> getByProjectName(@RequestParam String name) {
+        List<CriteriaProject> list = criteriaProjectService.findByProjectName(name);
+
+        List<CriteriaProjectDTO> result = list.stream()
+                .map(mapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(result);
+    }
+
+
+
     @PatchMapping("/{id}/level")
     @Secured({"SUPERVISOR"})
     public ResponseEntity<Void> updateLevelOfRealization(
@@ -113,11 +126,18 @@ public class CriteriaProjectController {
     }
 
 
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         criteriaProjectService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
+
+
+
 
     @GetMapping("/ping")
     public ResponseEntity<String> ping() {
@@ -125,3 +145,11 @@ public class CriteriaProjectController {
     }
 
 }
+
+
+
+
+
+
+
+

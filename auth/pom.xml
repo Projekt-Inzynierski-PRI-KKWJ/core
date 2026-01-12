@@ -75,7 +75,22 @@
             <version>${spring-test.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>pl.edu.amu.wmi</groupId>
+            <artifactId>permission-management</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
+
+
+
+
+
+
+
+
+
 
 </project>

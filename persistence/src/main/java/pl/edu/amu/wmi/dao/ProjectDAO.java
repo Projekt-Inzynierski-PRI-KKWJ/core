@@ -13,6 +13,9 @@ public interface ProjectDAO extends JpaRepository<Project, Long> {
 
     List<Project> findAllBySupervisorIsNotNullAndStudyYear_StudyYear(String studyYear);
 
+    Project findByName(String name);
+
+
     @Query("SELECT p.id FROM Project p WHERE p.studyYear.studyYear = :studyYear")
     List<Long> findProjectIdsByStudyYear(String studyYear);
 
@@ -30,5 +33,6 @@ public interface ProjectDAO extends JpaRepository<Project, Long> {
             "JOIN p.studyYear sy " +
             "WHERE sy.studyYear = :studyYear AND p.acceptanceStatus = 'ACCEPTED'")
     List<Tuple> findAcceptedProjectsWithDefenseInfoForStudyYear(String studyYear);
+
 
 }

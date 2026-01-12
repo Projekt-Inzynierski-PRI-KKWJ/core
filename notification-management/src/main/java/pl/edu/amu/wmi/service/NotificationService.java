@@ -12,5 +12,5 @@ public interface NotificationService {
 
     void sendEmails(List<UserInfoDTO> userInfos, EMailTemplate eMailTemplate);
 
-    List<EmailNotificationDataDTO> getReceiverData(String studyYear, EMailTemplate eMailTemplate);
+    EmailNotificationDataDTO getReceiverData(String studyYear, EMailTemplate eMailTemplate);
 }

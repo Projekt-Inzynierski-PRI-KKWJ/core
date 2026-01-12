@@ -31,6 +31,7 @@
     <include file="database/2025-06-05-table_criteria_project_change.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-06-09-external_link_with_file_support.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-06-22-create_external_link_history_table.xml" relativeToChangelogFile="true"/>
+    <include file="database/2025-11-11-change_ID_int_on_index_string.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-10-27-create_project_market_db_structures.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-10-28-add_owner_and_additional_data_to_project_market.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-10-28-remove_owner_from_project_market.xml" relativeToChangelogFile="true"/>
@@ -42,4 +43,13 @@
     <include file="database/2026-01-11-make_project_nullable_add_proposal_fields.xml" relativeToChangelogFile="true"/>
     <include file="database/2026-01-11-add_proposal_supervisor_id.xml" relativeToChangelogFile="true"/>
     <include file="database/2026-01-11-add_proposal_technologies.xml" relativeToChangelogFile="true"/>
+
+
+
+
+
 </databaseChangeLog>
+
+
+
+

@@ -234,11 +234,20 @@ public class ProjectServiceImpl implements ProjectService {
                 .toList();
     }
 
+//    private Comparator<Project> createComparatorBySupervisorAssignedAndAcceptedProjects(Supervisor supervisor) {
+//        return Comparator
+//                .comparing((Project p) -> !supervisor.equals(p.getSupervisor()))
+//                .thenComparing((Project p) -> !p.getAcceptanceStatus().equals(ACCEPTED));
+//    }
+
     private Comparator<Project> createComparatorBySupervisorAssignedAndAcceptedProjects(Supervisor supervisor) {
         return Comparator
-                .comparing((Project p) -> !supervisor.equals(p.getSupervisor()))
-                .thenComparing((Project p) -> !p.getAcceptanceStatus().equals(ACCEPTED));
+                .comparing((Project p) ->
+                        supervisor == null || !supervisor.equals(p.getSupervisor())
+                )
+                .thenComparing(p -> p.getAcceptanceStatus() != ACCEPTED);
     }
+
 
     private List<Long> getSupervisorProjectIds(Supervisor supervisor) {
         if (Objects.isNull(supervisor))

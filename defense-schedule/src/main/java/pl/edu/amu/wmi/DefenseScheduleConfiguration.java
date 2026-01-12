@@ -3,7 +3,13 @@ package pl.edu.amu.wmi;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+
+
 @Configuration
 @ComponentScan
-public class DefenseScheduleConfiguration {
+public class DefenseScheduleConfiguration
+{
+
+
+
 }
