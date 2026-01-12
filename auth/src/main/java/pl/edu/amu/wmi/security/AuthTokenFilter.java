@@ -29,18 +29,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    //List of public endpoints
-//    private static final List<String> OPEN_ENDPOINTS = List.of(
-//            "/auth/",
-//            "/pri/auth/",
-//            "/v3/api-docs",
-//            "/pri/v3/api-docs",
-//            "/pri/user/initialization/count"
-//    );
-
-//    private boolean isOpenEndpoint(String path) {
-//        return OPEN_ENDPOINTS.stream().anyMatch(path::startsWith);
-//    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

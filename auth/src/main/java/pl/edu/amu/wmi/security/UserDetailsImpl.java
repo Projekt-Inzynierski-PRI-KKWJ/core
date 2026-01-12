@@ -29,7 +29,12 @@ public class UserDetailsImpl implements LdapUserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
+    private String originalUsername;
 
+    public String getOriginalUsername() {
+        return originalUsername;
+
+    }
     public UserDetailsImpl(Long id, String indexNumber, String email, Collection<? extends GrantedAuthority> authorities) {
         super();
         this.id = id;

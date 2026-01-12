@@ -108,5 +108,18 @@ public class JwtUtils {
             return null;
         }
     }
+    public ResponseCookie generateImpersonationJwtCookie(
+            String impersonatedIndex,
+            String impersonatedByIndex
+    ) {
+        String jwt = Jwts.builder()
+                .setSubject(impersonatedIndex)
+                .claim("impersonatedBy", impersonatedByIndex)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(key(), SignatureAlgorithm.HS256)
+                .compact();
 
+        return generateCookie(jwtCookie, jwt, "/");
+    }
 }
