@@ -14,4 +14,5 @@ public class ProjectMarketOwnerDTO {
     private String firstName;
     private String lastName;
     private String email;
+    private String indexNumber;
 }

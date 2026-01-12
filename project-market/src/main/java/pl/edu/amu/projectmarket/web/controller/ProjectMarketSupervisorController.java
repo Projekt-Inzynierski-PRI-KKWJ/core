@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,6 +57,16 @@ public class ProjectMarketSupervisorController {
     public ResponseEntity<Void> rejectProjectAndCloseMarket(@PathVariable Long projectMarketId) {
         try {
             projectMarketFacade.rejectProjectAndCloseMarket(projectMarketId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @PatchMapping("/{projectMarketId}/feedback")
+    public ResponseEntity<Void> provideFeedback(@PathVariable Long projectMarketId, @RequestBody String feedback) {
+        try {
+            projectMarketFacade.provideFeedback(projectMarketId, feedback);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());

@@ -15,4 +15,9 @@ public class PublishProjectMarketRequest {
     private Project project;
     private int maxMembers;
     private String contactData;
+    private String proposalName;
+    private String proposalDescription;
+    private Long proposalOwnerId;
+    private String proposalStudyYear;
+    private String proposalTechnologies; // Comma-separated
 }

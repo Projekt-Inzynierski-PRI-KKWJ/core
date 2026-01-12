@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import pl.edu.amu.wmi.dao.ProjectDAO;
+import pl.edu.amu.wmi.dao.ProjectMarketDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
@@ -20,6 +22,7 @@ import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.entity.Supervisor;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
+import pl.edu.amu.projectmarket.model.PublishProjectMarketRequest;
 import pl.edu.amu.projectmarket.service.ProjectApplicationService;
 import pl.edu.amu.projectmarket.service.ProjectMarketService;
 import pl.edu.amu.projectmarket.service.ProjectService;
@@ -52,6 +55,8 @@ public class ProjectMarketFacade {
     private final ProjectMarketService projectMarketService;
     private final ProjectService projectService;
 
+    private final ProjectDAO projectDAO;
+    private final ProjectMarketDAO projectMarketDAO;
     private final SupervisorDAO supervisorDAO;
     private final StudentDAO studentDAO;
     private final StudyYearDAO studyYearDAO;
@@ -70,13 +75,80 @@ public class ProjectMarketFacade {
             throw new IllegalStateException("Student not found");
         }
         var studyYear = studyYearDAO.findByStudyYear(request.getStudyYear());
-        var project = projectService.createProject(projectRequestMapper.fromDto(request, studyYear, student));
+        
+        // Don't create Project yet - just store as proposal
+        var publishRequest = PublishProjectMarketRequest.builder()
+            .project(null) // No project yet
+            .maxMembers(request.getMaxMembers())
+            .contactData(request.getContactData())
+            .proposalName(request.getName())
+            .proposalDescription(request.getDescription())
+            .proposalOwnerId(student.getId())
+            .proposalStudyYear(request.getStudyYear())
+            .proposalTechnologies(request.getTechnologies() != null ? String.join(",", request.getTechnologies()) : "")
+            .build();
+            
+        projectMarketService.publishMarket(publishRequest);
+    }
 
-        projectMarketService.publishMarket(projectMarketMapper.toPublishRequest(request, project));
+    @Transactional
+    public void updateProject(Long projectMarketId, ProjectCreateRequestDTO request) {
+        var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException(STUDENT_NOT_FOUND);
+        }
+
+        var projectMarket = projectMarketDAO.findById(projectMarketId)
+            .orElseThrow(() -> new IllegalArgumentException("Project market not found"));
+
+        var project = projectMarket.getProject();
+        
+        // Only allow updates if project market is in ACTIVE status
+        if (projectMarket.getStatus() != ProjectMarketStatus.ACTIVE) {
+            throw new IllegalStateException("Can only update projects in ACTIVE status");
+        }
+        
+        if (project == null) {
+            // Editing a proposal - check if user is the proposal owner
+            if (!projectMarket.getProposalOwnerId().equals(student.getId())) {
+                throw new IllegalStateException("Only proposal owner can update the proposal");
+            }
+            
+            // Update proposal fields
+            projectMarket.setProposalName(request.getName());
+            projectMarket.setProposalDescription(request.getDescription());
+            projectMarket.setProposalTechnologies(request.getTechnologies() != null ? String.join(",", request.getTechnologies()) : "");
+            projectMarket.setMaxMembers(request.getMaxMembers());
+            projectMarket.setContactData(request.getContactData());
+            projectMarketDAO.save(projectMarket);
+        } else {
+            // Editing an approved project - check if user is the project admin
+            var isOwner = project.getAssignedStudents().stream()
+                .anyMatch(sp -> sp.getStudent().getId().equals(student.getId()) && sp.isProjectAdmin());
+
+            if (!isOwner) {
+                throw new IllegalStateException("Only project owner can update the project");
+            }
+
+            // Update project fields
+            project.setName(request.getName());
+            project.setDescription(request.getDescription());
+            project.setTechnologies(new java.util.HashSet<>(request.getTechnologies()));
+            projectDAO.save(project);
+
+            // Update project market fields
+            projectMarket.setMaxMembers(request.getMaxMembers());
+            projectMarket.setContactData(request.getContactData());
+            projectMarketDAO.save(projectMarket);
+        }
     }
 
     public Page<ProjectMarketDTO> getAllActiveProjectMarkets(Pageable pageable) {
         return projectMarketMapper.toProjectMarketDTOList(projectMarketService.listActiveMarkets(pageable));
+    }
+
+    public Page<ProjectMarketDTO> getAllProjectMarkets(Pageable pageable) {
+        return projectMarketMapper.toProjectMarketDTOList(projectMarketService.listAllMarkets(pageable));
     }
 
     public ProjectMarketDetailsDTO getMarketDetailsById(Long id) {
@@ -202,13 +274,115 @@ public class ProjectMarketFacade {
     }
 
     @Transactional
+    public void leaveProject(Long marketId) {
+        var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException(STUDENT_NOT_FOUND);
+        }
+        
+        var projectMarket = projectMarketDAO.findById(marketId)
+            .orElseThrow(() -> new IllegalArgumentException("Project market not found"));
+        
+        var project = projectMarket.getProject();
+        
+        // Can only leave approved projects (not proposals)
+        if (project == null) {
+            throw new IllegalStateException("Cannot leave project proposals. Only approved projects can be left.");
+        }
+        
+        // Find the student in the project
+        var studentProject = project.getAssignedStudents().stream()
+            .filter(sp -> sp.getStudent().getId().equals(student.getId()))
+            .findFirst()
+            .orElseThrow(() -> new IllegalStateException("Student is not part of this project"));
+        
+        // Don't allow admin to leave
+        if (studentProject.isProjectAdmin()) {
+            throw new IllegalStateException("Project admin cannot leave the project");
+        }
+        
+        // Only allow leaving if project is not yet accepted
+        if (project.getAcceptanceStatus() != null && project.getAcceptanceStatus() != pl.edu.amu.wmi.enumerations.AcceptanceStatus.PENDING) {
+            throw new IllegalStateException("Cannot leave an accepted project");
+        }
+        
+        // Remove student from project
+        project.getAssignedStudents().remove(studentProject);
+        projectDAO.save(project);
+    }
+
+    @Transactional
     public void approveProjectAndCloseMarket(Long marketId) {
+        // Create the actual Project now that supervisor approved
+        var projectMarket = projectMarketService.getProjectMarketById(marketId);
+        
+        if (projectMarket.getProject() == null) {
+            // Create the project from the proposal data
+            var student = studentDAO.getReferenceById(projectMarket.getProposalOwnerId());
+            var studyYear = studyYearDAO.findByStudyYear(projectMarket.getProposalStudyYear());
+            var supervisor = supervisorDAO.getReferenceById(projectMarket.getProposalSupervisorId());
+            
+            java.util.List<String> technologies = projectMarket.getProposalTechnologies() != null && !projectMarket.getProposalTechnologies().isEmpty()
+                ? java.util.Arrays.stream(projectMarket.getProposalTechnologies().split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .collect(java.util.stream.Collectors.toList())
+                : java.util.List.of();
+            
+            var projectRequest = ProjectCreateRequestDTO.builder()
+                .name(projectMarket.getProposalName())
+                .description(projectMarket.getProposalDescription())
+                .technologies(technologies)
+                .studyYear(projectMarket.getProposalStudyYear())
+                .contactData(projectMarket.getContactData())
+                .maxMembers(projectMarket.getMaxMembers())
+                .build();
+                
+            var project = projectService.createProject(projectRequestMapper.fromDto(projectRequest, studyYear, student));
+            project.setSupervisor(supervisor);
+            projectMarket.setProject(project);
+            projectMarketService.save(projectMarket);
+            
+            // Add all accepted applicants to the newly created project
+            var acceptedApplications = projectMarket.getApplications().stream()
+                .filter(app -> app.getStatus() == ProjectApplicationStatus.ACCEPTED)
+                .toList();
+            
+            for (var application : acceptedApplications) {
+                project.addStudent(application.getStudent(), pl.edu.amu.wmi.enumerations.ProjectRole.NONE, false);
+            }
+            
+            if (!acceptedApplications.isEmpty()) {
+                projectDAO.save(project);
+            }
+        }
+        
         manipulateProjectMarketBySupervisor(marketId, ProjectMarket::approveBySupervisor);
     }
 
     @Transactional
     public void rejectProjectAndCloseMarket(Long marketId) {
         manipulateProjectMarketBySupervisor(marketId, ProjectMarket::rejectBySupervisor);
+    }
+
+    @Transactional
+    public void provideFeedback(Long marketId, String feedback) {
+        var supervisor = getSupervisorFromContext();
+        if (supervisor == null) {
+            throw new IllegalStateException("Supervisor not found");
+        }
+        var market = projectMarketService.getProjectMarketById(marketId);
+        
+        // Check supervisor assignment for both proposals and approved projects
+        Long assignedSupervisorId = market.getProject() != null 
+            ? (market.getProject().getSupervisor() != null ? market.getProject().getSupervisor().getId() : null)
+            : market.getProposalSupervisorId();
+            
+        if (assignedSupervisorId == null || !Objects.equals(assignedSupervisorId, supervisor.getId())) {
+            throw new IllegalStateException("You are not the supervisor of this project");
+        }
+        market.setSupervisorFeedback(feedback);
+        projectMarketService.save(market);
     }
 
     private void manipulateProjectMarketBySupervisor(Long marketId, Consumer<ProjectMarket> consumer) {
@@ -220,8 +394,20 @@ public class ProjectMarketFacade {
 
     private void checkIfIsPossibleToManipulateProjectDataBySupervisor(ProjectMarket market) {
         var supervisor = getSupervisorFromContext();
-        if (supervisor == null || !Objects.equals(market.getProject().getSupervisor().getId(), supervisor.getId())) {
-            throw new IllegalStateException("Supervisor not found or is not assigned to this project market");
+        
+        // Check supervisor assignment for both proposals and approved projects
+        Long assignedSupervisorId = market.getProject() != null 
+            ? (market.getProject().getSupervisor() != null ? market.getProject().getSupervisor().getId() : null)
+            : market.getProposalSupervisorId();
+        
+        Long currentSupervisorId = supervisor != null ? supervisor.getId() : null;
+        
+        if (supervisor == null || assignedSupervisorId == null || !assignedSupervisorId.equals(currentSupervisorId)) {
+            throw new IllegalStateException(
+                String.format("Supervisor not found or is not assigned to this project market. " +
+                    "Current supervisor ID: %s, Assigned supervisor ID: %s, Market ID: %s, Project: %s", 
+                    currentSupervisorId, assignedSupervisorId, market.getId(), market.getProject() != null ? "exists" : "null")
+            );
         }
         if (market.getStatus() != ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR) {
             throw new IllegalStateException("Project market status is not SENT_FOR_APPROVAL_TO_SUPERVISOR");
@@ -253,6 +439,13 @@ public class ProjectMarketFacade {
             throw new IllegalStateException(STUDENT_NOT_FOUND);
         }
         var projectMarket = projectMarketService.getProjectMarketById(marketId);
+        
+        // For proposals, check proposalOwnerId
+        if (projectMarket.getProject() == null) {
+            return projectMarket.getProposalOwnerId() != null && projectMarket.getProposalOwnerId().equals(student.getId());
+        }
+        
+        // For approved projects, check project leader
         var owner = projectMarket.getProjectLeader();
         return owner != null && owner.getStudent().getId().equals(student.getId());
     }
@@ -262,6 +455,13 @@ public class ProjectMarketFacade {
         if (student == null) {
             throw new IllegalStateException(STUDENT_NOT_FOUND);
         }
+        
+        // For proposals, check proposalOwnerId
+        if (projectMarket.getProject() == null) {
+            return projectMarket.getProposalOwnerId() != null && projectMarket.getProposalOwnerId().equals(student.getId());
+        }
+        
+        // For approved projects, check project leader
         var owner = projectMarket.getProjectLeader();
         return owner != null && owner.getStudent().getId().equals(student.getId());
     }
@@ -271,7 +471,15 @@ public class ProjectMarketFacade {
         if (student == null) {
             throw new IllegalStateException(STUDENT_NOT_FOUND);
         }
-        var owner = application.getProjectMarket().getProjectLeader();
+        var projectMarket = application.getProjectMarket();
+        
+        // For proposals, check proposalOwnerId
+        if (projectMarket.getProject() == null) {
+            return projectMarket.getProposalOwnerId() != null && projectMarket.getProposalOwnerId().equals(student.getId());
+        }
+        
+        // For approved projects, check project leader
+        var owner = projectMarket.getProjectLeader();
         return owner != null && owner.getStudent().getId().equals(student.getId());
     }
 

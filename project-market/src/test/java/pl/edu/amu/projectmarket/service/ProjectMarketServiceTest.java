@@ -129,7 +129,7 @@ class ProjectMarketServiceTest {
         var pageable = PageRequest.of(0, 10);
         var projectMarket = ProjectMarketHelper.defaults();
         var projectMarket2 = ProjectMarketHelper.defaults();
-        when(projectMarketDAO.findByProject_Supervisor(supervisor, pageable)).thenReturn(createPage(projectMarket, projectMarket2));
+        when(projectMarketDAO.findByProject_Supervisor(supervisor.getId(), pageable)).thenReturn(createPage(projectMarket, projectMarket2));
 
         //when
         var result = projectMarketService.findByAssignedSupervisor(supervisor, pageable);

@@ -13,4 +13,6 @@ public class ProjectMemberDTO {
 
     private String firstName;
     private String lastName;
+    private String indexNumber;
+    private boolean isAdmin;
 }
