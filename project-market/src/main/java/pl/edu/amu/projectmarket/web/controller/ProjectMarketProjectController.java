@@ -24,4 +24,14 @@ public class ProjectMarketProjectController {
             throw new BusinessException(e.getMessage());
         }
     }
+
+    @PutMapping("/{projectMarketId}")
+    public ResponseEntity<Void> updateProject(@PathVariable Long projectMarketId, @Valid @RequestBody ProjectCreateRequestDTO request) {
+        try {
+            projectMarketFacade.updateProject(projectMarketId, request);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
 }

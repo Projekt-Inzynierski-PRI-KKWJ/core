@@ -8,8 +8,10 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.entity.Project;
 import pl.edu.amu.wmi.entity.ProjectMarket;
+import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.projectmarket.model.PublishProjectMarketRequest;
 import pl.edu.amu.projectmarket.web.model.ProjectCreateRequestDTO;
 import pl.edu.amu.projectmarket.web.model.ProjectMarketDTO;
@@ -25,37 +27,107 @@ public abstract class ProjectMarketMapper {
     private static final String AVAILABLE_SLOTS_PATTERN = "%s/%s";
 
     private ProjectMarketUserDataMapper projectMarketUserDataMapper;
+    private StudentDAO studentDAO;
 
     @Mapping(target = "project", source = "project")
     @Mapping(target = "maxMembers", source = "requestDTO.maxMembers")
     @Mapping(target = "contactData", source = "requestDTO.contactData")
     public abstract PublishProjectMarketRequest toPublishRequest(ProjectCreateRequestDTO requestDTO, Project project);
 
-    @Mapping(target = "projectName", source = "project.name")
-    @Mapping(target = "projectDescription", source = "project.description")
-    @Mapping(target = "technologies", source = "project.technologies")
+    @Mapping(target = "projectName", expression = "java(getProjectName(projectMarket))")
+    @Mapping(target = "projectDescription", expression = "java(getProjectDescription(projectMarket))")
+    @Mapping(target = "technologies", expression = "java(getTechnologies(projectMarket))")
     @Mapping(target = "ownerDetails", expression = "java(getOwner(projectMarket))")
     @Mapping(target = "currentMembers", expression = "java(getCurrentMembers(projectMarket))")
     @Mapping(target = "studyYear", expression = "java(getStudyYear(projectMarket))")
+    @Mapping(target = "status", source = "status")
+    @Mapping(target = "supervisorFeedback", source = "supervisorFeedback")
     public abstract ProjectMarketDetailsDTO toProjectMarketDetailsDTO(ProjectMarket projectMarket);
 
 
-    @Mapping(target = "projectName", source = "project.name")
-    @Mapping(target = "projectDescription", source = "project.description")
+    @Mapping(target = "projectName", expression = "java(getProjectName(projectMarket))")
+    @Mapping(target = "projectDescription", expression = "java(getProjectDescription(projectMarket))")
     @Mapping(target = "ownerDetails", expression = "java(getOwner(projectMarket))")
     @Mapping(target = "availableSlots", expression = "java(calculateAvailableSlots(projectMarket))")
     @Mapping(target = "studyYear", expression = "java(getStudyYear(projectMarket))")
+    @Mapping(target = "status", source = "status")
+    @Mapping(target = "supervisorFeedback", source = "supervisorFeedback")
     public abstract ProjectMarketDTO toProjectMarketDTO(ProjectMarket projectMarket);
 
     public Page<ProjectMarketDTO> toProjectMarketDTOList(Page<ProjectMarket> projectMarkets) {
         return projectMarkets.map(this::toProjectMarketDTO);
     }
+    
+    protected String getProjectName(ProjectMarket projectMarket) {
+        return projectMarket.getProject() != null 
+            ? projectMarket.getProject().getName() 
+            : projectMarket.getProposalName();
+    }
+    
+    protected String getProjectDescription(ProjectMarket projectMarket) {
+        return projectMarket.getProject() != null 
+            ? projectMarket.getProject().getDescription() 
+            : projectMarket.getProposalDescription();
+    }
+    
+    protected java.util.Set<String> getTechnologies(ProjectMarket projectMarket) {
+        if (projectMarket.getProject() != null) {
+            return projectMarket.getProject().getTechnologies();
+        } else if (projectMarket.getProposalTechnologies() != null && !projectMarket.getProposalTechnologies().isEmpty()) {
+            return java.util.Arrays.stream(projectMarket.getProposalTechnologies().split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(java.util.stream.Collectors.toSet());
+        }
+        return new java.util.HashSet<>();
+    }
 
     protected ProjectMarketOwnerDTO getOwner(ProjectMarket projectMarket) {
-        return projectMarketUserDataMapper.mapToProjectMarketOwner(projectMarket.getLeader());
+        if (projectMarket.getProject() != null) {
+            return projectMarketUserDataMapper.mapToProjectMarketOwner(projectMarket.getLeader());
+        } else {
+            // For proposals, get owner from proposal data
+            var student = projectMarket.getProposalOwnerId() != null
+                ? getStudentById(projectMarket.getProposalOwnerId())
+                : null;
+            return student != null 
+                ? projectMarketUserDataMapper.mapToProjectMarketOwner(student.getUserData())
+                : null;
+        }
+    }
+    
+    // Helper method to get student - will be injected via Spring
+    protected Student getStudentById(Long id) {
+        return studentDAO != null ? studentDAO.getReferenceById(id) : null;
     }
 
     protected List<ProjectMarketUserDataDTO> getCurrentMembers(ProjectMarket projectMarket) {
+        if (projectMarket.getProject() == null) {
+            // For proposals: return owner + accepted applicants
+            var members = new java.util.ArrayList<pl.edu.amu.wmi.entity.UserData>();
+            
+            // Add owner
+            if (projectMarket.getProposalOwnerId() != null) {
+                var owner = getStudentById(projectMarket.getProposalOwnerId());
+                if (owner != null && owner.getUserData() != null) {
+                    members.add(owner.getUserData());
+                }
+            }
+            
+            // Add accepted applicants
+            if (projectMarket.getApplications() != null) {
+                var acceptedApplicants = projectMarket.getApplications().stream()
+                    .filter(app -> app.getStatus() == pl.edu.amu.wmi.enumerations.ProjectApplicationStatus.ACCEPTED)
+                    .map(app -> app.getStudent().getUserData())
+                    .filter(java.util.Objects::nonNull)
+                    .toList();
+                members.addAll(acceptedApplicants);
+            }
+            
+            return projectMarketUserDataMapper.mapToProjectMarketUserData(members);
+        }
+        
+        // For approved projects: use existing project members
         return projectMarketUserDataMapper.mapToProjectMarketUserData(projectMarket.getMembers());
     }
 
@@ -66,11 +138,18 @@ public abstract class ProjectMarketMapper {
     }
 
     protected static String getStudyYear(ProjectMarket projectMarket) {
-        return projectMarket.getProject().getStudyYear().getStudyYear();
+        return projectMarket.getProject() != null 
+            ? projectMarket.getProject().getStudyYear().getStudyYear()
+            : projectMarket.getProposalStudyYear();
     }
 
     @Autowired
     public void setProjectMarketUserDataDTOMapper(ProjectMarketUserDataMapper projectMarketUserDataMapper) {
         this.projectMarketUserDataMapper = projectMarketUserDataMapper;
+    }
+    
+    @Autowired
+    public void setStudentDAO(StudentDAO studentDAO) {
+        this.studentDAO = studentDAO;
     }
 }

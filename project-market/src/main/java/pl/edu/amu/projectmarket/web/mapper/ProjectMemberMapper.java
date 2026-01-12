@@ -21,11 +21,20 @@ public abstract class ProjectMemberMapper {
     @Mapping(target = "members", expression = "java(getMembers(projectMarket))")
     public abstract ProjectMembersDTO fromProjectMarket(ProjectMarket projectMarket);
 
-    protected abstract ProjectMemberDTO fromUserData(UserData userData);
+    @Mapping(target = "firstName", source = "student.userData.firstName")
+    @Mapping(target = "lastName", source = "student.userData.lastName")
+    @Mapping(target = "indexNumber", source = "student.indexNumber")
+    @Mapping(target = "isAdmin", source = "projectAdmin")
+    protected abstract ProjectMemberDTO fromStudentProject(pl.edu.amu.wmi.entity.StudentProject studentProject);
 
     protected List<ProjectMemberDTO> getMembers(ProjectMarket projectMarket) {
-        var members = projectMarket.getMembers();
-        return members.stream().map(this::fromUserData).toList();
+        var project = projectMarket.getProject();
+        if (project == null || project.getAssignedStudents() == null) {
+            return List.of();
+        }
+        return project.getAssignedStudents().stream()
+            .map(this::fromStudentProject)
+            .toList();
     }
 
     protected static Integer getAvailableSlots(ProjectMarket projectMarket) {

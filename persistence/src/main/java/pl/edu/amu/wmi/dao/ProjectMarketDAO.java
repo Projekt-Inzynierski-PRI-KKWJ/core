@@ -16,12 +16,24 @@ public interface ProjectMarketDAO extends JpaRepository<ProjectMarket, Long> {
 
     Page<ProjectMarket> findByStatus(ProjectMarketStatus status, Pageable pageable);
 
-    Page<ProjectMarket> findByProject_NameContainingIgnoreCaseAndStatus(String name, ProjectMarketStatus status, Pageable pageable);
+    @Query("SELECT pm FROM ProjectMarket pm " +
+           "LEFT JOIN pm.project p " +
+           "WHERE pm.status = :status " +
+           "AND (LOWER(pm.proposalName) LIKE LOWER(CONCAT('%', :name, '%')) " +
+           "OR (p IS NOT NULL AND LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))))")
+    Page<ProjectMarket> findByProject_NameContainingIgnoreCaseAndStatus(@Param("name") String name, @Param("status") ProjectMarketStatus status, Pageable pageable);
 
-    Optional<ProjectMarket> findByProject_Id(Long projectId);
+    @Query("SELECT pm FROM ProjectMarket pm WHERE pm.project.id = :projectId")
+    Optional<ProjectMarket> findByProject_Id(@Param("projectId") Long projectId);
 
-    Page<ProjectMarket> findByProject_Supervisor(Supervisor supervisor, Pageable pageable);
+    @Query("SELECT pm FROM ProjectMarket pm " +
+           "LEFT JOIN pm.project p " +
+           "WHERE pm.proposalSupervisorId = :supervisorId " +
+           "OR (p IS NOT NULL AND p.supervisor.id = :supervisorId)")
+    Page<ProjectMarket> findByProject_Supervisor(@Param("supervisorId") Long supervisorId, Pageable pageable);
 
-    @Query("SELECT pm FROM ProjectMarket pm JOIN pm.project.assignedStudents sp WHERE sp.student.id = :studentId AND sp.isProjectAdmin = true")
-    Page<ProjectMarket> findByProjectLeader(@Param("studentId") Long studentId, Pageable pageable);
+    @Query("SELECT pm FROM ProjectMarket pm " +
+           "WHERE pm.status IN :statuses " +
+           "AND (pm.proposalOwnerId = :studentId OR EXISTS (SELECT 1 FROM StudentProject sp WHERE sp.project = pm.project AND sp.student.id = :studentId))")
+    Page<ProjectMarket> findByProjectLeader(@Param("studentId") Long studentId, @Param("statuses") java.util.List<ProjectMarketStatus> statuses, Pageable pageable);
 }

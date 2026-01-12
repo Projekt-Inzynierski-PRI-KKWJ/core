@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2026-01-11-make_project_nullable_add_proposal_fields" author="system">
+        <comment>Make project_id nullable and add proposal fields to support project creation after supervisor approval</comment>
+        
+        <dropNotNullConstraint tableName="project_market" columnName="project_id" columnDataType="BIGINT"/>
+        
+        <addColumn tableName="project_market">
+            <column name="proposal_name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        
+        <addColumn tableName="project_market">
+            <column name="proposal_description" type="VARCHAR(2000)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        
+        <addColumn tableName="project_market">
+            <column name="proposal_owner_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        
+        <addColumn tableName="project_market">
+            <column name="proposal_study_year" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

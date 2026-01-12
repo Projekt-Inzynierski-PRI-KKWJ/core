@@ -32,12 +32,12 @@ public class ProjectMarketController {
         }
     }
 
-    @GetMapping("{projectMarketId}")
-    public ResponseEntity<ProjectMarketDetailsDTO> getProjectMarketById(@PathVariable Long projectMarketId) {
+    @GetMapping("/all")
+    public ResponseEntity<Page<ProjectMarketDTO>> getAllProjectMarkets(Pageable pageable) {
         try {
-            return ResponseEntity.ok(projectMarketFacade.getMarketDetailsById(projectMarketId));
+            return ResponseEntity.ok(projectMarketFacade.getAllProjectMarkets(pageable));
         } catch (Exception e) {
-            throw new BusinessException(e.getMessage());
+            return ResponseEntity.ok(Page.empty(pageable));
         }
     }
 
@@ -59,10 +59,29 @@ public class ProjectMarketController {
         }
     }
 
+    @GetMapping("/{projectMarketId}")
+    public ResponseEntity<ProjectMarketDetailsDTO> getProjectMarketById(@PathVariable Long projectMarketId) {
+        try {
+            return ResponseEntity.ok(projectMarketFacade.getMarketDetailsById(projectMarketId));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
     @PatchMapping("/{projectMarketId}/submit/{supervisorId}")
     public ResponseEntity<Void> submitProjectMarketToSupervisor(@PathVariable Long projectMarketId, @PathVariable Long supervisorId) {
         try {
             projectMarketFacade.submitProjectMarketToSupervisor(projectMarketId, supervisorId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/project/{projectMarketId}/leave")
+    public ResponseEntity<Void> leaveProject(@PathVariable Long projectMarketId) {
+        try {
+            projectMarketFacade.leaveProject(projectMarketId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());

@@ -48,7 +48,13 @@ public class ProjectApplication extends AbstractEntity {
         var student = this.getStudent();
         var projectMarket = this.getProjectMarket();
         var project = projectMarket.getProject();
-        project.addStudent(student, ProjectRole.NONE, false);
+        
+        // Only add student to project if it exists (approved projects)
+        // For proposals, student will be added when supervisor approves
+        if (project != null) {
+            project.addStudent(student, ProjectRole.NONE, false);
+        }
+        
         this.status = ProjectApplicationStatus.ACCEPTED;
         setModificationDate(LocalDateTime.now());
         setDecisionDate(LocalDateTime.now());

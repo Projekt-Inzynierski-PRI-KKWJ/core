@@ -39,6 +39,10 @@
     <include file="database/2025-11-16-remove_published_at_from_project_market.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-11-16-remove_supervisor_from_project_market.xml" relativeToChangelogFile="true"/>
     <include file="database/2025-11-17-remove_unused_description_override_column_from_project_market.xml" relativeToChangelogFile="true"/>
+    <include file="database/2026-01-11-add_supervisor_feedback_to_project_market.xml" relativeToChangelogFile="true"/>
+    <include file="database/2026-01-11-make_project_nullable_add_proposal_fields.xml" relativeToChangelogFile="true"/>
+    <include file="database/2026-01-11-add_proposal_supervisor_id.xml" relativeToChangelogFile="true"/>
+    <include file="database/2026-01-11-add_proposal_technologies.xml" relativeToChangelogFile="true"/>
 
 
 

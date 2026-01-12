@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
 
 @Data
 @Builder
@@ -24,4 +25,6 @@ public class ProjectMarketDetailsDTO {
     private String creationDate;
     private String modificationDate;
     private String studyYear;
+    private ProjectMarketStatus status;
+    private String supervisorFeedback;
 }

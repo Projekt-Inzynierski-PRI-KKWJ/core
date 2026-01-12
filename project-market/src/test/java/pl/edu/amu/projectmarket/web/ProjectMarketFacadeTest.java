@@ -20,6 +20,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.edu.amu.wmi.dao.ProjectDAO;
+import pl.edu.amu.wmi.dao.ProjectMarketDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
@@ -85,6 +87,12 @@ class ProjectMarketFacadeTest {
     private ProjectService projectService;
 
     @Mock
+    private ProjectDAO projectDAO;
+
+    @Mock
+    private ProjectMarketDAO projectMarketDAO;
+
+    @Mock
     private SupervisorDAO supervisorDAO;
 
     @Mock
@@ -117,7 +125,7 @@ class ProjectMarketFacadeTest {
     public void setUp() {
         projectMarketMapper.setProjectMarketUserDataDTOMapper(projectMarketUserDataMapper);
         projectMarketFacade = new ProjectMarketFacade(projectApplicationService, projectMarketService,
-            projectService, supervisorDAO, studentDAO, studyYearDAO, projectRequestMapper,
+            projectService, projectDAO, projectMarketDAO, supervisorDAO, studentDAO, studyYearDAO, projectRequestMapper,
             projectMarketMapper, projectMemberMapper, applyToProjectRequestMapper,
             projectApplicationMapper, projectMarketSupervisorMapper);
     }

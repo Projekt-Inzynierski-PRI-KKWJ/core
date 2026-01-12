@@ -26,6 +26,10 @@ public class ProjectMarketService {
         return projectMarketDAO.findByStatus(ProjectMarketStatus.ACTIVE, pageable);
     }
 
+    public Page<ProjectMarket> listAllMarkets(Pageable pageable) {
+        return projectMarketDAO.findAll(pageable);
+    }
+
     public Page<ProjectMarket> searchActiveMarketsByNamePattern(String name, Pageable pageable) {
         return projectMarketDAO.findByProject_NameContainingIgnoreCaseAndStatus(name, ProjectMarketStatus.ACTIVE, pageable);
     }
@@ -39,10 +43,15 @@ public class ProjectMarketService {
     }
 
     public Page<ProjectMarket> findByAssignedSupervisor(Supervisor supervisor, Pageable pageable) {
-        return projectMarketDAO.findByProject_Supervisor(supervisor, pageable);
+        return projectMarketDAO.findByProject_Supervisor(supervisor.getId(), pageable);
     }
 
     public Page<ProjectMarket> findByProjectLeader(Long studentId, Pageable pageable) {
-        return projectMarketDAO.findByProjectLeader(studentId, pageable);
+        var allowedStatuses = java.util.List.of(
+            ProjectMarketStatus.ACTIVE,
+            ProjectMarketStatus.SENT_FOR_APPROVAL_TO_SUPERVISOR,
+            ProjectMarketStatus.REJECTED_BY_SUPERVISOR
+        );
+        return projectMarketDAO.findByProjectLeader(studentId, allowedStatuses, pageable);
     }
 }
