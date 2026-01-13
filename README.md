@@ -1,20 +1,22 @@
-# PRI System Backand Application
+# PRI 2.0 - System Backand Application
 
 ## List of modules
 
 | Module                  | Description                                                  | Application Version |
 |-------------------------|--------------------------------------------------------------|---------------------|
-| aggregated-test-report  | creates aggregated test report (using jacoco)                | 1.0.0               |
-| auth                    | responsible for authentication                               | 1.0.0               |
-| data-feed               | allow to import / export data to the system using csv format | 1.0.0               |
-| defense-schedule        | responsible for defense schedule process                     | 1.0.0               |
-| domain                  | the database model containing db history (liquibase)         | 1.0.0               |
-| notification-management | responsible for sending notifications to users               | 1.0.0               |
-| permission-management   | management of user's permissions                             | 1.0.0               |
-| persistence             | the layer with database operations)                          | 1.0.0               |
-| pri-application         | module containing the main class                             | 1.0.0               |
-| project-management      | creating and updating the project                            | 1.0.0               |
-| user-management         | responsible for user management                              | 1.0.0               |
+| aggregated-test-report  | creates aggregated test report (using jacoco)                | 1.5.0               |
+| auth                    | responsible for authentication                               | 1.5.0               |
+| data-feed               | allow to import / export data to the system using csv format | 1.5.0               |
+| defense-schedule        | responsible for defense schedule process                     | 1.5.0               |
+| domain                  | the database model containing db history (liquibase)         | 1.5.0               |
+| notification-management | responsible for sending notifications to users               | 1.5.0               |
+| permission-management   | management of user's permissions                             | 1.5.0               |
+| persistence             | the layer with database operations)                          | 1.5.0               |
+| pri-application         | module containing the main class                             | 1.5.0               |
+| project-management      | creating and updating the project                            | 1.5.0               |
+| user-management         | responsible for user management                              | 1.5.0               |
+| criteria-project        | contains individual project criteria                         | 2.0.0               |
+| project-market          | contains project market functionality                        | 2.0.0               |
 
 ## Technology stack:
 
@@ -39,17 +41,15 @@ System is build based on the modular layered architecture.
 * Model Layer - all entities are defined withing the module `domain`
 * Data Access Layer - all repositories are placed in the module `persistence`
 * Service and Controller layers are defined withing each functional module (respectively: `service` and `controller` packages within the module)
-* Shared modules (like `permission-management` and `notification-management`) contains only service layer
-
 
 ## Feature flags
 
 List of feature flags:
 
-| Feature Flag                            | Bahaviour                                                                                                                                                |
-|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `FF_EMAIL_TO_UNIVERSITY_DOMAIN_ENABLED` | `false` - e-mails which contains the domain defined in the variable `EMAIL_UNIVERSITY_DOMAIN` are not sent<br/> `true` - emails are sent to users always |
-| `FF_LDAP_AUTHENTICATION_ENABLED`        | `false` - mock authaticantion is used<br/>`true` - real ldap is used for authentication                                                                  |
+| Feature Flag                            | Bahaviour                                                                                                                                                            |
+|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `FF_EMAIL_TO_UNIVERSITY_DOMAIN_ENABLED` | `false` - e-mails that contain the domain defined in the variable `EMAIL_UNIVERSITY_DOMAIN` are always sent                                                          |
+| `FF_LDAP_AUTHENTICATION_ENABLED`        | `false` - mock authaticantion is used<br/>`true` - real ldap is used for authentication                                                                              |
 
 ## Scheduled jobs
 To enable scheduled jobs, the variable `SCHEDULED_JOBS_ENABLED` has to be set to `true`
@@ -61,13 +61,16 @@ List of scheduled jobs:
 | `EvaluationCardFreezeScheduledJob`  | job freezes the semester evaluation card in the defense day (and creates the evaluation card in phase defense)<br/> After freezing process, user with `STUDENT` role does not see the grades till the grades are published |
 
 
+📢 IMPORTANT!: PRI 1.0 had implemented ssl certificats generation inside the backend of the application, however it's bad programing practice to put that functionality in the cod of an application so this functionality isn't in use and the uniwersity has it's own proxy for this. Do to this factor there is some legacy code in the application acociated with this.
+
+
 ## How to run application locally:
 
 ### Prerequisites
 
-* installation of: maven, java 17
+* installation of: maven, java 17, Postgres
 * creation of Postgres database
-* substitution of all environment variables (see [config.env.example](https://github.com/System-PRI/deploy/blob/main/config.env.example) file)
+* substitution of all environment variables (see [config.env.example](https://github.com/Projekt-Inzynierski-PRI-KKWJ/deploy/config.env.example) file)
 
 #### Secrets
 
@@ -76,28 +79,29 @@ or provided to the IDE as e.g. ENV variables - depending on the run method.
 
 #### Authentication
 
-To use mocked ldap authentication:
+To use mocked ldap authentication for local run:
 
 * the variable `ldap.authentication.enabled` has to be set to `false`
-* mocked ldap data are in the file `ldap-mock-data.ldif`
+* mocked ldap data are in the file `core\pri-application\src\main\resources\ldap-mock-data.ldif`
+* 📢 IMPORTANT!: Password for mock ldap accounts is: "Haslo123".
 
 #### Coordinator user
 
-Coordinator user has to be added manually to the database, to the `USER_DATA` table, and has to have the
-COORDINATOR role assigned (table `USER_ROLES`)
-The coordinator user index number corresponds to the LDAP username.
+First site that apperas after system is initiated is initialization of coordinator unlees the user_data tabel is not empty.
+( If you run the project locally with mock users, use the exact logins specified in "core\pri-application\src\main\resources\ldap-mock-data.ldif" next to "uid:", name and last name specified next to "cn:", "sn:" values. )
+📢 IMPORTANT!: uid=indexNumber.
 
 #### Liquibase
 
-To autogenerate an xml file with changes (e.g. when new entities were added), first navigate to the domain
-module (`cd domain`), and then execute:
-`mvn liquibase:diff`
+To generate the "liquibase-diffChangeLog.xml" with changes made in domain module and generate the .xml file with changes to database schema:
+(e.g. when new entities were added):
+1. Database need to be already initialized so the liquibase can compare the entities in domain module with already existing ones and generate the .xml changes file.
+2. Navigate to the domain module using e.g.: `cd domain` and then execute: `mvn liquibase:diff` to generate "core\domain\src\main\resources\liquibase-diffChangeLog.xml".
+3. After the changes are generated, review them, and if they are ok, copy the contents of the "liquibase-diffChangeLog.xml" file and then pasted them into new changeset in "core\domain\src\main\resources\config\liquibase\database" similar to others that are already there. 
+4. Add the new file to "core\domain\src\main\resources\config\liquibase" similar to the others that are added there.
+5. When you run the project next time the changeste should be executed and database schema should be changed.
 
-(Be sure, that the database connection data are set in the `liquibase.properties` file.)
-
-This command will generate a changes in the file: `liquibase-diffChangeLog.xml`. Then the content should be reviewed and
-pasted in the target file in `resources.config.liquibase`. Finally, the new file should be added to 'changeLog.xml'
-file.
+📢 IMPORTANT!: Be sure, that the database connection details are set in the `core\domain\src\main\resources\liquibase.properties` file.
 
 #### Profile
 
@@ -105,7 +109,7 @@ Run application with the profile `local`
 
 ### Starting the application
 
-To run the application use an IDE build in option (e.g. in IntelliJ) or execute in command line:
+To run the application, use an IDE build in option (e.g. in IntelliJ) or execute in command line:
 
 ```
 mvn clean package
@@ -114,20 +118,10 @@ java -jar -Dspring.profiles.active=local <environment variables> pri-application
 // as <environment variables> put all variables from config.env.example file (e.g. -DPOSTGRES_URL=${POSTGRES_URL} -DPOSTGRES_DB=${POSTGRES_DB})
 ```
 ## How to run application using docker:
-Check out [deploy](https://github.com/System-PRI/deploy) repository.
 
-## How to test the application:
+Check out [deploy](https://github.com/Projekt-Inzynierski-PRI-KKWJ/deploy) repository.
 
-Minimum required code coverage for each module (except the excluded ones): **40%**
-
-Modules excluded from code coverage:
-
-* aggregated-test-report
-* domain
-* persistence
-* pri-application
-
-`model` and `exception` packages are not counted into the code coverage.
+## Tests:
 
 To run the unit tests, run the command:
 
@@ -141,4 +135,6 @@ To run all tests (unit tests and integration tests) with code coverage, run the 
 mvn clean verify
 ```
 
-The aggregated test report is created in aggregated-test-report module (path: `target/site/jacoco-aggregate/index.html`) 
+The aggregated test report is created in aggregated-test-report module (path: `core\aggregated-test-report\target/site/jacoco-aggregate/index.html`) 
+
+

@@ -31,6 +31,7 @@ import pl.edu.amu.wmi.service.PermissionService;
 import pl.edu.amu.wmi.service.ProjectMemberService;
 import pl.edu.amu.wmi.service.externallink.ExternalLinkService;
 import pl.edu.amu.wmi.service.grade.EvaluationCardService;
+import pl.edu.amu.wmi.service.grade.impl.EvaluationCardServiceImpl;
 import pl.edu.amu.wmi.service.project.ProjectService;
 import pl.edu.amu.wmi.service.project.SupervisorProjectService;
 
@@ -60,6 +61,8 @@ public class ProjectController {
     // TODO: 11/23/2023 remove project dao from controller after tests
     private final ProjectDAO projectDAO;
 
+    private final EvaluationCardServiceImpl evaluationService;
+
     @Autowired
     public ProjectController(ProjectService projectService,
                              ExternalLinkService externalLinkService,
@@ -67,7 +70,8 @@ public class ProjectController {
                              EvaluationCardService evaluationCardService,
                              PermissionService permissionService,
                              ProjectMemberService projectMemberService,
-                             ProjectDAO projectDAO) {
+                             ProjectDAO projectDAO,
+                             EvaluationCardServiceImpl evaluationService) {
         this.projectService = projectService;
         this.externalLinkService = externalLinkService;
         this.supervisorProjectService = supervisorProjectService;
@@ -75,6 +79,7 @@ public class ProjectController {
         this.permissionService = permissionService;
         this.projectMemberService = projectMemberService;
         this.projectDAO = projectDAO;
+        this.evaluationService=evaluationService;
     }
 
     @GetMapping("")
@@ -440,6 +445,11 @@ public class ProjectController {
         return ResponseEntity.ok("Check");
     }
 
+
+    @GetMapping("/evaluation/second-semester/active")
+    public boolean isSecondSemesterActive() {
+        return evaluationService.isSecondSemesterActive();
+    }
 
 
 
