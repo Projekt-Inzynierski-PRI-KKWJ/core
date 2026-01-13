@@ -72,6 +72,21 @@ List of scheduled jobs:
 * creation of Postgres database
 * substitution of all environment variables (see [config.env.example](https://github.com/Projekt-Inzynierski-PRI-KKWJ/deploy/config.env.example) file)
 
+### Step-by-step lunching instructions:
+1. Create folder named e.g. PRI, in place where you want to store the application files.
+2. Inside create 3 folders: core, UI, deploy.
+3. Clone git core repository core the core folder. 
+4. Create empty Postgres database. (The schema will be initieated and filled when the backend starts)
+5. Run it on the comand line providing the values for all the secrets as given in e.g. below or configure your IDE.
+   "mvn clean package"
+   "java -jar -Dspring.profiles.active=local -DPOSTGRES_URL=jdbc:postgresql://localhost:NUMERPORTU/ -DPOSTGRES_USER=POSTGRESUSER -DPOSTGRES_PASSWORD=PASSWORD -DPOSTGRES_DB=DATABASENAME -DJWT_SECRET=JWTSECRET -DMAIL_HOST=host.docker.internal -DMAIL_PORT= -DMAIL_USERNAME= -DMAIL_PASSWORD= -DEMAIL_UNIVERSITY_DOMAIN= -DLDAP_URL= -DLDAP_BASE= -DLDAP_DOMAIN= -DFF_EMAIL_TO_UNIVERSITY_DOMAIN_ENABLED=false -DFF_LDAP_AUTHENTICATION_ENABLED=false -DSCHEDULED_JOBS_ENABLED=false pri-application/target/pri-application-1.0-SNAPSHOT.jar"
+6. The application compiles and hopefully works.
+7. Assuming you have frontend runing and database operational, navigate to `http://localhost:4200/`. 
+8. First site that should open is initialization page for coordinator/admin of the system. ( If you run the project locally with mock users, use the exact logins specified in "core\pri-application\src\main\resources\ldap-mock-data.ldif" next to "uid:", name and last name specified next to "cn:", "sn:" values. uid=indexNumber. )
+9. After successfull initialization login site should appear, log in to coordinator account. 
+10. When in the system, precced to data-feed tab to import supervisors, studnets and criteria in .csv files ( If  runing localy import Test-mock students, supervisors and criteria from the support files folder in deploy directory ). 
+11. Before you will be able to add project you need to configure the supervisor availability in Project tab when clicking on Supervisor Availability button.
+
 #### Secrets
 
 Secrets must be defined as `java` command arguments (see **Starting the application**)
