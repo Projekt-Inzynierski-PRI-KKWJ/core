@@ -34,6 +34,8 @@ import pl.edu.amu.wmi.service.grade.EvaluationCardService;
 import pl.edu.amu.wmi.service.grade.impl.EvaluationCardServiceImpl;
 import pl.edu.amu.wmi.service.project.ProjectService;
 import pl.edu.amu.wmi.service.project.SupervisorProjectService;
+import pl.edu.amu.wmi.service.project.impl.ProjectDeletionServiceImp;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -63,6 +65,8 @@ public class ProjectController {
 
     private final EvaluationCardServiceImpl evaluationService;
 
+    private final ProjectDeletionServiceImp projectDeletionService;
+
     @Autowired
     public ProjectController(ProjectService projectService,
                              ExternalLinkService externalLinkService,
@@ -71,7 +75,8 @@ public class ProjectController {
                              PermissionService permissionService,
                              ProjectMemberService projectMemberService,
                              ProjectDAO projectDAO,
-                             EvaluationCardServiceImpl evaluationService) {
+                             EvaluationCardServiceImpl evaluationService,
+                             ProjectDeletionServiceImp projectDeletionService) {
         this.projectService = projectService;
         this.externalLinkService = externalLinkService;
         this.supervisorProjectService = supervisorProjectService;
@@ -80,6 +85,15 @@ public class ProjectController {
         this.projectMemberService = projectMemberService;
         this.projectDAO = projectDAO;
         this.evaluationService=evaluationService;
+        this.projectDeletionService=projectDeletionService;
+    }
+
+
+    @Secured({"COORDINATOR", "SUPERVISOR"})
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long projectId) {
+        projectDeletionService.deleteProject(projectId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("")
@@ -101,13 +115,6 @@ public class ProjectController {
                 .body(projectService.findByIdWithRestrictions(studyYear, userDetails.getUsername(), id));
     }
 
-    @Secured({"PROJECT_ADMIN", "COORDINATOR"})
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProjectById(@PathVariable Long id) throws ProjectManagementException {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        projectService.delete(id, userDetails.getUsername());
-        return ResponseEntity.ok().build();
-    }
 
     @Secured({"PROJECT_ADMIN", "COORDINATOR", "SUPERVISOR"})
     @PutMapping("/{id}")
