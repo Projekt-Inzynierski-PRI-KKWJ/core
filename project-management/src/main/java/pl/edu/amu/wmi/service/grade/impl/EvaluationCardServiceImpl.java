@@ -42,6 +42,7 @@ public class EvaluationCardServiceImpl implements EvaluationCardService {
     private final PermissionService permissionService;
     private final ProjectMemberService projectMemberService;
     private final ProjectCriteriaSectionMapper projectCriteriaSectionMapper;
+    private final EvaluationCardDAO evaluationCardRepository;
 
     public EvaluationCardServiceImpl(EvaluationCardDAO evaluationCardDAO,
                                      EvaluationCardTemplateDAO evaluationCardTemplateDAO,
@@ -49,7 +50,7 @@ public class EvaluationCardServiceImpl implements EvaluationCardService {
                                      GradeService gradeService,
                                      PermissionService permissionService,
                                      ProjectMemberService projectMemberService,
-                                     ProjectCriteriaSectionMapper projectCriteriaSectionMapper) {
+                                     ProjectCriteriaSectionMapper projectCriteriaSectionMapper,EvaluationCardDAO evaluationCardRepository) {
         this.evaluationCardDAO = evaluationCardDAO;
         this.evaluationCardTemplateDAO = evaluationCardTemplateDAO;
         this.projectDAO = projectDAO;
@@ -57,7 +58,30 @@ public class EvaluationCardServiceImpl implements EvaluationCardService {
         this.permissionService = permissionService;
         this.projectMemberService = projectMemberService;
         this.projectCriteriaSectionMapper = projectCriteriaSectionMapper;
+        this.evaluationCardRepository = evaluationCardRepository;
     }
+
+
+    public boolean isSecondSemesterActive() {
+        return evaluationCardRepository
+                .existsBySemesterAndIsActiveTrue(Semester.SECOND);
+
+    }
+
+
+    @Transactional
+    public void activateSecondSemester() {
+
+        if (evaluationCardRepository
+                .existsBySemesterAndIsActiveTrue(Semester.SECOND)) {
+            throw new BusinessException("Second semester already active");
+        }
+
+        evaluationCardRepository.deactivateBySemester(Semester.FIRST);
+
+        evaluationCardRepository.activateBySemester(Semester.SECOND);
+    }
+
 
     @Override
     @Transactional

@@ -16,6 +16,10 @@ import java.util.Optional;
 
 public interface EvaluationCardService {
 
+    public boolean isSecondSemesterActive();
+
+    public void activateSecondSemester();
+
     void createEvaluationCard(Project project, String studyYear, Semester semester, EvaluationPhase phase, EvaluationStatus status, boolean isActive);
 
     UpdatedGradeDTO updateEvaluationCard(Long evaluationCardId, SingleGroupGradeUpdateDTO singleGroupGradeUpdate);
