@@ -34,7 +34,6 @@ import pl.edu.amu.wmi.service.grade.EvaluationCardService;
 import pl.edu.amu.wmi.service.grade.impl.EvaluationCardServiceImpl;
 import pl.edu.amu.wmi.service.project.ProjectService;
 import pl.edu.amu.wmi.service.project.SupervisorProjectService;
-import pl.edu.amu.wmi.service.project.impl.ProjectDeletionServiceImp;
 
 
 import java.io.IOException;
@@ -65,7 +64,7 @@ public class ProjectController {
 
     private final EvaluationCardServiceImpl evaluationService;
 
-    private final ProjectDeletionServiceImp projectDeletionService;
+
 
     @Autowired
     public ProjectController(ProjectService projectService,
@@ -75,8 +74,8 @@ public class ProjectController {
                              PermissionService permissionService,
                              ProjectMemberService projectMemberService,
                              ProjectDAO projectDAO,
-                             EvaluationCardServiceImpl evaluationService,
-                             ProjectDeletionServiceImp projectDeletionService) {
+                             EvaluationCardServiceImpl evaluationService
+                             ) {
         this.projectService = projectService;
         this.externalLinkService = externalLinkService;
         this.supervisorProjectService = supervisorProjectService;
@@ -85,15 +84,16 @@ public class ProjectController {
         this.projectMemberService = projectMemberService;
         this.projectDAO = projectDAO;
         this.evaluationService=evaluationService;
-        this.projectDeletionService=projectDeletionService;
+
     }
 
 
-    @Secured({"COORDINATOR", "SUPERVISOR"})
-    @DeleteMapping("/{projectId}")
-    public ResponseEntity<Void> deleteProject(@PathVariable Long projectId) {
-        projectDeletionService.deleteProject(projectId);
-        return ResponseEntity.noContent().build();
+    @Secured({"PROJECT_ADMIN", "COORDINATOR", "SUPERVISOR"})
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProjectById(@PathVariable Long id) throws ProjectManagementException {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        projectService.delete(id, userDetails.getUsername());
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("")
