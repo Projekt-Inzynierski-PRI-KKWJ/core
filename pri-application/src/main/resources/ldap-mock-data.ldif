@@ -29,6 +29,16 @@ sn: Test Coordinator 1
 uid: coordinator1
 userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
 
+dn: uid=coordinator2,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Coordinator 2
+sn: Test Coordinator 2
+uid: coordinator2
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
 dn: uid=supervisor1,ou=people,dc=springframework,dc=org
 objectclass: top
 objectclass: person
@@ -47,6 +57,26 @@ objectclass: inetOrgPerson
 cn: Test Supervisor 2
 sn: Test Supervisor 2
 uid: supervisor2
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=supervisor3,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Supervisor 3
+sn: Test Supervisor 3
+uid: supervisor3
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=supervisor4,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Supervisor 4
+sn: Test Supervisor 4
+uid: supervisor4
 userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
 
 dn: uid=student1,ou=people,dc=springframework,dc=org
@@ -107,4 +137,104 @@ objectclass: inetOrgPerson
 cn: Test Student 6
 sn: Test Student 6
 uid: student6
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student7,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 7
+sn: Test Student 7
+uid: student7
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student8,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 8
+sn: Test Student 8
+uid: student8
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student9,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 9
+sn: Test Student 9
+uid: student9
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student10,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 10
+sn: Test Student 10
+uid: student10
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student11,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 11
+sn: Test Student 11
+uid: student11
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student12,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 12
+sn: Test Student 12
+uid: student12
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student13,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 13
+sn: Test Student 13
+uid: student13
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student14,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 14
+sn: Test Student 14
+uid: student14
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student15,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 15
+sn: Test Student 15
+uid: student15
+userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q
+
+dn: uid=student16,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Test Student 16
+sn: Test Student 16
+uid: student16
 userPassword: $2a$12$1r2SNO6lLJk5D9zYgNbpyO0nk9kQo61JMjDSWQkgXrBMiWdjLn01q

@@ -87,6 +87,7 @@ public class DataFeedGradesExportServiceImpl implements DataFeedExportService
                         && Objects.equals(phase, card.getEvaluationPhase())
                         && Objects.equals(status, card.getEvaluationStatus()))
                 .findFirst().orElse(null);
+
         if (Objects.isNull(evaluationCard) || Objects.isNull(evaluationCard.getFinalGrade())) {
             return "";
         }
