@@ -60,17 +60,29 @@ public class CriteriaUpdateServiceImpl implements CriteriaUpdateService {
         persistedCriteriaSectionFirstSemester.setCriteriaGroups(new ArrayList<>());
         persistedCriteriaSectionSecondSemester.setCriteriaGroups(new ArrayList<>());
 
-        for (CriteriaGroupDTO criteriaGroupDTO : criteriaSectionDTO.criteriaGroups()) {
+        List<CriteriaGroupDTO> sortedGroups =
+                new ArrayList<>(criteriaSectionDTO.criteriaGroups());
+
+        sortedGroups.sort(Comparator.comparing(
+                CriteriaGroupDTO::name,
+                String.CASE_INSENSITIVE_ORDER
+        ));
+
+        for (CriteriaGroupDTO criteriaGroupDTO : sortedGroups) {
             Set<Criterion> updatedCriteria = updateCriteria(criteriaGroupDTO.criteria());
 
-            CriteriaGroup criteriaGroupFirstSemester = updateCriteriaGroup(criteriaGroupDTO, updatedCriteria, Semester.FIRST);
-            if (Objects.nonNull(criteriaGroupFirstSemester)) {
-                persistedCriteriaSectionFirstSemester.getCriteriaGroups().add(criteriaGroupFirstSemester);
+            CriteriaGroup criteriaGroupFirstSemester =
+                    updateCriteriaGroup(criteriaGroupDTO, updatedCriteria, Semester.FIRST);
+            if (criteriaGroupFirstSemester != null) {
+                persistedCriteriaSectionFirstSemester.getCriteriaGroups()
+                        .add(criteriaGroupFirstSemester);
             }
 
-            CriteriaGroup criteriaGroupSecondSemester = updateCriteriaGroup(criteriaGroupDTO, updatedCriteria, Semester.SECOND);
-            if (Objects.nonNull(criteriaGroupSecondSemester)) {
-                persistedCriteriaSectionSecondSemester.getCriteriaGroups().add(criteriaGroupSecondSemester);
+            CriteriaGroup criteriaGroupSecondSemester =
+                    updateCriteriaGroup(criteriaGroupDTO, updatedCriteria, Semester.SECOND);
+            if (criteriaGroupSecondSemester != null) {
+                persistedCriteriaSectionSecondSemester.getCriteriaGroups()
+                        .add(criteriaGroupSecondSemester);
             }
         }
 

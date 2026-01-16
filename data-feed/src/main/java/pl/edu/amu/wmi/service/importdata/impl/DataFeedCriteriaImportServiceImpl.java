@@ -14,6 +14,7 @@ import pl.edu.amu.wmi.service.criteria.CriteriaUpdateService;
 import pl.edu.amu.wmi.service.criteria.EvaluationCardTemplateService;
 import pl.edu.amu.wmi.service.importdata.DataFeedImportService;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,10 +52,24 @@ public class DataFeedCriteriaImportServiceImpl implements DataFeedImportService 
             boolean isEvaluationCardTemplatePresentForStudyYear = evaluationCardTemplateService.existsByStudyYear(studyYear);
             if (!isEvaluationCardTemplatePresentForStudyYear) {
                 EvaluationCardTemplate evaluationCardTemplate = evaluationCardTemplateService.saveEvaluationCardTemplate(studyYear, evaluationCriteriaDTO);
-                criteriaSections.forEach(criteriaSection -> criteriaSaveService.saveCriteriaSection(criteriaSection, evaluationCardTemplate));
+                criteriaSections.stream()
+                        .sorted(Comparator.comparing(
+                                CriteriaSectionDTO::name,
+                                String.CASE_INSENSITIVE_ORDER
+                        ))
+                        .forEach(criteriaSection ->
+                                criteriaSaveService.saveCriteriaSection(criteriaSection, evaluationCardTemplate)
+                        );
             } else {
                 EvaluationCardTemplate updatedEvaluationCardTemplate = evaluationCardTemplateService.updateEvaluationCardTemplate(studyYear, evaluationCriteriaDTO);
-                criteriaSections.forEach(criteriaSection -> criteriaUpdateService.updateCriteriaSection(criteriaSection, updatedEvaluationCardTemplate));
+                criteriaSections.stream()
+                        .sorted(Comparator.comparing(
+                                CriteriaSectionDTO::name,
+                                String.CASE_INSENSITIVE_ORDER
+                        ))
+                        .forEach(criteriaSection ->
+                                criteriaUpdateService.updateCriteriaSection(criteriaSection, updatedEvaluationCardTemplate)
+                        );
             }
         } catch (Exception exception) {
             log.error("Exception during parsing the criteria");
