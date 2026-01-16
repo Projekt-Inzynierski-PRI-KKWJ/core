@@ -61,7 +61,7 @@ List of scheduled jobs:
 | `EvaluationCardFreezeScheduledJob`  | job freezes the semester evaluation card in the defense day (and creates the evaluation card in phase defense)<br/> After freezing process, user with `STUDENT` role does not see the grades till the grades are published |
 
 
-📢 IMPORTANT!: PRI 1.0 had implemented ssl certificats generation inside the backend of the application, however it's bad programing practice to put that functionality in the cod of an application so this functionality isn't in use and the uniwersity has it's own proxy for this. Do to this factor there is some legacy code in the application acociated with this.
+📢 IMPORTANT!: PRI 1.0 had implemented ssl certificates generation inside the backend of the application, however it's bad programming practice to put that functionality in the code of an application so this functionality isn't in use and the university has its own proxy for this. Due to this factor there is some legacy code in the application associated with this.
 
 
 ## How to run application locally:
@@ -72,19 +72,19 @@ List of scheduled jobs:
 * creation of Postgres database
 * substitution of all environment variables (see [config.env.example](https://github.com/Projekt-Inzynierski-PRI-KKWJ/deploy/config.env.example) file)
 
-### Step-by-step lunching instructions:
+### Step-by-step launching instructions:
 1. Create folder named e.g. PRI, in place where you want to store the application files.
 2. Inside create 3 folders: core, UI, deploy.
-3. Clone git core repository core the core folder. 
-4. Create empty Postgres database. (The schema will be initieated and filled when the backend starts)
-5. Run it on the comand line providing the values for all the secrets as given in e.g. below or configure your IDE.
+3. Clone git core repository core the core folder.
+4. Create empty Postgres database. (The schema will be initiated and filled when the backend starts)
+5. Run it on the command line providing the values for all the secrets as given in e.g. below or configure your IDE.
    "mvn clean package"
    "java -jar -Dspring.profiles.active=local -DPOSTGRES_URL=jdbc:postgresql://localhost:NUMERPORTU/ -DPOSTGRES_USER=POSTGRESUSER -DPOSTGRES_PASSWORD=PASSWORD -DPOSTGRES_DB=DATABASENAME -DJWT_SECRET=JWTSECRET -DMAIL_HOST=host.docker.internal -DMAIL_PORT= -DMAIL_USERNAME= -DMAIL_PASSWORD= -DEMAIL_UNIVERSITY_DOMAIN= -DLDAP_URL= -DLDAP_BASE= -DLDAP_DOMAIN= -DFF_EMAIL_TO_UNIVERSITY_DOMAIN_ENABLED=false -DFF_LDAP_AUTHENTICATION_ENABLED=false -DSCHEDULED_JOBS_ENABLED=false pri-application/target/pri-application-1.0-SNAPSHOT.jar"
 6. The application compiles and hopefully works.
-7. Assuming you have frontend runing and database operational, navigate to `http://localhost:4200/`. 
+7. Assuming you have frontend running and database operational, navigate to `http://localhost:4200/`.
 8. First site that should open is initialization page for coordinator/admin of the system. ( If you run the project locally with mock users, use the exact logins specified in "core\pri-application\src\main\resources\ldap-mock-data.ldif" next to "uid:", name and last name specified next to "cn:", "sn:" values. uid=indexNumber. )
-9. After successfull initialization login site should appear, log in to coordinator account. 
-10. When in the system, precced to data-feed tab to import supervisors, studnets and criteria in .csv files ( If  runing localy import Test-mock students, supervisors and criteria from the support files folder in deploy directory ). 
+9. After successful initialization login site should appear, log in to coordinator account.
+10. When in the system, proceed to data-feed tab to import supervisors, students and criteria in .csv files ( If  running locally import Test-mock students, supervisors and criteria from the support files folder in deploy directory ).
 11. Before you will be able to add project you need to configure the supervisor availability in Project tab when clicking on Supervisor Availability button.
 
 #### Secrets
@@ -112,7 +112,7 @@ To generate the "liquibase-diffChangeLog.xml" with changes made in domain module
 (e.g. when new entities were added):
 1. Database need to be already initialized so the liquibase can compare the entities in domain module with already existing ones and generate the .xml changes file.
 2. Navigate to the domain module using e.g.: `cd domain` and then execute: `mvn liquibase:diff` to generate "core\domain\src\main\resources\liquibase-diffChangeLog.xml".
-3. After the changes are generated, review them, and if they are ok, copy the contents of the "liquibase-diffChangeLog.xml" file and then pasted them into new changeset in "core\domain\src\main\resources\config\liquibase\database" similar to others that are already there. 
+3. After the changes are generated, review them, and if they are ok, copy the contents of the "liquibase-diffChangeLog.xml" file and then pasted them into new changeset in "core\domain\src\main\resources\config\liquibase\database" similar to others that are already there.
 4. Add the new file to "core\domain\src\main\resources\config\liquibase" similar to the others that are added there.
 5. When you run the project next time the changeste should be executed and database schema should be changed.
 
@@ -151,5 +151,3 @@ mvn clean verify
 ```
 
 The aggregated test report is created in aggregated-test-report module (path: `core\aggregated-test-report\target/site/jacoco-aggregate/index.html`) 
-
-
