@@ -81,18 +81,31 @@ public class DataFeedGradesExportServiceImpl implements DataFeedExportService
 
 
 
-    private String extractGradeForSemesterAndTerm(List<EvaluationCard> evaluationCards, Semester semester, EvaluationPhase phase, EvaluationStatus status) {
-        EvaluationCard evaluationCard = evaluationCards.stream()
-                .filter(card -> Objects.equals(semester, card.getSemester())
-                        && Objects.equals(phase, card.getEvaluationPhase())
-                        && Objects.equals(status, card.getEvaluationStatus()))
-                .findFirst().orElse(null);
+    private String extractGradeForSemesterAndTerm(List<EvaluationCard> evaluationCards,
+                                                  Semester semester,
+                                                  EvaluationPhase phase,
+                                                  EvaluationStatus status)
+    { EvaluationCard evaluationCard = evaluationCards.stream()
+            .filter(card -> Objects.equals(semester,
+                    card.getSemester()) && Objects.equals(phase,
+                    card.getEvaluationPhase()) && Objects.equals(status,
+                    card.getEvaluationStatus()))
+            .findFirst().orElse(null);
 
-        if (Objects.isNull(evaluationCard) || Objects.isNull(evaluationCard.getFinalGrade())) {
+
+        if (evaluationCard == null || evaluationCard.getFinalGrade() == null) {
             return "";
         }
-        return String.valueOf(evaluationCard.getFinalGrade());
+
+        Double grade = evaluationCard.getFinalGrade();
+
+        // formatowanie ocen do formatu USOSa
+        if (grade % 1 == 0) {
+            return String.valueOf(grade.intValue()); // 3.0 → "3"
+        }
+        return String.valueOf(grade).replace('.', ','); // 3.5 → "3,5" formatowanie ocen do formatu USOSa
     }
+
 
 
 
@@ -126,3 +139,13 @@ public class DataFeedGradesExportServiceImpl implements DataFeedExportService
         private static final String GRADE_SECOND_SEMESTER_SECOND_TERM = "OCENA II SEMESTR II TERMIN";
     }
 }
+
+
+
+
+
+
+
+
+
+
