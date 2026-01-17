@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProjectMarketUserDataDTO {
 
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private String indexNumber;
+    private boolean isAdmin;
 }

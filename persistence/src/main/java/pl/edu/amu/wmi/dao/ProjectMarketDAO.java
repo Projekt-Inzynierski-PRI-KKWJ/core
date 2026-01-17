@@ -32,8 +32,10 @@ public interface ProjectMarketDAO extends JpaRepository<ProjectMarket, Long> {
            "OR (p IS NOT NULL AND p.supervisor.id = :supervisorId)")
     Page<ProjectMarket> findByProject_Supervisor(@Param("supervisorId") Long supervisorId, Pageable pageable);
 
-    @Query("SELECT pm FROM ProjectMarket pm " +
-           "WHERE pm.status IN :statuses " +
-           "AND (pm.proposalOwnerId = :studentId OR EXISTS (SELECT 1 FROM StudentProject sp WHERE sp.project = pm.project AND sp.student.id = :studentId))")
+    @Query("SELECT DISTINCT pm FROM ProjectMarket pm " +
+           "LEFT JOIN StudentProject sp ON sp.project = pm.project " +
+           "WHERE (pm.proposalOwnerId = :studentId " +
+           "OR (sp.student.id = :studentId AND sp.isProjectAdmin = true)) " +
+           "AND pm.status IN :statuses")
     Page<ProjectMarket> findByProjectLeader(@Param("studentId") Long studentId, @Param("statuses") java.util.List<ProjectMarketStatus> statuses, Pageable pageable);
 }

@@ -44,6 +44,14 @@ public class ProjectApplicationService {
         return projectApplicationDAO.findById(id);
     }
 
+    public Optional<ProjectApplication> findById(Long id) {
+        return projectApplicationDAO.findById(id);
+    }
+
+    public void delete(ProjectApplication application) {
+        projectApplicationDAO.delete(application);
+    }
+
     public boolean existsByStudentAndProjectMarket(Student student, ProjectMarket projectMarket) {
         return projectApplicationDAO.existsByStudentAndProjectMarket(student, projectMarket);
     }

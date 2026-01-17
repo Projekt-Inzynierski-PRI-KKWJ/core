@@ -49,6 +49,16 @@ public class ProjectApplication extends AbstractEntity {
         var projectMarket = this.getProjectMarket();
         var project = projectMarket.getProject();
         
+        // Check if student already has a confirmed project
+        if (student.isProjectConfirmed() && student.getConfirmedProject() != null) {
+            throw new IllegalStateException(
+                String.format("Student %s (%s) is already in a confirmed project: %s. " +
+                    "A student cannot be accepted into multiple projects.",
+                    student.getFullName(),
+                    student.getIndexNumber(),
+                    student.getConfirmedProject().getName()));
+        }
+        
         // Only add student to project if it exists (approved projects)
         // For proposals, student will be added when supervisor approves
         if (project != null) {

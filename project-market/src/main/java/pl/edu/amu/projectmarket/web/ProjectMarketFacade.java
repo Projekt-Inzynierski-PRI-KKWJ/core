@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.edu.amu.wmi.dao.ProjectDAO;
 import pl.edu.amu.wmi.dao.ProjectMarketDAO;
+import pl.edu.amu.wmi.dao.RoleDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
@@ -20,8 +21,11 @@ import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.entity.ProjectMarket;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.entity.Supervisor;
+import pl.edu.amu.wmi.enumerations.AcceptanceStatus;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
+import pl.edu.amu.wmi.enumerations.UserRole;
+import pl.edu.amu.wmi.service.externallink.ExternalLinkService;
 import pl.edu.amu.projectmarket.model.PublishProjectMarketRequest;
 import pl.edu.amu.projectmarket.service.ProjectApplicationService;
 import pl.edu.amu.projectmarket.service.ProjectMarketService;
@@ -54,12 +58,15 @@ public class ProjectMarketFacade {
     private final ProjectApplicationService projectApplicationService;
     private final ProjectMarketService projectMarketService;
     private final ProjectService projectService;
+    private final ExternalLinkService externalLinkService;
 
     private final ProjectDAO projectDAO;
     private final ProjectMarketDAO projectMarketDAO;
     private final SupervisorDAO supervisorDAO;
     private final StudentDAO studentDAO;
     private final StudyYearDAO studyYearDAO;
+    private final RoleDAO roleDAO;
+    private final pl.edu.amu.wmi.dao.StudentProjectDAO studentProjectDAO;
 
     private final ProjectRequestMapper projectRequestMapper;
     private final ProjectMarketMapper projectMarketMapper;
@@ -206,6 +213,29 @@ public class ProjectMarketFacade {
         manipulateProjectApplicationByOwner(applicationId, ProjectApplication::reject);
     }
 
+    @Transactional
+    public void withdrawApplication(Long applicationId) {
+        var student = getStudentFromContext();
+        if (student == null) {
+            throw new IllegalStateException(STUDENT_NOT_FOUND);
+        }
+
+        var application = projectApplicationService.findById(applicationId)
+            .orElseThrow(() -> new IllegalArgumentException("Application not found"));
+
+        // Verify the application belongs to the current student
+        if (!application.getStudent().getId().equals(student.getId())) {
+            throw new IllegalStateException("You can only withdraw your own applications");
+        }
+
+        // Can only withdraw pending applications
+        if (application.getStatus() != ProjectApplicationStatus.PENDING) {
+            throw new IllegalStateException("Can only withdraw pending applications");
+        }
+
+        projectApplicationService.delete(application);
+    }
+
     public List<StudentProjectApplicationDTO> getApplicationsForStudent() {
         var applications = projectApplicationService.getApplicationsForStudent(getStudentFromContext());
         return projectApplicationMapper.mapToStudentProjectApplicationDTO(applications);
@@ -285,9 +315,10 @@ public class ProjectMarketFacade {
         
         var project = projectMarket.getProject();
         
-        // Can only leave approved projects (not proposals)
+        // For proposals, allow non-admin members to leave
         if (project == null) {
-            throw new IllegalStateException("Cannot leave project proposals. Only approved projects can be left.");
+            leaveProposal(marketId, student);
+            return;
         }
         
         // Find the student in the project
@@ -312,13 +343,103 @@ public class ProjectMarketFacade {
     }
 
     @Transactional
+    public void leaveProposal(Long marketId, Student student) {
+        var projectMarket = projectMarketDAO.findById(marketId)
+            .orElseThrow(() -> new IllegalArgumentException("Project market not found"));
+        
+        // Verify this is a proposal
+        if (projectMarket.getProject() != null) {
+            throw new IllegalStateException("This is not a proposal");
+        }
+        
+        // Check if student is the owner
+        if (projectMarket.getProposalOwnerId().equals(student.getId())) {
+            throw new IllegalStateException("Proposal owner cannot leave. Close the proposal instead.");
+        }
+        
+        // Find the student's application
+        var application = projectMarket.getApplications().stream()
+            .filter(app -> app.getStudent().getId().equals(student.getId()))
+            .filter(app -> app.getStatus() == ProjectApplicationStatus.ACCEPTED)
+            .findFirst()
+            .orElseThrow(() -> new IllegalStateException("Student is not part of this proposal"));
+        
+        // Remove the application
+        projectMarket.getApplications().remove(application);
+        projectMarketDAO.save(projectMarket);
+    }
+
+    @Transactional
+    public void kickMemberFromProposal(Long marketId, Long studentId) {
+        var currentStudent = getStudentFromContext();
+        if (currentStudent == null) {
+            throw new IllegalStateException(STUDENT_NOT_FOUND);
+        }
+        
+        var projectMarket = projectMarketDAO.findById(marketId)
+            .orElseThrow(() -> new IllegalArgumentException("Project market not found"));
+        
+        var project = projectMarket.getProject();
+        
+        // Can only kick from proposals or PENDING projects (not confirmed/accepted projects)
+        if (project != null && project.getAcceptanceStatus() != null && 
+            project.getAcceptanceStatus() != pl.edu.amu.wmi.enumerations.AcceptanceStatus.PENDING) {
+            throw new IllegalStateException("Cannot kick members from confirmed projects.");
+        }
+        
+        // Verify current student is the owner/admin
+        boolean isOwner = false;
+        if (project == null) {
+            // For proposals, check proposalOwnerId
+            isOwner = projectMarket.getProposalOwnerId().equals(currentStudent.getId());
+        } else {
+            // For created projects, check if user is project admin
+            isOwner = project.getAssignedStudents().stream()
+                .anyMatch(sp -> sp.getStudent().getId().equals(currentStudent.getId()) && sp.isProjectAdmin());
+        }
+        
+        if (!isOwner) {
+            throw new IllegalStateException("Only the project admin can kick members");
+        }
+        
+        // Cannot kick yourself
+        if (studentId.equals(currentStudent.getId())) {
+            throw new IllegalStateException("Cannot kick yourself. Close the proposal instead.");
+        }
+        
+        // Remove the student
+        if (project == null) {
+            // For proposals: remove from accepted applications
+            var application = projectMarket.getApplications().stream()
+                .filter(app -> app.getStudent().getId().equals(studentId))
+                .filter(app -> app.getStatus() == ProjectApplicationStatus.ACCEPTED)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Student is not part of this proposal"));
+            
+            projectMarket.getApplications().remove(application);
+            projectApplicationService.delete(application);
+            projectMarketDAO.save(projectMarket);
+        } else {
+            // For PENDING projects: remove from assigned students
+            var studentProject = project.getAssignedStudents().stream()
+                .filter(sp -> sp.getStudent().getId().equals(studentId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Student is not part of this project"));
+            
+            project.getAssignedStudents().remove(studentProject);
+            studentProjectDAO.delete(studentProject);
+            projectDAO.save(project);
+        }
+    }
+
+    @Transactional
     public void approveProjectAndCloseMarket(Long marketId) {
         // Create the actual Project now that supervisor approved
         var projectMarket = projectMarketService.getProjectMarketById(marketId);
         
         if (projectMarket.getProject() == null) {
             // Create the project from the proposal data
-            var student = studentDAO.getReferenceById(projectMarket.getProposalOwnerId());
+            var projectOwner = studentDAO.getReferenceById(projectMarket.getProposalOwnerId());
             var studyYear = studyYearDAO.findByStudyYear(projectMarket.getProposalStudyYear());
             var supervisor = supervisorDAO.getReferenceById(projectMarket.getProposalSupervisorId());
             
@@ -338,26 +459,76 @@ public class ProjectMarketFacade {
                 .maxMembers(projectMarket.getMaxMembers())
                 .build();
                 
-            var project = projectService.createProject(projectRequestMapper.fromDto(projectRequest, studyYear, student));
-            project.setSupervisor(supervisor);
-            projectMarket.setProject(project);
-            projectMarketService.save(projectMarket);
-            
-            // Add all accepted applicants to the newly created project
+            // Get all accepted applicants
             var acceptedApplications = projectMarket.getApplications().stream()
                 .filter(app -> app.getStatus() == ProjectApplicationStatus.ACCEPTED)
                 .toList();
             
-            for (var application : acceptedApplications) {
-                project.addStudent(application.getStudent(), pl.edu.amu.wmi.enumerations.ProjectRole.NONE, false);
+            // Check if project owner already has a confirmed project
+            if (projectOwner.isProjectConfirmed() && projectOwner.getConfirmedProject() != null) {
+                throw new IllegalStateException(
+                    String.format("Project owner %s (%s) is already in a confirmed project: %s. " +
+                        "Cannot create a new project for a student who already has one.",
+                        projectOwner.getFullName(),
+                        projectOwner.getIndexNumber(),
+                        projectOwner.getConfirmedProject().getName()));
             }
             
-            if (!acceptedApplications.isEmpty()) {
-                projectDAO.save(project);
+            // Check if any accepted applicants already have confirmed projects
+            for (var application : acceptedApplications) {
+                var applicant = application.getStudent();
+                if (applicant.isProjectConfirmed() && applicant.getConfirmedProject() != null) {
+                    throw new IllegalStateException(
+                        String.format("Student %s (%s) is already in a confirmed project: %s. " +
+                            "Cannot add them to a new project.",
+                            applicant.getFullName(),
+                            applicant.getIndexNumber(),
+                            applicant.getConfirmedProject().getName()));
+                }
             }
+            
+            var project = projectService.createProject(projectRequestMapper.fromDto(projectRequest, studyYear, projectOwner));
+            project.setSupervisor(supervisor);
+            
+            // Set the project owner as admin with PROJECT_ADMIN role
+            setStudentAsProjectAdmin(projectOwner);
+            project.addStudent(projectOwner, pl.edu.amu.wmi.enumerations.ProjectRole.LEADER, true);
+            
+            // Add all other accepted applicants to the newly created project
+            for (var application : acceptedApplications) {
+                var applicant = application.getStudent();
+                // Don't add the owner twice
+                if (!applicant.getId().equals(projectOwner.getId())) {
+                    project.addStudent(applicant, pl.edu.amu.wmi.enumerations.ProjectRole.NONE, false);
+                }
+            }
+            
+            // Set acceptance status based on number of students
+            int totalStudents = acceptedApplications.size() + 1; // +1 for owner
+            project.setAcceptanceStatus(totalStudents == 1 ? AcceptanceStatus.CONFIRMED : AcceptanceStatus.PENDING);
+            
+            // Create external links (karta oceny links)
+            project.setExternalLinks(externalLinkService.createEmptyExternalLinks(projectMarket.getProposalStudyYear()));
+            
+            // Save project with all students assigned (ensures StudentProject entities are persisted)
+            project = projectDAO.save(project);
+            
+            // Explicitly save all StudentProject entries to ensure admin flag is persisted
+            for (var studentProject : project.getAssignedStudents()) {
+                studentProjectDAO.save(studentProject);
+            }
+            
+            projectMarket.setProject(project);
+            projectMarketService.save(projectMarket);
         }
         
         manipulateProjectMarketBySupervisor(marketId, ProjectMarket::approveBySupervisor);
+    }
+    
+    private void setStudentAsProjectAdmin(Student student) {
+        student.setProjectAdmin(true);
+        student.getUserData().getRoles().add(roleDAO.findByName(UserRole.PROJECT_ADMIN));
+        studentDAO.save(student);
     }
 
     @Transactional

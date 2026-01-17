@@ -3,6 +3,7 @@ package pl.edu.amu.projectmarket.web.controller;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +57,16 @@ public class ProjectMarketApplicationController {
     public ResponseEntity<Void> rejectApplication(@PathVariable Long id) {
         try {
             projectMarketFacade.rejectCandidate(id);
+            return ResponseEntity.ok().build();
+        }catch (Exception ex) {
+            throw new BusinessException(ex.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}/withdraw")
+    public ResponseEntity<Void> withdrawApplication(@PathVariable Long id) {
+        try {
+            projectMarketFacade.withdrawApplication(id);
             return ResponseEntity.ok().build();
         }catch (Exception ex) {
             throw new BusinessException(ex.getMessage());
