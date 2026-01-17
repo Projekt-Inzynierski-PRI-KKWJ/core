@@ -42,6 +42,8 @@ public abstract class ProjectMarketMapper {
     @Mapping(target = "studyYear", expression = "java(getStudyYear(projectMarket))")
     @Mapping(target = "status", source = "status")
     @Mapping(target = "supervisorFeedback", source = "supervisorFeedback")
+    @Mapping(target = "projectId", expression = "java(getProjectId(projectMarket))")
+    @Mapping(target = "accepted", expression = "java(isProjectAccepted(projectMarket))")
     public abstract ProjectMarketDetailsDTO toProjectMarketDetailsDTO(ProjectMarket projectMarket);
 
 
@@ -104,31 +106,46 @@ public abstract class ProjectMarketMapper {
     protected List<ProjectMarketUserDataDTO> getCurrentMembers(ProjectMarket projectMarket) {
         if (projectMarket.getProject() == null) {
             // For proposals: return owner + accepted applicants
-            var members = new java.util.ArrayList<pl.edu.amu.wmi.entity.UserData>();
+            var members = new java.util.ArrayList<ProjectMarketUserDataDTO>();
             
-            // Add owner
+            // Add owner (admin)
             if (projectMarket.getProposalOwnerId() != null) {
                 var owner = getStudentById(projectMarket.getProposalOwnerId());
                 if (owner != null && owner.getUserData() != null) {
-                    members.add(owner.getUserData());
+                    var ownerDTO = projectMarketUserDataMapper.mapToProjectMarketUserData(owner.getUserData());
+                    ownerDTO.setId(owner.getId());
+                    ownerDTO.setAdmin(true);
+                    members.add(ownerDTO);
                 }
             }
             
-            // Add accepted applicants
+            // Add accepted applicants (non-admin)
             if (projectMarket.getApplications() != null) {
                 var acceptedApplicants = projectMarket.getApplications().stream()
                     .filter(app -> app.getStatus() == pl.edu.amu.wmi.enumerations.ProjectApplicationStatus.ACCEPTED)
-                    .map(app -> app.getStudent().getUserData())
+                    .map(app -> {
+                        var dto = projectMarketUserDataMapper.mapToProjectMarketUserData(app.getStudent().getUserData());
+                        dto.setId(app.getStudent().getId());
+                        dto.setAdmin(false);
+                        return dto;
+                    })
                     .filter(java.util.Objects::nonNull)
                     .toList();
                 members.addAll(acceptedApplicants);
             }
             
-            return projectMarketUserDataMapper.mapToProjectMarketUserData(members);
+            return members;
         }
         
-        // For approved projects: use existing project members
-        return projectMarketUserDataMapper.mapToProjectMarketUserData(projectMarket.getMembers());
+        // For approved projects: use existing project members with their roles
+        return projectMarket.getProject().getAssignedStudents().stream()
+            .map(sp -> {
+                var dto = projectMarketUserDataMapper.mapToProjectMarketUserData(sp.getStudent().getUserData());
+                dto.setId(sp.getStudent().getId());
+                dto.setAdmin(sp.isProjectAdmin());
+                return dto;
+            })
+            .toList();
     }
 
     protected static String calculateAvailableSlots(ProjectMarket projectMarket) {
@@ -141,6 +158,20 @@ public abstract class ProjectMarketMapper {
         return projectMarket.getProject() != null 
             ? projectMarket.getProject().getStudyYear().getStudyYear()
             : projectMarket.getProposalStudyYear();
+    }
+    
+    protected Long getProjectId(ProjectMarket projectMarket) {
+        return projectMarket.getProject() != null 
+            ? projectMarket.getProject().getId() 
+            : null;
+    }
+    
+    protected Boolean isProjectAccepted(ProjectMarket projectMarket) {
+        if (projectMarket.getProject() == null) {
+            return false;
+        }
+        var status = projectMarket.getProject().getAcceptanceStatus();
+        return status != null && status != pl.edu.amu.wmi.enumerations.AcceptanceStatus.PENDING;
     }
 
     @Autowired

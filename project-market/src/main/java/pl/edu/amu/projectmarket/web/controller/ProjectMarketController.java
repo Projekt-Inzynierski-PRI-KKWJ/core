@@ -88,6 +88,16 @@ public class ProjectMarketController {
         }
     }
 
+    @DeleteMapping("/{projectMarketId}/kick/{studentId}")
+    public ResponseEntity<Void> kickMember(@PathVariable Long projectMarketId, @PathVariable Long studentId) {
+        try {
+            projectMarketFacade.kickMemberFromProposal(projectMarketId, studentId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
     @DeleteMapping("{projectMarketId}/close")
     public ResponseEntity<Void> closeProjectMarketByOwner(@PathVariable Long projectMarketId) {
         try {

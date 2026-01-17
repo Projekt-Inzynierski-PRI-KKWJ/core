@@ -16,4 +16,8 @@ public class StudentProjectApplicationDTO {
     private LocalDateTime applicationDate;
     private LocalDateTime decisionDate;
     private String status;
+    private Long projectId;
+    private String projectName;
+    private String projectDescription;
+    private java.util.List<String> technologies;
 }

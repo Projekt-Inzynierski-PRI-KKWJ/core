@@ -27,4 +27,6 @@ public class ProjectMarketDetailsDTO {
     private String studyYear;
     private ProjectMarketStatus status;
     private String supervisorFeedback;
+    private Long projectId;
+    private Boolean accepted;
 }

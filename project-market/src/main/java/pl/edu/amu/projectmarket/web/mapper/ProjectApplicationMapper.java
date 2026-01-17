@@ -23,7 +23,21 @@ public interface ProjectApplicationMapper {
     List<ProjectApplicationDTO> mapToProjectApplicationDTO(List<ProjectApplication> projectApplications);
 
     @Mapping(target = "applicationDate", source = "creationDate")
+    @Mapping(target = "projectId", source = "projectMarket.id")
+    @Mapping(target = "projectName", source = "projectMarket.proposalName")
+    @Mapping(target = "projectDescription", source = "projectMarket.proposalDescription")
+    @Mapping(target = "technologies", expression = "java(parseTechnologies(projectApplication.getProjectMarket().getProposalTechnologies()))")
     StudentProjectApplicationDTO mapToStudentProjectApplicationDTO(ProjectApplication projectApplication);
 
     List<StudentProjectApplicationDTO> mapToStudentProjectApplicationDTO(List<ProjectApplication> projectApplications);
+
+    default java.util.List<String> parseTechnologies(String technologies) {
+        if (technologies == null || technologies.trim().isEmpty()) {
+            return java.util.List.of();
+        }
+        return java.util.Arrays.stream(technologies.split(","))
+            .map(String::trim)
+            .filter(s -> !s.isEmpty())
+            .collect(java.util.stream.Collectors.toList());
+    }
 }
