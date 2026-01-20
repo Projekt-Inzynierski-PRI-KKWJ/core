@@ -64,9 +64,7 @@ public class ProjectMarket extends AbstractEntity {
 
     public List<UserData> getMembers() {
         if (this.project == null) {
-            // For proposals: return owner + accepted applicants
-            // Note: We can't fetch owner's UserData here without a DAO reference
-            // So this will return empty for proposals - use getCurrentMembersCount() instead
+
             return List.of();
         }
         var members = this.project.getAssignedStudents().stream().toList();

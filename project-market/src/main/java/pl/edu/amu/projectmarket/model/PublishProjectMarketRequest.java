@@ -19,5 +19,5 @@ public class PublishProjectMarketRequest {
     private String proposalDescription;
     private Long proposalOwnerId;
     private String proposalStudyYear;
-    private String proposalTechnologies; // Comma-separated
+    private String proposalTechnologies;
 }
