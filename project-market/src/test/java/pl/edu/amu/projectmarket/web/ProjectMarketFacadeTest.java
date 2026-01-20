@@ -110,6 +110,12 @@ class ProjectMarketFacadeTest {
     
     @Mock
     private pl.edu.amu.wmi.service.externallink.ExternalLinkService externalLinkService;
+    
+    @Mock
+    private pl.edu.amu.wmi.service.grade.EvaluationCardService evaluationCardService;
+    
+    @Mock
+    private pl.edu.amu.projectmarket.mapper.ProjectEntityMapper projectEntityMapper;
 
     private final ProjectRequestMapper projectRequestMapper = new ProjectRequestMapperImpl();
     private final ProjectMarketMapper projectMarketMapper = new ProjectMarketMapperImpl();
@@ -135,9 +141,9 @@ class ProjectMarketFacadeTest {
     public void setUp() {
         projectMarketMapper.setProjectMarketUserDataDTOMapper(projectMarketUserDataMapper);
         projectMarketFacade = new ProjectMarketFacade(projectApplicationService, projectMarketService,
-            projectService, externalLinkService, projectDAO, projectMarketDAO, supervisorDAO, studentDAO, studyYearDAO, roleDAO, studentProjectDAO, projectRequestMapper,
+            projectService, externalLinkService, evaluationCardService, projectDAO, projectMarketDAO, supervisorDAO, studentDAO, studyYearDAO, roleDAO, studentProjectDAO, projectRequestMapper,
             projectMarketMapper, projectMemberMapper, applyToProjectRequestMapper,
-            projectApplicationMapper, projectMarketSupervisorMapper);
+            projectApplicationMapper, projectMarketSupervisorMapper, projectEntityMapper);
     }
 
     @Test

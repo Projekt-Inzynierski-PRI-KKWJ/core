@@ -17,15 +17,20 @@ import pl.edu.amu.wmi.dao.RoleDAO;
 import pl.edu.amu.wmi.dao.StudentDAO;
 import pl.edu.amu.wmi.dao.StudyYearDAO;
 import pl.edu.amu.wmi.dao.SupervisorDAO;
+import pl.edu.amu.wmi.entity.EvaluationCard;
 import pl.edu.amu.wmi.entity.ProjectApplication;
 import pl.edu.amu.wmi.entity.ProjectMarket;
 import pl.edu.amu.wmi.entity.Student;
 import pl.edu.amu.wmi.entity.Supervisor;
 import pl.edu.amu.wmi.enumerations.AcceptanceStatus;
+import pl.edu.amu.wmi.enumerations.EvaluationPhase;
+import pl.edu.amu.wmi.enumerations.EvaluationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectApplicationStatus;
 import pl.edu.amu.wmi.enumerations.ProjectMarketStatus;
+import pl.edu.amu.wmi.enumerations.Semester;
 import pl.edu.amu.wmi.enumerations.UserRole;
 import pl.edu.amu.wmi.service.externallink.ExternalLinkService;
+import pl.edu.amu.wmi.service.grade.EvaluationCardService;
 import pl.edu.amu.projectmarket.model.PublishProjectMarketRequest;
 import pl.edu.amu.projectmarket.service.ProjectApplicationService;
 import pl.edu.amu.projectmarket.service.ProjectMarketService;
@@ -59,6 +64,7 @@ public class ProjectMarketFacade {
     private final ProjectMarketService projectMarketService;
     private final ProjectService projectService;
     private final ExternalLinkService externalLinkService;
+    private final EvaluationCardService evaluationCardService;
 
     private final ProjectDAO projectDAO;
     private final ProjectMarketDAO projectMarketDAO;
@@ -74,6 +80,7 @@ public class ProjectMarketFacade {
     private final ApplyToProjectRequestMapper applyToProjectRequestMapper;
     private final ProjectApplicationMapper projectApplicationMapper;
     private final ProjectMarketSupervisorMapper projectMarketSupervisorMapper;
+    private final pl.edu.amu.projectmarket.mapper.ProjectEntityMapper projectEntityMapper;
 
     @Transactional
     public void createMarket(ProjectCreateRequestDTO request) {
@@ -439,9 +446,22 @@ public class ProjectMarketFacade {
         
         if (projectMarket.getProject() == null) {
             // Create the project from the proposal data
-            var projectOwner = studentDAO.getReferenceById(projectMarket.getProposalOwnerId());
+            // First get the entities to retrieve index numbers (same as direct creation)
+            var projectOwnerTemp = studentDAO.findById(projectMarket.getProposalOwnerId())
+                .orElseThrow(() -> new IllegalStateException("Project owner not found"));
+            var supervisorTemp = supervisorDAO.findById(projectMarket.getProposalSupervisorId())
+                .orElseThrow(() -> new IllegalStateException("Supervisor not found"));
+            
+            // Now use the same finder methods as direct creation
             var studyYear = studyYearDAO.findByStudyYear(projectMarket.getProposalStudyYear());
-            var supervisor = supervisorDAO.getReferenceById(projectMarket.getProposalSupervisorId());
+            var projectOwner = studentDAO.findByStudyYearAndUserData_IndexNumber(
+                projectMarket.getProposalStudyYear(), 
+                projectOwnerTemp.getIndexNumber()
+            );
+            var supervisor = supervisorDAO.findByStudyYearAndUserData_IndexNumber(
+                projectMarket.getProposalStudyYear(), 
+                supervisorTemp.getIndexNumber()
+            );
             
             java.util.List<String> technologies = projectMarket.getProposalTechnologies() != null && !projectMarket.getProposalTechnologies().isEmpty()
                 ? java.util.Arrays.stream(projectMarket.getProposalTechnologies().split(","))
@@ -487,35 +507,62 @@ public class ProjectMarketFacade {
                 }
             }
             
-            var project = projectService.createProject(projectRequestMapper.fromDto(projectRequest, studyYear, projectOwner));
-            project.setSupervisor(supervisor);
+            // Create project entity
+            var project = new pl.edu.amu.wmi.entity.Project();
+            project.setName(projectMarket.getProposalName());
+            project.setDescription(projectMarket.getProposalDescription());
+            project.setTechnologies(new java.util.HashSet<>(technologies));
             
-            // Set the project owner as admin with PROJECT_ADMIN role
-            setStudentAsProjectAdmin(projectOwner);
+            // Set admin flags on Student entity (projectRole stays null - it's for technical roles only)
+            projectOwner.setProjectAdmin(true);
+            projectOwner.getUserData().getRoles().add(roleDAO.findByName(UserRole.PROJECT_ADMIN));
+            studentDAO.save(projectOwner);
+            
+            // Set remaining properties in same order as direct creation
+            int totalStudents = acceptedApplications.size() + 1;
+            project.setSupervisor(supervisor);
+            project.setStudyYear(studyYear);
+            project.setAcceptanceStatus(totalStudents == 1 ? AcceptanceStatus.CONFIRMED : AcceptanceStatus.PENDING);
+            project.setExternalLinks(externalLinkService.createEmptyExternalLinks(projectMarket.getProposalStudyYear()));
+            
+            // Add evaluation cards for first semester
+            addEvaluationCardToProject(project, projectMarket.getProposalStudyYear(), Semester.FIRST);
+            project = projectDAO.save(project);
+            
+            // Add evaluation cards for second semester
+            addEvaluationCardToProject(project, projectMarket.getProposalStudyYear(), Semester.SECOND);
+            project = projectDAO.save(project);
+            
+            // Now add students - project must be saved first to have an ID for StudentProject composite key
             project.addStudent(projectOwner, pl.edu.amu.wmi.enumerations.ProjectRole.LEADER, true);
             
-            // Add all other accepted applicants to the newly created project
             for (var application : acceptedApplications) {
                 var applicant = application.getStudent();
-                // Don't add the owner twice
                 if (!applicant.getId().equals(projectOwner.getId())) {
                     project.addStudent(applicant, pl.edu.amu.wmi.enumerations.ProjectRole.NONE, false);
                 }
             }
             
-            // Set acceptance status based on number of students
-            int totalStudents = acceptedApplications.size() + 1; // +1 for owner
-            project.setAcceptanceStatus(totalStudents == 1 ? AcceptanceStatus.CONFIRMED : AcceptanceStatus.PENDING);
-            
-            // Create external links (karta oceny links)
-            project.setExternalLinks(externalLinkService.createEmptyExternalLinks(projectMarket.getProposalStudyYear()));
-            
-            // Save project with all students assigned (ensures StudentProject entities are persisted)
+            // Save project again to persist StudentProject entities via cascade
             project = projectDAO.save(project);
             
-            // Explicitly save all StudentProject entries to ensure admin flag is persisted
-            for (var studentProject : project.getAssignedStudents()) {
-                studentProjectDAO.save(studentProject);
+            // Mark admin as having accepted the project (same as direct creation's acceptProjectBySingleUser call)
+            var adminStudentProject = project.getAssignedStudents().stream()
+                .filter(sp -> sp.getStudent().getId().equals(projectOwner.getId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Admin student not found in project"));
+            
+            adminStudentProject.setProjectConfirmed(true);
+            projectOwner.setProjectConfirmed(true);
+            projectOwner.setConfirmedProject(project);
+            
+            studentProjectDAO.save(adminStudentProject);
+            studentDAO.save(projectOwner);
+            
+            // If single student project, mark as CONFIRMED immediately
+            if (totalStudents == 1) {
+                project.setAcceptanceStatus(AcceptanceStatus.CONFIRMED);
+                projectDAO.save(project);
             }
             
             projectMarket.setProject(project);
@@ -523,12 +570,6 @@ public class ProjectMarketFacade {
         }
         
         manipulateProjectMarketBySupervisor(marketId, ProjectMarket::approveBySupervisor);
-    }
-    
-    private void setStudentAsProjectAdmin(Student student) {
-        student.setProjectAdmin(true);
-        student.getUserData().getRoles().add(roleDAO.findByName(UserRole.PROJECT_ADMIN));
-        studentDAO.save(student);
     }
 
     @Transactional
@@ -667,5 +708,18 @@ public class ProjectMarketFacade {
     private String getIndexNumberFromContext() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return String.valueOf(userDetails.getUsername());
+    }
+    
+    private void addEvaluationCardToProject(pl.edu.amu.wmi.entity.Project project, String studyYear, Semester semester) {
+        EvaluationCard evaluationCard = new EvaluationCard();
+        project.addEvaluationCard(evaluationCard);
+        evaluationCard.setProject(project);
+
+        switch (semester) {
+            case FIRST -> evaluationCardService.createEvaluationCard(project, studyYear,
+                    Semester.FIRST, EvaluationPhase.SEMESTER_PHASE, EvaluationStatus.ACTIVE, Boolean.TRUE);
+            case SECOND -> evaluationCardService.createEvaluationCard(project, studyYear,
+                    Semester.SECOND, EvaluationPhase.SEMESTER_PHASE, EvaluationStatus.INACTIVE, Boolean.FALSE);
+        }
     }
 }
