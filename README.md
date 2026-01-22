@@ -83,11 +83,13 @@ List of scheduled jobs:
    "mvn clean package"
    "java -jar -Dspring.profiles.active=local -DPOSTGRES_URL=jdbc:postgresql://localhost:NUMERPORTU/ -DPOSTGRES_USER=POSTGRESUSER -DPOSTGRES_PASSWORD=PASSWORD -DPOSTGRES_DB=DATABASENAME -DJWT_SECRET=JWTSECRET -DMAIL_HOST=host.docker.internal -DMAIL_PORT= -DMAIL_USERNAME= -DMAIL_PASSWORD= -DEMAIL_UNIVERSITY_DOMAIN= -DLDAP_URL= -DLDAP_BASE= -DLDAP_DOMAIN= -DFF_EMAIL_TO_UNIVERSITY_DOMAIN_ENABLED=false -DFF_LDAP_AUTHENTICATION_ENABLED=false -DSCHEDULED_JOBS_ENABLED=false pri-application/target/pri-application-1.0-SNAPSHOT.jar"
 
-   IDE configuration e.g. IntelliJ. Click on three dots next to run button, and then -> Edit -> Modify options -> Add VM options and fill the fields:
+   IDE configuration e.g. IntelliJ. Click on three dots next to run button, and then -> Edit -> Modify options -> Add VM options and provide the values:
+
    <img alt="README_help.png" height="500" src="README_help.png" width="500"/>
+
    Press Apply and the Run button should appear, click it after providing the values in `src/main/resources/application-local.properties`
 
-6. . The application compiles and hopefully works.
+6. The application compiles and hopefully works.
 7. Assuming you have frontend running and database operational, navigate to `http://localhost:4200/`. 
 8. First site that should open is initialization page for coordinator/admin of the system. ( If you run the project locally with mock users, use the exact logins specified in "core\pri-application\src\main\resources\ldap-mock-data.ldif" next to "uid:", name and last name specified next to "cn:", "sn:" values. uid=indexNumber. )
 9. After successful initialization login site should appear, log in to coordinator account. 
