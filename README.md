@@ -126,7 +126,16 @@ To generate the "liquibase-diffChangeLog.xml" with changes made in domain module
 
 📢 IMPORTANT!: Be sure, that the database connection details are set in the `core\domain\src\main\resources\liquibase.properties` file.
 
+📢 IMPORTANT: When updating `src/main/resources/config/liquibase/changeLog.xml` with new schema changes, do not include `classpath:config/liquibase/` at the beginning of any .xml file path. All paths must remain relative otherwise, the Data-Feed "Reset Database" functionality will fail.
+
+Bad example:
+   `<include file="classpath:config/liquibase/database/2023-11-01-create_criteria_tables.xml"/>`
+
+Good example:
+   `<include file="database/2023-11-01-create_criteria_tables.xml" relativeToChangelogFile="true"/>`
+
 #### Profile
+
 
 Run application with the profile `local` 
 
