@@ -78,6 +78,10 @@ List of scheduled jobs:
 3. Clone git core repository core the core folder.
 4. Create empty Postgres database. (The schema will be initiated and filled when the backend starts)
 5. Run it on the command line providing the values for all the secrets as given in e.g. below or configure your IDE.
+    e.g. IntelliJ Click on three dots next to run button and then -> Edit -> Modify options -> Add VM options and fill the fields:
+   <img alt="README_help.png.png" height="200" src="README_help.png" width="200"/>
+    Press Apply and the Run button should appear, click it after providing the values in `src/main/resources/application-local.properties`
+   Or in the command line:
    "mvn clean package"
    "java -jar -Dspring.profiles.active=local -DPOSTGRES_URL=jdbc:postgresql://localhost:NUMERPORTU/ -DPOSTGRES_USER=POSTGRESUSER -DPOSTGRES_PASSWORD=PASSWORD -DPOSTGRES_DB=DATABASENAME -DJWT_SECRET=JWTSECRET -DMAIL_HOST=host.docker.internal -DMAIL_PORT= -DMAIL_USERNAME= -DMAIL_PASSWORD= -DEMAIL_UNIVERSITY_DOMAIN= -DLDAP_URL= -DLDAP_BASE= -DLDAP_DOMAIN= -DFF_EMAIL_TO_UNIVERSITY_DOMAIN_ENABLED=false -DFF_LDAP_AUTHENTICATION_ENABLED=false -DSCHEDULED_JOBS_ENABLED=false pri-application/target/pri-application-1.0-SNAPSHOT.jar"
 6. The application compiles and hopefully works.
@@ -95,7 +99,6 @@ or provided to the IDE as e.g. ENV variables - depending on the run method.
 #### Authentication
 
 To use mocked ldap authentication for local run:
-
 * the variable `ldap.authentication.enabled` has to be set to `false`
 * mocked ldap data are in the file `core\pri-application\src\main\resources\ldap-mock-data.ldif`
 * 📢 IMPORTANT!: Password for mock ldap accounts is: "Haslo123".
@@ -120,7 +123,7 @@ To generate the "liquibase-diffChangeLog.xml" with changes made in domain module
 
 #### Profile
 
-Run application with the profile `local`
+Run application with the profile `local` 
 
 ### Starting the application
 
